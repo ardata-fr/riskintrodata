@@ -1,0 +1,40 @@
+url: ~
+template:
+  bootstrap: 5
+  bslib:
+    base_font: {google: "Open Sans"}
+    heading_font: {google: "Open Sans"}
+destination: public
+navbar:
+  bg: "#06292b"
+
+footer:
+  structure:
+    left: [developed_by]
+  components:
+    developed_by: This application was developed by Ardata for CIRAD, with the aim of providing a tool for assessing epidemiological risk using spatial analysis in RShiny
+
+reference:
+  - title: Data Importation
+    contents:
+    - read_geo_file
+    - read_emission_risk_factor_file
+    - read_raster
+  - title: Download datasets
+    contents:
+    - download_road_access_raster
+  - title: Data Validation and References
+    contents:
+    - validate_table_content
+    - country_reference
+    - iso3_to_name
+  - title: Data Structures for Risk Introduction Estimation
+    contents:
+    - create_emission_risk_row
+    - get_emission_risk_edit_row
+    - update_emission_risk_row_from_input
+  - title: Miscellaneous
+    contents:
+    - conn_ri
+    - is.lng
+    - is.lat

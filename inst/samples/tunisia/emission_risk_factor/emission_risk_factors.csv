@@ -1,0 +1,66 @@
+iso3;country;disease;animal_category;species;disease_notification;targeted_surveillance;general_surveillance;screening;precautions_at_the_borders;slaughter;selective_killing_and_disposal;zoning;official_vaccination;last_outbreak_end_date;commerce_illegal;commerce_legal;data_source
+ALB;Albania;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;0;0;1;0;1;;0;0;App default
+BWA;Botswana;Brucella abortus (Inf. with);Domestic;Cattle;1;1;1;1;1;0;1;1;1;2024-11-05;0;0;App default
+CYM;Cayman Islands;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+JPN;Japan;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;1;0;1;1;;0;0;App default
+SYC;Seychelles;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+SYR;Syria;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;0;1;1;0;;0;0;App default
+PSE;Palestine;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;1;1;1;1;1;;0;0;App default
+USA;United States of America;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;0;0;0;;0;0;App default
+ARM;Armenia;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;0;0;0;1;;0;0;App default
+AZE;Azerbaijan;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;0;1;1;0;;0;0;App default
+BHR;Bahrain;Brucella abortus (Inf. with);Domestic;Cattle;0;1;1;1;0;1;1;1;1;;0;0;App default
+KHM;Cambodia;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;1;1;1;1;1;;0;0;App default
+TWN;Chinese Taipei;Brucella abortus (Inf. with);Domestic;Cattle;0;0;1;1;0;1;1;1;1;;0;0;App default
+COL;Colombia;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;1;0;1;0;;0;0;App default
+HRV;Croatia;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;1;1;0;1;1;;0;0;App default
+CZE;Czech Republic;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+DNK;Denmark;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;1;1;1;1;;0;0;App default
+ECU;Ecuador;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;0;1;1;1;;0;0;App default
+EGY;Egypt;Brucella abortus (Inf. with);Domestic;Cattle;0;1;1;1;0;1;1;1;1;;0;0;App default
+EST;Estonia;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+SWZ;Eswatini;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;1;1;1;0;;0;0;App default
+FLK;Falkland Islands (Malvinas);Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;0;1;1;1;1;;0;0;App default
+FIN;Finland;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;0;0;1;1;;0;0;App default
+DEU;Germany;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+ISL;Iceland;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;1;1;1;1;;0;0;App default
+IRQ;Iraq;Brucella abortus (Inf. with);Domestic;Cattle;0;1;1;1;0;1;1;1;1;;0;0;App default
+KAZ;Kazakhstan;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+KOR;Korea (Rep. of);Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;1;0;1;1;;0;0;App default
+KGZ;Kyrgyzstan;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;0;1;0;0;;0;0;App default
+LVA;Latvia;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;1;0;1;1;;0;0;App default
+LSO;Lesotho;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;1;0;1;1;;0;0;App default
+LBR;Liberia;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;1;1;1;1;1;;0;0;App default
+LTU;Lithuania;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;1;1;1;1;1;;0;0;App default
+MYS;Malaysia;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;0;1;0;0;;0;0;App default
+MLT;Malta;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;1;0;1;1;;0;0;App default
+ES-ML;Melilla;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;0;1;;0;0;App default
+MEX;Mexico;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;1;1;0;0;;0;0;App default
+MDA;Moldova;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;1;1;1;1;1;;0;0;App default
+MOZ;Mozambique;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;0;1;1;1;;0;0;App default
+NAM;Namibia;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;1;1;1;1;;0;0;App default
+NLD;Netherlands;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;1;1;1;1;;0;0;App default
+NZL;New Zealand;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+NIC;Nicaragua;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;0;0;1;1;1;;0;0;App default
+MKD;North Macedonia;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;0;0;1;1;1;;0;0;App default
+PAN;Panama;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;0;0;1;1;;0;0;App default
+PRY;Paraguay;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;0;1;1;0;;0;0;App default
+PRT;Portugal;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;0;1;0;0;;0;0;App default
+QAT;Qatar;Brucella abortus (Inf. with);Domestic;Cattle;0;1;1;1;0;1;1;1;1;;0;0;App default
+RUS;Russia;Brucella abortus (Inf. with);Domestic;Cattle;0;0;1;0;0;0;1;0;0;;0;0;App default
+VCT;Saint Vincent and the Grenadines;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;1;1;1;1;;0;0;App default
+SMR;San Marino;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;1;1;1;1;1;;0;0;App default
+SAU;Saudi Arabia;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+SVN;Slovenia;Brucella abortus (Inf. with);Domestic;Cattle;0;0;1;1;0;0;0;1;1;;0;0;App default
+SOM;Somalia;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;1;0;1;1;1;1;;0;0;App default
+SWE;Sweden;Brucella abortus (Inf. with);Domestic;Cattle;0;1;0;0;0;1;1;1;1;;0;0;App default
+CHE;Switzerland;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;1;1;0;1;1;;0;0;App default
+TUR;T√ºrkiye (Rep. of);Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;0;0;0;1;1;0;;0;0;App default
+UKR;Ukraine;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;1;1;1;1;;0;0;App default
+GBR;United Kingdom;Brucella abortus (Inf. with);Domestic;Cattle;0;0;1;0;0;1;1;1;1;;0;0;App default
+URY;Uruguay;Brucella abortus (Inf. with);Domestic;Cattle;0;0;0;1;0;0;1;0;0;;0;0;App default
+ARG;Argentina;Brucella abortus (Inf. with);Domestic;Cattle;1;0;0;0;0;1;0;0;0;;0;0;App default
+BTN;Bhutan;Brucella abortus (Inf. with);Domestic;Cattle;1;0;0;0;0;1;1;1;1;;0;0;App default
+COK;Cook Islands;Brucella abortus (Inf. with);Domestic;Cattle;1;1;0;1;0;1;1;1;0;;0;0;App default
+MLI;Mali;Brucella abortus (Inf. with);Domestic;Cattle;1;1;0;1;1;1;1;1;1;;0;0;App default
+TZA;Tanzania;Brucella abortus (Inf. with);Domestic;Cattle;1;0;0;1;1;0;1;1;0;;0;0;App default

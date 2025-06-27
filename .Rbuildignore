@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+\.gitlab-ci\.yml
+^data-raw$
+^data-src$
+^dev$
+^_pkgdown\.yml$
+^pkgdown$
+^examples$
+^\.github$
+^doc$
+^Meta$
+^LICENSE\.md$

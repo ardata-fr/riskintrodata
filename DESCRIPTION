@@ -1,0 +1,41 @@
+Type: Package
+Package: riskintrodata
+Title: Data Tools for Managing Animal Disease Introduction Risk
+Version: 0.0.1
+Authors@R: c(
+    person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = c("aut", "cre")),
+    person("David", "Gohel", , "david.gohel@ardata.fr", role = "aut"),
+    person("ArData", role = "ctr"),
+    person("CIRAD", role = "cph")
+  )
+Description: The package provides functions for users to import and validate
+    data that will be used to estimate the risk of an animal disease being introduced 
+    into a given geographical region.
+License: MIT + file LICENSE
+Depends: 
+    R (>= 4.4.0)
+Imports: 
+    cli,
+    curl,
+    DBI,
+    dbplyr,
+    dplyr (>= 1.1.4),
+    duckdb (>= 1.2.1),
+    glue,
+    readr,
+    sf (>= 1.0-20),
+    stats,
+    terra,
+    tibble,
+    utils,
+    validate,
+    yaml,
+    tools
+Suggests: 
+    geodata,
+    rnaturalearth,
+    tidyr
+Encoding: UTF-8
+Language: en
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
