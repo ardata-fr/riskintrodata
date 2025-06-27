@@ -69,15 +69,11 @@ validate_table_content <- function(x, name, ...) {
   if (!name %in% .validate_dataset_tables_names) {
     cli_abort(c(
       "Invalid table name {name}.",
-      "x" = "Valid table names are: {paste(.validate_dataset_tables_names, collapse = ', ')}"
+      "x" = "Valid table names are: {quote_and_collapse(.validate_dataset_tables_names)}"
     ))
   }
 
-  status <- list(
-    required_columns = list(chk = NULL, msg = NULL, details = NULL),
-    optional_columns = list(chk = NULL, msg = NULL, details = NULL),
-    validate_rules = list(chk = NULL, msg = NULL, details = NULL)
-  )
+  status <- table_content_validation_status()
 
   # define the specifications for the table
   spec <- switch(
@@ -120,7 +116,7 @@ validate_table_content <- function(x, name, ...) {
     colnames(to_validate)
   )
   if (length(missing_cols) > 0) {
-    status$required_columns <- list(
+    status$required_columns <- validation_status(
       chk = FALSE,
       msg = glue(
         "The following required columns are missing: {quote_and_collapse(missing_cols)}"
@@ -129,7 +125,7 @@ validate_table_content <- function(x, name, ...) {
     )
     return(status)
   } else {
-    status$required_columns <- list(
+    status$required_columns <- validation_status(
       chk = TRUE,
       msg = "All required columns selected.",
       details = character()
@@ -142,13 +138,13 @@ validate_table_content <- function(x, name, ...) {
     colnames(to_validate)
   )
   if (length(optional_columns) == 0L) {
-    status$optional_columns <- list(
+    status$optional_columns <- validation_status(
       chk = TRUE,
       msg = "No optional columns selected.",
       details = character()
     )
   } else if (length(missing_cols) > 0) {
-    status$optional_columns <- list(
+    status$optional_columns <- validation_status(
       chk = TRUE,
       msg = glue(
         "The following optional columns are missing: {quote_and_collapse(missing_cols)}"
@@ -156,7 +152,7 @@ validate_table_content <- function(x, name, ...) {
       details = missing_cols
     )
   } else {
-    status$optional_columns <- list(
+    status$optional_columns <- validation_status(
       chk = TRUE,
       msg = "Optional columns selected are available.",
       details = character()
@@ -199,21 +195,21 @@ validate_table_content <- function(x, name, ...) {
   validate_results <- augment_validate_with_extra(validate_results)
 
   if (any(validate_results$error)) {
-    status$validate_rules <- list(
+    status$validate_rules <- validation_status(
       chk = FALSE,
       msg = "Found errors while controling dataset with some rules.",
       details = validate_results
     )
     return(status)
   } else if (any(validate_results$fails > 0)) {
-    status$validate_rules <- list(
+    status$validate_rules <- validation_status(
       chk = FALSE,
       msg = "Found invalidities while controling dataset with some rules.",
       details = validate_results
     )
     return(status)
   } else {
-    status$validate_rules <- list(
+    status$validate_rules <- validation_status(
       chk = TRUE,
       msg = glue("{nrow(validate_results)} valid rules controling dataset."),
       details = validate_results
