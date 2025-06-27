@@ -65,6 +65,7 @@ augment_validate_with_extra <- function(data) {
 #' @example examples/read_epi_unit.R
 #' @example examples/read_animal_mobility.R
 #' @example examples/read_emission_risk_factors.R
+#' @example examples/read_entry_points.R
 validate_table_content <- function(x, name, ...) {
   if (!name %in% .validate_dataset_tables_names) {
     cli_abort(c(
