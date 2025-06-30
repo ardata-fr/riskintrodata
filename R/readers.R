@@ -163,9 +163,9 @@ read_emission_risk_factor_file <- function(filepath) {
 #' @examples
 #' if (curl::has_internet()) {
 #'   road_access_raster_file <- download_road_access_raster()
-#'   ra_raster <- read_raster(x = road_access_raster_file)
+#'   ra_raster <- read_raster_file(x = road_access_raster_file)
 #' }
-read_raster <- function(x) {
+read_raster_file <- function(x) {
   if (!file.exists(x)) {
     cli_abort(c(
       "The file {x} does not exist.",

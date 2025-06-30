@@ -18,8 +18,8 @@ reference:
   - title: Data Importation
     contents:
     - read_geo_file
+    - read_raster_file
     - read_emission_risk_factor_file
-    - read_raster
   - title: Download datasets
     contents:
     - download_road_access_raster

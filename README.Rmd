@@ -44,4 +44,89 @@ You can install the development version of riskintrodata like so:
 pak::pak("ardata-fr/riskintrodata")
 ```
 
+## Usage
 
+### Read data
+
+```{r}
+library(riskintrodata)
+```
+
+
+The package provides functions to read and validate geographic and tabular datasets.
+
+To read geographic data from a file, you can use the `read_geo_file()` 
+function:
+
+
+```{r}
+tun_files <-
+  list.files(
+    system.file(
+      package = "riskintrodata",
+      "samples",
+      "tunisia",
+      "epi_units"
+    ),
+    full.names = TRUE
+  )
+read_geo_file(tun_files)
+
+nga_files <- system.file(
+  package = "riskintrodata",
+  "samples",
+  "nigeria",
+  "epi_units",
+  "NGA-ADM1.geojson"
+)
+read_geo_file(nga_files)
+```
+
+To read raster data, you can use the `read_raster_file()` function:
+
+```{r eval = FALSE}
+road_access_raster_file <- download_road_access_raster()
+ra_raster <- read_raster_file(x = road_access_raster_file)
+ra_raster
+```
+
+There is no specific function to read tabular data, but you can use the
+package 'readr' or 'readxl' to read the data if the format is CSV or Excel.
+
+### Validate data
+
+The package provides a function named `validate_table_content()` to validate 
+the content of datasets. This function checks the structure of the data and ensures that it meets the expected format, the function will check:
+
+- the presence of required columns
+- the data types of the columns, mandatory or optional
+- and a set of rules to validate the data.
+
+It can be used with datasets for:
+
+- Epi units, use `validate_table_content(..., name = "epi_units")`.
+- Emission risks, use `validate_table_content(..., name = "emission_risk_factors")`.
+- Animal mobility, use `validate_table_content(..., name = "animal_mobility")`.
+- Entry points, use `validate_table_content(..., name = "entry_points")`.
+
+The function takes a data frame or an 'sf' object as input, along with the type of the dataset and any additional arguments for mapping columns. It returns a list containing the validation status of the dataset, i.e. the required and optional columns, the validation rules, and the dataset itself after renaming and selecting the specified columns.
+
+```{r include=FALSE}
+knitr::read_chunk("examples/read_epi_unit.R")
+```
+
+```{r read-epi-units-tunisia, echo=TRUE}
+```
+
+## References data
+
+The package includes several reference datasets that are used in the context of animal disease risk estimation:
+
+- iso3 country codes, available with the function `country_reference()`. 
+Also a utility function `iso3_to_name()` is provided to convert ISO3 codes to country names.
+
+# TODO
+
+- [ ] document and illustrate `read_emission_risk_factor_file()`
+- [ ] fortify `create_emission_risk_row()` and ensure it works as expected.
+- [ ] *Entry point* type is in French ("PIF Aerien"), CIRAD suggested to use English names but the data we have is in French, so we need to decide whether to keep it in French or translate it to English.
