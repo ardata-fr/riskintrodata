@@ -220,3 +220,20 @@ validate_table_content <- function(x, name, ...) {
   status$dataset <- dataset
   status
 }
+
+
+validate_table_content_cli_msg <- function(x){
+  if(!x$required_columns$chk) {
+    stop(x$required_columns$msg)
+  } else if(!x$required_columns$chk) {
+    stop(x$optional_columns$msg)
+  } else if(!x$validate_rules$chk) {
+    data_errors <- x$validate_rules$details[x$validate_rules$details[["status"]]=="Failed", 'label', drop = TRUE]
+    data_errors <- paste0(data_errors, collapse = '\n   * ')
+    data_errors <- paste0(x$validate_rules$msg, ":\n    * ", data_errors)
+    stop(data_errors)
+  }
+  x$dataset
+}
+
+

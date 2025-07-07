@@ -46,7 +46,7 @@ are not satisfied, the function returns a list with the status of the validation
 }
 \examples{
 #
-# read geographic data from Tunisia
+## ---- read-epi-units-tunisia ----
 tun_epi_files <-
   list.files(
     system.file(
@@ -68,7 +68,7 @@ DATA_EPI_UNITS <- validate_table_content(
 )
 
 DATA_EPI_UNITS
-# read animal mobility data from Tunisia
+## ---- read-animal-mobility-tunisia ----
 tun_animal_mobility <-
   list.files(
     system.file(
@@ -98,7 +98,7 @@ DATA_ANIMAL_MOBILITY <- validate_table_content(
 )
 
 DATA_ANIMAL_MOBILITY
-# read Tunisia emission risk factors dataset
+# read Tunisia emission risk factors dataset ----
 tun_erf_file <-
   system.file(
     package = "riskintrodata",
@@ -112,7 +112,7 @@ x <- read_emission_risk_factor_file(tun_erf_file)
 DATA_ERF <- validate_table_content(x, name = "emission_risk_factors")
 
 DATA_ERF
-# read entry points data from Tunisia
+# read entry points data from Tunisia ----
 tun_entry_points <- system.file(
   package = "riskintrodata",
   "samples",

@@ -1,7 +1,7 @@
 Type: Package
 Package: riskintrodata
 Title: Data Tools for Managing Animal Disease Introduction Risk
-Version: 0.0.1
+Version: 0.0.2.001
 Authors@R: c(
     person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = c("aut", "cre")),
     person("David", "Gohel", , "david.gohel@ardata.fr", role = "aut"),
@@ -34,8 +34,10 @@ Imports:
 Suggests: 
     geodata,
     rnaturalearth,
-    tidyr
+    tidyr,
+    countries
 Encoding: UTF-8
 Language: en
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+LazyData: true
