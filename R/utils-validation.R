@@ -1,25 +1,3 @@
-# export functions used for validation ----
-#' @export
-#' @title Check if a vector is a valid latitude
-#' @description Check if a vector is a valid latitude
-#' @param x numeric vector
-#' @return logical vector of the same length as x
-#' @family functions for validation process
-is.lat <- function(x) {
-  z <- na.omit(x)
-  z <= 90 & z >= -90
-}
-
-#' @export
-#' @title Check if a vector is a valid longitude
-#' @description Check if a vector is a valid longitude
-#' @param x numeric vector
-#' @return logical vector of the same length as x
-#' @family validation process
-is.lng <- function(x) {
-  z <- na.omit(x)
-  z <= 180 & z >= -180
-}
 
 # specifications per tables ------
 ## Epi units specifications ----------
@@ -94,6 +72,32 @@ is.lng <- function(x) {
 
 
 ## Entry points specifications ----------
+
+spec <- list(
+  required_columns = list(
+    point_name = list(
+      type = character(),
+      validation_functon = function(x) {
+
+      }
+    )
+  ),
+  optional_columns = list(
+    mode = list(
+      type = character,
+      validations = list(
+        "This should be a character" = function(x){
+
+          list(
+            chk = TRUE,
+            msg =
+          )
+        }
+      )
+    )
+  )
+)
+
 
 .entry_points_spec <- list(
   required_columns = c("point_name", "lng", "lat"),

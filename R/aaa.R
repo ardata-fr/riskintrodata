@@ -1,5 +1,5 @@
 #' @importFrom cli
-#'  cli_abort cli_warn ansi_strip
+#'  cli_abort cli_warn ansi_strip cli_h3 cli_ul cli_ol cli_li cli_alert_success
 #' @importFrom sf
 #'  as_Spatial read_sf sf_use_s2 st_area st_as_sf st_as_text st_bbox st_cast
 #'  st_coordinates st_crs st_difference st_drop_geometry st_geometry_type

@@ -16,25 +16,21 @@ Depends:
     R (>= 4.4.0)
 Imports: 
     cli,
-    curl,
-    DBI,
-    dbplyr,
-    dplyr (>= 1.1.4),
-    duckdb (>= 1.2.1),
     glue,
+    curl,
+    dplyr (>= 1.1.4),
+    tidyr,
     readr,
     sf (>= 1.0-20),
     stats,
     terra,
     tibble,
     utils,
-    validate,
     yaml,
     tools
 Suggests: 
     geodata,
     rnaturalearth,
-    tidyr,
     countries
 Encoding: UTF-8
 Language: en

@@ -23,8 +23,9 @@ validation_status <- function(chk = NULL, msg = NULL, details = NULL) {
   x
 }
 
-table_content_validation_status <- function() {
+table_content_validation_status <- function(table_name) {
   status <- list(
+    table_name = table_name,
     required_columns = validation_status(
       chk = FALSE,
       msg = "validation has not run yet."

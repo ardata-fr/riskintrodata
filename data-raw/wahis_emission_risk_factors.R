@@ -234,7 +234,18 @@ emission_risk_factor_defaults <- emission_risk_factors_sans_outbreak |>
 
 # Final outputs ---------------------------------
 
-wahis_emission_risk_factors <-  emission_risk_factor_defaults
+wahis_emission_risk_factors <- emission_risk_factor_defaults |>
+  mutate(
+    across(
+      where(is.numeric),
+      as.integer
+    )
+  ) |>
+  validate_table_content(
+    table_name = "emission_risk_factors"
+  ) |>
+  validate_table_content_cli_msg()
+
 
 epistatus_source_info <- list(
   data_source = data_source,

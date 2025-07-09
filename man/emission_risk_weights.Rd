@@ -16,7 +16,4 @@ emission risk from emission risk factors. Each of the measures of control and su
 (see \link{wahis_emission_risk_factors}) has an associated weighting
 that has been determined.
 }
-\details{
-Intended for use with \code{\link[riskintroanalysis:get_weighted_emission_risk]{riskintroanalysis::get_weighted_emission_risk()}}.
-}
 \keyword{data}

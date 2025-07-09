@@ -1,72 +1,111 @@
-NAME;TYPE;MODE;LONGITUDE_X;LATITUDE_Y
-aeroport Djerba;PIF Aerien;C;10.77592;33.87149
-aeroport enfidha;PIF Aerien;C;10.43123;36.07011
-aeroport monastir;PIF Aerien;C;10.75472;35.75806
-aeroport sfax;PIF Aerien;C;10.68861;34.72056
-aeroport tabarka;PIF Aerien;C;8.87528;36.98028
-Aeroport tozeur;PIF Aerien;C;8.10139;33.93889
-aeroport tunis cathage;PIF Aerien;C;10.22694;36.85111
-bouchebka;PIF terrestre;C;8.42018;35.16978
-dhehiba;PIF terrestre;C;10.7;32.01667
-haidra;PIF terrestre;C;8.36359;35.54799
-kalaat senan;PIF terrestre;C;8.26816;35.7862
-oklet ahmed;PIF terrestre;C;8.31895;34.7343
-Point 1;PIF terrestre;C;7.572541;33.766478
-Point 10;PIF terrestre;C;8.038899;33.11948
-Point 11;PIF terrestre;C;8.045546;34.451426
-Point 12;PIF terrestre;C;8.152667;34.539846
-Point 13;PIF terrestre;C;8.179356;36.513806
-Point 14;PIF terrestre;C;8.215182;34.564138
-Point 15;PIF terrestre;C;8.243802;34.574911
-Point 16;PIF terrestre;C;8.261252;36.43766
-Point 17;PIF terrestre;C;8.264915;35.732893
-Point 18;PIF terrestre;C;8.279902;35.722697
-Point 19;PIF terrestre;C;8.292116;35.965859
-Point 2;PIF terrestre;C;7.597095;33.689143
-Point 20;PIF terrestre;C;8.295064;34.728184
-Point 21;PIF terrestre;C;8.29684;36.028891
-Point 22;PIF terrestre;C;8.305342;35.010218
-Point 23;PIF terrestre;C;8.306467;34.868052
-Point 24;PIF terrestre;C;8.312741;36.066061
-Point 25;PIF terrestre;C;8.313719;36.07192
-Point 26;PIF terrestre;C;8.33628;34.849137
-Point 27;Passage transhumance;C;8.337282;36.209382
-Point 28;Passage transhumance;C;8.338523;34.846327
-Point 29;Passage transhumance;C;8.359182;36.58779
-Point 3;Passage transhumance;C;7.635472;33.573231
-Point 30;Passage transhumance;C;8.371644;36.428488
-Point 31;PIF terrestre;C;8.377451;35.558935
-Point 32;PIF terrestre;C;8.388689;35.556829
-Point 33;PIF terrestre;C;8.391064;36.363713
-Point 34;PIF terrestre;C;8.404547;35.559424
-Point 35;PIF terrestre;C;8.410559;35.170293
-Point 36;PIF terrestre;C;8.439485;36.618894
-Point 37;Passage transhumance;NC;8.459111;36.660688
-Point 38;Passage transhumance;NC;8.472465;36.774204
-Point 39;Passage transhumance;NC;8.48331;36.69849
-Point 4;Passage transhumance;NC;7.66314;33.534475
-Point 40;Passage transhumance;NC;8.523686;34.786965
-Point 41;Passage transhumance;NC;8.533394;34.928001
-Point 42;Passage transhumance;NC;8.654982;36.848445
-Point 43;Passage transhumance;NC;8.677995;36.829456
-Point 44;Passage transhumance;NC;10.639605;31.944551
-Point 45;Passage transhumance;NC;10.64631;31.969342
-Point 46;Passage transhumance;NC;10.675527;31.978151
-Point 47;Passage contrebande;NC;10.999334;32.188527
-Point 48;Passage contrebande;NC;11.195366;32.276606
-Point 49;Passage contrebande;NC;11.484747;32.381952
-Point 5;Passage contrebande;NC;7.749499;33.402525
-Point 50;Passage contrebande;NC;11.593187;32.455241
-Point 6;Passage contrebande;NC;7.831292;34.209314
-Point 7;Passage contrebande;NC;7.865706;34.350843
-Point 8;Passage contrebande;NC;7.981198;34.433306
-Point 9;Passage contrebande;NC;8.029196;34.480435
-port de bizerte;PIF Maritime;C;9.89047;37.26487
-port de gabes;PIF Maritime;C;10.11667;33.88333
-port de la goulette;PIF Maritime;C;10.30349;36.81058
-port de rades;PIF Maritime;C;10.27503;36.79959
-port de sfax;PIF Maritime;C;10.77032;34.72482
-port de sousse;PIF Maritime;C;10.65;35.81667
-port de zarzis;PIF Maritime;C;11.1116;33.49327
-ras jedir;PIF terrestre;C;11.54352;33.16267
-sakiet sidi youssef;PIF terrestre;C;8.35079;36.2234
+NAME,TYPE,MODE,LONGITUDE_X,LATITUDE_Y,SOURCES
+aeroport Djerba,PIF Aerien,C,10.77592,33.87149,SOM
+aeroport enfidha,PIF Aerien,C,10.43123,36.07011,DEU
+aeroport monastir,PIF Aerien,C,10.75472,35.75806,ECU
+aeroport sfax,PIF Aerien,C,10.68861,34.72056,AZE
+aeroport tabarka,PIF Aerien,C,8.87528,36.98028,ALB
+Aeroport tozeur,PIF Aerien,C,8.10139,33.93889,CZE
+aeroport tunis cathage,PIF Aerien,C,10.22694,36.85111,TWN
+aeroport Djerba,PIF Aerien,C,10.77592,33.87149,ARM
+aeroport enfidha,PIF Aerien,C,10.43123,36.07011,KOR
+aeroport monastir,PIF Aerien,C,10.75472,35.75806,LSO
+aeroport sfax,PIF Aerien,C,10.68861,34.72056,NZL
+aeroport tabarka,PIF Aerien,C,8.87528,36.98028,PAN
+Aeroport tozeur,PIF Aerien,C,8.10139,33.93889,RUS
+aeroport tunis cathage,PIF Aerien,C,10.22694,36.85111,SYC
+aeroport Djerba,PIF Aerien,C,10.77592,33.87149,GBR
+aeroport enfidha,PIF Aerien,C,10.43123,36.07011,DNK
+aeroport monastir,PIF Aerien,C,10.75472,35.75806,BIH
+aeroport sfax,PIF Aerien,C,10.68861,34.72056,ISL
+aeroport tabarka,PIF Aerien,C,8.87528,36.98028,NOR
+Aeroport tozeur,PIF Aerien,C,8.10139,33.93889,HUN
+aeroport tunis cathage,PIF Aerien,C,10.22694,36.85111,PER
+aeroport Djerba,PIF Aerien,C,10.77592,33.87149,ESP
+aeroport enfidha,PIF Aerien,C,10.43123,36.07011,LBR
+aeroport monastir,PIF Aerien,C,10.75472,35.75806,ZAF
+aeroport sfax,PIF Aerien,C,10.68861,34.72056,MAR
+aeroport tabarka,PIF Aerien,C,8.87528,36.98028,BHR
+Aeroport tozeur,PIF Aerien,C,8.10139,33.93889,UKR
+aeroport tunis cathage,PIF Aerien,C,10.22694,36.85111,MLT
+bouchebka,PIF terrestre,C,8.42018,35.16978,DZA
+dhehiba,PIF terrestre,C,10.7,32.01667,DZA
+haidra,PIF terrestre,C,8.36359,35.54799,DZA
+kalaat senan,PIF terrestre,C,8.26816,35.7862,DZA
+oklet ahmed,PIF terrestre,C,8.31895,34.7343,DZA
+Point 1,PIF terrestre,C,7.572541,33.766478,DZA
+Point 10,PIF terrestre,C,8.038899,33.11948,DZA
+Point 11,PIF terrestre,C,8.045546,34.451426,DZA
+Point 12,PIF terrestre,C,8.152667,34.539846,DZA
+Point 13,PIF terrestre,C,8.179356,36.513806,DZA
+Point 14,PIF terrestre,C,8.215182,34.564138,DZA
+Point 15,PIF terrestre,C,8.243802,34.574911,DZA
+Point 16,PIF terrestre,C,8.261252,36.43766,DZA
+Point 17,PIF terrestre,C,8.264915,35.732893,DZA
+Point 18,PIF terrestre,C,8.279902,35.722697,DZA
+Point 19,PIF terrestre,C,8.292116,35.965859,DZA
+Point 2,PIF terrestre,C,7.597095,33.689143,DZA
+Point 20,PIF terrestre,C,8.295064,34.728184,DZA
+Point 21,PIF terrestre,C,8.29684,36.028891,DZA
+Point 22,PIF terrestre,C,8.305342,35.010218,DZA
+Point 23,PIF terrestre,C,8.306467,34.868052,DZA
+Point 24,PIF terrestre,C,8.312741,36.066061,DZA
+Point 25,PIF terrestre,C,8.313719,36.07192,DZA
+Point 26,PIF terrestre,C,8.33628,34.849137,DZA
+Point 27,Passage transhumance,C,8.337282,36.209382,DZA
+Point 28,Passage transhumance,C,8.338523,34.846327,DZA
+Point 29,Passage transhumance,C,8.359182,36.58779,DZA
+Point 3,Passage transhumance,C,7.635472,33.573231,DZA
+Point 30,Passage transhumance,C,8.371644,36.428488,DZA
+Point 31,PIF terrestre,C,8.377451,35.558935,DZA
+Point 32,PIF terrestre,C,8.388689,35.556829,DZA
+Point 33,PIF terrestre,C,8.391064,36.363713,DZA
+Point 34,PIF terrestre,C,8.404547,35.559424,DZA
+Point 35,PIF terrestre,C,8.410559,35.170293,DZA
+Point 36,PIF terrestre,C,8.439485,36.618894,DZA
+Point 37,Passage transhumance,NC,8.459111,36.660688,DZA
+Point 38,Passage transhumance,NC,8.472465,36.774204,DZA
+Point 39,Passage transhumance,NC,8.48331,36.69849,DZA
+Point 4,Passage transhumance,NC,7.66314,33.534475,DZA
+Point 40,Passage transhumance,NC,8.523686,34.786965,DZA
+Point 41,Passage transhumance,NC,8.533394,34.928001,DZA
+Point 42,Passage transhumance,NC,8.654982,36.848445,DZA
+Point 43,Passage transhumance,NC,8.677995,36.829456,DZA
+Point 44,Passage transhumance,NC,10.639605,31.944551,LBY
+Point 45,Passage transhumance,NC,10.64631,31.969342,LBY
+Point 46,Passage transhumance,NC,10.675527,31.978151,LBY
+Point 47,Passage contrebande,NC,10.999334,32.188527,LBY
+Point 48,Passage contrebande,NC,11.195366,32.276606,LBY
+Point 49,Passage contrebande,NC,11.484747,32.381952,LBY
+Point 5,Passage contrebande,NC,7.749499,33.402525,LBY
+Point 50,Passage contrebande,NC,11.593187,32.455241,LBY
+Point 6,Passage contrebande,NC,7.831292,34.209314,LBY
+Point 7,Passage contrebande,NC,7.865706,34.350843,LBY
+Point 8,Passage contrebande,NC,7.981198,34.433306,LBY
+Point 9,Passage contrebande,NC,8.029196,34.480435,LBY
+port de bizerte,PIF Maritime,C,9.89047,37.26487,FRA
+port de gabes,PIF Maritime,C,10.11667,33.88333,DZA
+port de la goulette,PIF Maritime,C,10.30349,36.81058,ECU
+port de rades,PIF Maritime,C,10.27503,36.79959,USA
+port de sfax,PIF Maritime,C,10.77032,34.72482,EGY
+port de sousse,PIF Maritime,C,10.65,35.81667,MKD
+port de zarzis,PIF Maritime,C,11.1116,33.49327,TZA
+ras jedir,PIF terrestre,C,11.54352,33.16267,ISR
+sakiet sidi youssef,PIF terrestre,C,8.35079,36.2234,NIC
+port de bizerte,PIF Maritime,C,9.89047,37.26487,COK
+port de gabes,PIF Maritime,C,10.11667,33.88333,HUN
+port de la goulette,PIF Maritime,C,10.30349,36.81058,QAT
+port de rades,PIF Maritime,C,10.27503,36.79959,PHL
+port de sfax,PIF Maritime,C,10.77032,34.72482,SVN
+port de sousse,PIF Maritime,C,10.65,35.81667,URY
+port de zarzis,PIF Maritime,C,11.1116,33.49327,VNM
+ras jedir,PIF terrestre,C,11.54352,33.16267,BRN
+sakiet sidi youssef,PIF terrestre,C,8.35079,36.2234,RUS
+port de bizerte,PIF Maritime,C,9.89047,37.26487,SWE
+port de gabes,PIF Maritime,C,10.11667,33.88333,LTU
+port de la goulette,PIF Maritime,C,10.30349,36.81058,KAZ
+port de rades,PIF Maritime,C,10.27503,36.79959,DEU
+port de sfax,PIF Maritime,C,10.77032,34.72482,MDA
+port de sousse,PIF Maritime,C,10.65,35.81667,AZE
+port de zarzis,PIF Maritime,C,11.1116,33.49327,ALB
+ras jedir,PIF terrestre,C,11.54352,33.16267,ARG
+sakiet sidi youssef,PIF terrestre,C,8.35079,36.2234,ARM
