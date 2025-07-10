@@ -8,13 +8,12 @@ tun_entry_points <- system.file(
 )
 
 x <- readr::read_delim(
-  tun_entry_points,
-  delim = ";"
+  tun_entry_points
 )
 
 DATA_ENTRY_POINTS <- validate_table_content(
   x = x,
-  name = "entry_points",
+  table_name = "entry_points",
   point_name = "NAME",
   lng = "LONGITUDE_X",
   lat = "LATITUDE_Y",

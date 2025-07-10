@@ -12,15 +12,12 @@
 #' shapefiles, it reads them directly using [sf::read_sf()].
 #' @examples
 #' tun_files <-
-#'   list.files(
 #'     system.file(
 #'       package = "riskintrodata",
 #'       "samples",
 #'       "tunisia",
-#'       "epi_units"
-#'     ),
-#'     full.names = TRUE
-#'   )
+#'       "epi_units", "tunisia_adm2_raw.gpkg"
+#'     )
 #' read_geo_file(tun_files)
 #'
 #' nga_files <- system.file(
@@ -113,6 +110,7 @@ read_geo_file <- function(x) {
 #'   )
 #' x <- read_emission_risk_factor_file(tun_erf_file)
 #' x
+#' @export
 read_emission_risk_factor_file <- function(filepath) {
   if (!file.exists(filepath)) {
     cli_abort(c(

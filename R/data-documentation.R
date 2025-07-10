@@ -38,6 +38,11 @@
 #' @keywords data
 "world_sf"
 
+#' Country references dataset
+#' @docType data
+#' @keywords data
+"country_ref"
+
 #' Emission Risk Factors dataset from WAHIS
 #'
 #' This data set is a combination of two datasets downloaded from the WAHIS

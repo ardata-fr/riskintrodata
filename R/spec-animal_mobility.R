@@ -1,30 +1,44 @@
 
 .spec_animal_mobility <- list(
+  o_iso3 = list(
+    required = FALSE,
+    validation_func = list(
+      "are missing" = function(x) !is.na(x),
+      "is empty" = function(x) nchar(as.character(x)) > 0
+    )
+  ),
   o_name = list(
-    required = TRUE,
+    required = FALSE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
       "is empty" = function(x) nchar(as.character(x)) > 0
     )
   ),
   o_lng = list(
-    required = TRUE,
+    required = FALSE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
-      "is not numeric" = is.numeric,
+      "are not numeric" = is.numeric,
       "is not a valid longitude" = is.lng
     )
   ),
   o_lat = list(
-    required = TRUE,
+    required = FALSE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
-      "is not numeric" = is.numeric,
+      "are not numeric" = is.numeric,
       "is not a valid latitude" = is.lat
     )
   ),
+  d_iso3 = list(
+    required = FALSE,
+    validation_func = list(
+      "are missing" = function(x) !is.na(x),
+      "is empty" = function(x) nchar(as.character(x)) > 0
+    )
+  ),
   d_name = list(
-    required = TRUE,
+    required = FALSE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
       "is empty" = function(x) nchar(as.character(x)) > 0
@@ -34,7 +48,7 @@
     required = TRUE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
-      "is not numeric" = is.numeric,
+      "are not numeric" = is.numeric,
       "is not a valid longitude" = is.lng
     )
   ),
@@ -42,14 +56,14 @@
     required = TRUE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
-      "is not numeric" = is.numeric,
+      "are not numeric" = is.numeric,
       "is not a valid latitude" = is.lat
     )
   ),
   quantity = list(
     required = FALSE,
     validation_func = list(
-      "is not numeric" = is.numeric
+      "are not numeric" = is.numeric
     )
   )
 )

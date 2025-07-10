@@ -1,0 +1,111 @@
+point_name,mode,type,sources,geometry,point_id
+aeroport Djerba,C,PIF Aerien,SOM,"c(10.77592, 33.87149)",1
+aeroport Djerba,C,PIF Aerien,ARM,"c(10.77592, 33.87149)",1
+aeroport Djerba,C,PIF Aerien,GBR,"c(10.77592, 33.87149)",1
+aeroport Djerba,C,PIF Aerien,ESP,"c(10.77592, 33.87149)",1
+aeroport enfidha,C,PIF Aerien,DEU,"c(10.43123, 36.07011)",2
+aeroport enfidha,C,PIF Aerien,KOR,"c(10.43123, 36.07011)",2
+aeroport enfidha,C,PIF Aerien,DNK,"c(10.43123, 36.07011)",2
+aeroport enfidha,C,PIF Aerien,LBR,"c(10.43123, 36.07011)",2
+aeroport monastir,C,PIF Aerien,ECU,"c(10.75472, 35.75806)",3
+aeroport monastir,C,PIF Aerien,LSO,"c(10.75472, 35.75806)",3
+aeroport monastir,C,PIF Aerien,BIH,"c(10.75472, 35.75806)",3
+aeroport monastir,C,PIF Aerien,ZAF,"c(10.75472, 35.75806)",3
+aeroport sfax,C,PIF Aerien,AZE,"c(10.68861, 34.72056)",4
+aeroport sfax,C,PIF Aerien,NZL,"c(10.68861, 34.72056)",4
+aeroport sfax,C,PIF Aerien,ISL,"c(10.68861, 34.72056)",4
+aeroport sfax,C,PIF Aerien,MAR,"c(10.68861, 34.72056)",4
+aeroport tabarka,C,PIF Aerien,ALB,"c(8.87528, 36.98028)",5
+aeroport tabarka,C,PIF Aerien,PAN,"c(8.87528, 36.98028)",5
+aeroport tabarka,C,PIF Aerien,NOR,"c(8.87528, 36.98028)",5
+aeroport tabarka,C,PIF Aerien,BHR,"c(8.87528, 36.98028)",5
+Aeroport tozeur,C,PIF Aerien,CZE,"c(8.10139, 33.93889)",6
+Aeroport tozeur,C,PIF Aerien,RUS,"c(8.10139, 33.93889)",6
+Aeroport tozeur,C,PIF Aerien,HUN,"c(8.10139, 33.93889)",6
+Aeroport tozeur,C,PIF Aerien,UKR,"c(8.10139, 33.93889)",6
+aeroport tunis cathage,C,PIF Aerien,TWN,"c(10.22694, 36.85111)",7
+aeroport tunis cathage,C,PIF Aerien,SYC,"c(10.22694, 36.85111)",7
+aeroport tunis cathage,C,PIF Aerien,PER,"c(10.22694, 36.85111)",7
+aeroport tunis cathage,C,PIF Aerien,MLT,"c(10.22694, 36.85111)",7
+bouchebka,C,PIF terrestre,DZA,"c(8.42018, 35.16978)",8
+dhehiba,C,PIF terrestre,DZA,"c(10.7, 32.01667)",9
+haidra,C,PIF terrestre,DZA,"c(8.36359, 35.54799)",10
+kalaat senan,C,PIF terrestre,DZA,"c(8.26816, 35.7862)",11
+oklet ahmed,C,PIF terrestre,DZA,"c(8.31895, 34.7343)",12
+Point 1,C,PIF terrestre,DZA,"c(7.572541, 33.766478)",13
+Point 10,C,PIF terrestre,DZA,"c(8.038899, 33.11948)",14
+Point 11,C,PIF terrestre,DZA,"c(8.045546, 34.451426)",15
+Point 12,C,PIF terrestre,DZA,"c(8.152667, 34.539846)",16
+Point 13,C,PIF terrestre,DZA,"c(8.179356, 36.513806)",17
+Point 14,C,PIF terrestre,DZA,"c(8.215182, 34.564138)",18
+Point 15,C,PIF terrestre,DZA,"c(8.243802, 34.574911)",19
+Point 16,C,PIF terrestre,DZA,"c(8.261252, 36.43766)",20
+Point 17,C,PIF terrestre,DZA,"c(8.264915, 35.732893)",21
+Point 18,C,PIF terrestre,DZA,"c(8.279902, 35.722697)",22
+Point 19,C,PIF terrestre,DZA,"c(8.292116, 35.965859)",23
+Point 2,C,PIF terrestre,DZA,"c(7.597095, 33.689143)",24
+Point 20,C,PIF terrestre,DZA,"c(8.295064, 34.728184)",25
+Point 21,C,PIF terrestre,DZA,"c(8.29684, 36.028891)",26
+Point 22,C,PIF terrestre,DZA,"c(8.305342, 35.010218)",27
+Point 23,C,PIF terrestre,DZA,"c(8.306467, 34.868052)",28
+Point 24,C,PIF terrestre,DZA,"c(8.312741, 36.066061)",29
+Point 25,C,PIF terrestre,DZA,"c(8.313719, 36.07192)",30
+Point 26,C,PIF terrestre,DZA,"c(8.33628, 34.849137)",31
+Point 27,C,Passage transhumance,DZA,"c(8.337282, 36.209382)",32
+Point 28,C,Passage transhumance,DZA,"c(8.338523, 34.846327)",33
+Point 29,C,Passage transhumance,DZA,"c(8.359182, 36.58779)",34
+Point 3,C,Passage transhumance,DZA,"c(7.635472, 33.573231)",35
+Point 30,C,Passage transhumance,DZA,"c(8.371644, 36.428488)",36
+Point 31,C,PIF terrestre,DZA,"c(8.377451, 35.558935)",37
+Point 32,C,PIF terrestre,DZA,"c(8.388689, 35.556829)",38
+Point 33,C,PIF terrestre,DZA,"c(8.391064, 36.363713)",39
+Point 34,C,PIF terrestre,DZA,"c(8.404547, 35.559424)",40
+Point 35,C,PIF terrestre,DZA,"c(8.410559, 35.170293)",41
+Point 36,C,PIF terrestre,DZA,"c(8.439485, 36.618894)",42
+Point 37,NC,Passage transhumance,DZA,"c(8.459111, 36.660688)",43
+Point 38,NC,Passage transhumance,DZA,"c(8.472465, 36.774204)",44
+Point 39,NC,Passage transhumance,DZA,"c(8.48331, 36.69849)",45
+Point 4,NC,Passage transhumance,DZA,"c(7.66314, 33.534475)",46
+Point 40,NC,Passage transhumance,DZA,"c(8.523686, 34.786965)",47
+Point 41,NC,Passage transhumance,DZA,"c(8.533394, 34.928001)",48
+Point 42,NC,Passage transhumance,DZA,"c(8.654982, 36.848445)",49
+Point 43,NC,Passage transhumance,DZA,"c(8.677995, 36.829456)",50
+Point 44,NC,Passage transhumance,LBY,"c(10.639605, 31.944551)",51
+Point 45,NC,Passage transhumance,LBY,"c(10.64631, 31.969342)",52
+Point 46,NC,Passage transhumance,LBY,"c(10.675527, 31.978151)",53
+Point 47,NC,Passage contrebande,LBY,"c(10.999334, 32.188527)",54
+Point 48,NC,Passage contrebande,LBY,"c(11.195366, 32.276606)",55
+Point 49,NC,Passage contrebande,LBY,"c(11.484747, 32.381952)",56
+Point 5,NC,Passage contrebande,LBY,"c(7.749499, 33.402525)",57
+Point 50,NC,Passage contrebande,LBY,"c(11.593187, 32.455241)",58
+Point 6,NC,Passage contrebande,LBY,"c(7.831292, 34.209314)",59
+Point 7,NC,Passage contrebande,LBY,"c(7.865706, 34.350843)",60
+Point 8,NC,Passage contrebande,LBY,"c(7.981198, 34.433306)",61
+Point 9,NC,Passage contrebande,LBY,"c(8.029196, 34.480435)",62
+port de bizerte,C,PIF Maritime,FRA,"c(9.89047, 37.26487)",63
+port de bizerte,C,PIF Maritime,COK,"c(9.89047, 37.26487)",63
+port de bizerte,C,PIF Maritime,SWE,"c(9.89047, 37.26487)",63
+port de gabes,C,PIF Maritime,DZA,"c(10.11667, 33.88333)",64
+port de gabes,C,PIF Maritime,HUN,"c(10.11667, 33.88333)",64
+port de gabes,C,PIF Maritime,LTU,"c(10.11667, 33.88333)",64
+port de la goulette,C,PIF Maritime,ECU,"c(10.30349, 36.81058)",65
+port de la goulette,C,PIF Maritime,QAT,"c(10.30349, 36.81058)",65
+port de la goulette,C,PIF Maritime,KAZ,"c(10.30349, 36.81058)",65
+port de rades,C,PIF Maritime,USA,"c(10.27503, 36.79959)",66
+port de rades,C,PIF Maritime,PHL,"c(10.27503, 36.79959)",66
+port de rades,C,PIF Maritime,DEU,"c(10.27503, 36.79959)",66
+port de sfax,C,PIF Maritime,EGY,"c(10.77032, 34.72482)",67
+port de sfax,C,PIF Maritime,SVN,"c(10.77032, 34.72482)",67
+port de sfax,C,PIF Maritime,MDA,"c(10.77032, 34.72482)",67
+port de sousse,C,PIF Maritime,MKD,"c(10.65, 35.81667)",68
+port de sousse,C,PIF Maritime,URY,"c(10.65, 35.81667)",68
+port de sousse,C,PIF Maritime,AZE,"c(10.65, 35.81667)",68
+port de zarzis,C,PIF Maritime,TZA,"c(11.1116, 33.49327)",69
+port de zarzis,C,PIF Maritime,VNM,"c(11.1116, 33.49327)",69
+port de zarzis,C,PIF Maritime,ALB,"c(11.1116, 33.49327)",69
+ras jedir,C,PIF terrestre,ISR,"c(11.54352, 33.16267)",70
+ras jedir,C,PIF terrestre,BRN,"c(11.54352, 33.16267)",70
+ras jedir,C,PIF terrestre,ARG,"c(11.54352, 33.16267)",70
+sakiet sidi youssef,C,PIF terrestre,NIC,"c(8.35079, 36.2234)",71
+sakiet sidi youssef,C,PIF terrestre,RUS,"c(8.35079, 36.2234)",71
+sakiet sidi youssef,C,PIF terrestre,ARM,"c(8.35079, 36.2234)",71

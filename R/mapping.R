@@ -98,22 +98,19 @@ mapping_entry_points <- function(
 #' the columns in a dataset that correspond to the parameter names below.
 #'
 #' @param eu_name character, required, name or description of epi units
-#' @param eu_id character, optional, epi unit identifier column
-#' @param user_id charcter, optional, can be provided to join other datasets
+#' @param eu_id charcter, optional, can be provided to join other datasets if needed
 #' @param geometry sf_POLYGON or sf_MULTIPOLYGON geospatial data type, representing
 #' the geographical areas of each epi unit.
 #' @return mapping object to be used with [apply_mapping()]
 #' @export
 mapping_epi_units <- function(
-    eu_name,
     eu_id = NULL,
-    user_id = NULL,
+    eu_name,
     geometry
 ){
   x <- list(
     eu_id = eu_id,
     eu_name = eu_name,
-    user_id = user_id,
     geometry = geometry
   )
   class(x) <- c("mapping")
@@ -126,12 +123,12 @@ mapping_epi_units <- function(
 #' A dataset mapping is used with [apply_mapping()] to renames, select and validation
 #' the columns in a dataset that correspond to the parameter names below.
 #'
-#' @param o_name character, optional, origin name: should be the name of a country
+#' @param o_name character, reauired, origin name or description
 #' @param o_iso3 character, optional,  origin country iso3 code
 #' @param o_lng numeric, optional, origin point longitude
 #' @param o_lat numeric, option, origin point latitude
-#' @param d_name character, optional destination name: should be the name of the country
-#' for which risk of introduction score is being calcaulated
+#' @param d_name character, origin name or description
+#' @param d_iso3 character, optional,  destination country iso3 code
 #' @param d_lng numeric, required, destination point longitude
 #' @param d_lat numeric, required, destination point latitude
 #' @param quantity numeric, optional, used to weight animal movement flows by quantity
@@ -139,18 +136,39 @@ mapping_epi_units <- function(
 #' @return mapping object to be used with [apply_mapping()]
 #' @export
 mapping_animal_mobility <- function(
+    o_iso3 = NULL,
     o_name,
-    o_lng,
-    o_lat,
+    o_lng = NULL,
+    o_lat = NULL,
+    d_iso3 = NULL,
     d_name,
     d_lng,
     d_lat,
     quantity = NULL
 ){
+
+  lat_lng_nulls <- sum(c(is.null(o_lng), is.null(o_lat)))
+  if(!lat_lng_nulls %in% c(0, 2)) {
+    cli_abort(
+      c("If {.var o_lng} is provided then {.var o_lat} and vice versa")
+    )
+  }
+  if (lat_lng_nulls == 0 && is.null(o_name) && is.null(o_iso3)) {
+    cli_abort(
+      c("One of the following must be provided in \"animal_mobility\" mapping:",
+        "*" = "{.var o_lng} and {.var o_lat}",
+        "*" = "{.var o_iso3}",
+        "This is used to identify country of provenance."
+        )
+    )
+  }
+
   x <- list(
+    o_iso3 = o_iso3,
     o_name = o_name,
     o_lng = o_lng,
     o_lat = o_lat,
+    d_iso3 = d_iso3,
     d_name = d_name,
     d_lng = d_lng,
     d_lat = d_lat,

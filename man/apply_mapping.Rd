@@ -27,15 +27,12 @@ workflows.
 \examples{
 
 entry_points_fp <-
-  list.files(
     system.file(
       package = "riskintrodata",
       "samples",
       "tunisia",
-      "entry_points"
-    ),
-    full.names = TRUE
-  )
+      "entry_points", "BORDER_CROSSING_POINTS.csv"
+    )
 entry_points <- readr::read_csv(entry_points_fp)
 
 

@@ -25,15 +25,12 @@ shapefiles, it reads them directly using \code{\link[sf:st_read]{sf::read_sf()}}
 }
 \examples{
 tun_files <-
-  list.files(
     system.file(
       package = "riskintrodata",
       "samples",
       "tunisia",
-      "epi_units"
-    ),
-    full.names = TRUE
-  )
+      "epi_units", "tunisia_adm2_raw.gpkg"
+    )
 read_geo_file(tun_files)
 
 nga_files <- system.file(

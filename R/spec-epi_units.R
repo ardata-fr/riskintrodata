@@ -1,23 +1,16 @@
 .spec_epi_units <- list(
+  eu_id = list(
+    required = FALSE,
+    validation_func = list(
+      "are missing" = function(x) !is.na(x),
+      "has duplicate values" = function(x) length(unique(x)) == length(x)
+    )
+  ),
   eu_name = list(
     required = TRUE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
       "are empty" = function(x) nchar(as.character(x)) > 0
-    )
-  ),
-  user_id = list(
-    required = FALSE,
-    validation_func = list(
-      "contains missing values" = function(x) !is.na(x),
-      "has duplicate values" = function(x) length(unique(x)) == length(x)
-    )
-  ),
-  eu_id = list(
-    required = FALSE,
-    validation_func = list(
-      "are missing" = function(x) !is.na(x),
-      "is empty" = function(x) length(unique(x)) == length(x)
     )
   ),
   "geometry" = list(

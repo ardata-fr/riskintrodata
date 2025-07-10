@@ -57,7 +57,34 @@ quote_and_collapse <- function(value, quote_char = "`", max_out = NULL) {
   collapsed
 }
 
+#' @examples
+#' add_id_column(mtcars, name = "cars_id", prefix = "car-")
+#' add_id_column(mtcars, name = "cars_id", prefix = "car-", by = "cyl")
+#' @importFrom glue glue
+#' @importFrom dplyr mutate row_number cur_group_id
+add_id_column <- function(.data, name, by = NULL, prefix = "") {
+  id_width <- nchar(nrow(.data)) + 2
+  if(is.null(by)){
+    mutate(
+      .data, "{name}" := sprintf(glue("{prefix}%0{id_width}i"), row_number()),
+      .before = 1
+    )
+  } else{
+    mutate(
+      .data,
+      .by = all_of(by),
+      "{name}" := sprintf(glue(prefix, "%0{id_width}i"), cur_group_id()),
+      .before = 1
+    )
+  }
+}
+
 
 utils::globalVariables(
-  ".data"
+  c(".data", "country_ref")
 )
+#' @importFrom sf st_join
+st_join_quiet <- function(...) {
+  suppressWarnings(suppressMessages(st_join(...)))
+}
+

@@ -1,30 +1,28 @@
 ## ---- read-animal-mobility-tunisia ----
 tun_animal_mobility <-
-  list.files(
-    system.file(
-      package = "riskintrodata",
-      "samples",
-      "tunisia",
-      "animal_mobility"
-    ),
-    full.names = TRUE
+  system.file(
+    package = "riskintrodata",
+    "samples",
+    "tunisia",
+    "animal_mobility", "ANIMAL_MOBILITY_raw.csv"
   )
 
-x <- readr::read_delim(
+x <- readr::read_csv(
   tun_animal_mobility,
-  delim = ";"
 )
 
-DATA_ANIMAL_MOBILITY <- validate_table_content(
+DATA_ANIMAL_MOBILITY <- apply_mapping(
   x,
-  name = "animal_mobility",
-  o_name = "ORIGIN_NAME",
-  o_lng = "ORIGIN_LONGITUDE_X",
-  o_lat = "ORIGIN_LATITUDE_Y",
-  d_name = "DESTINATION_NAME",
-  d_lng = "DESTINATION_LONGITUDE_X",
-  d_lat = "DESTINATION_LATITUDE_Y",
-  quantity = "HEADCOUNT"
+  mapping = mapping_animal_mobility(
+    o_name = "ORIGIN_NAME",
+    o_lng = "ORIGIN_LONGITUDE_X",
+    o_lat = "ORIGIN_LATITUDE_Y",
+    d_name = "DESTINATION_NAME",
+    d_lng = "DESTINATION_LONGITUDE_X",
+    d_lat = "DESTINATION_LATITUDE_Y",
+    quantity = "HEADCOUNT"
+  ),
+  validate = TRUE
 )
 
 DATA_ANIMAL_MOBILITY

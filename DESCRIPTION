@@ -1,7 +1,7 @@
 Type: Package
 Package: riskintrodata
 Title: Data Tools for Managing Animal Disease Introduction Risk
-Version: 0.0.2.001
+Version: 0.0.3
 Authors@R: c(
     person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = c("aut", "cre")),
     person("David", "Gohel", , "david.gohel@ardata.fr", role = "aut"),
@@ -16,11 +16,13 @@ Depends:
     R (>= 4.4.0)
 Imports: 
     cli,
+    rlang, 
+    stats,
     glue,
     curl,
     dplyr (>= 1.1.4),
-    tidyr,
     readr,
+    purrr,
     sf (>= 1.0-20),
     stats,
     terra,
@@ -29,6 +31,7 @@ Imports:
     yaml,
     tools
 Suggests: 
+    tidyr,
     geodata,
     rnaturalearth,
     countries

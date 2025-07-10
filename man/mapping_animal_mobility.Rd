@@ -5,9 +5,11 @@
 \title{Animal movement dataset mapping}
 \usage{
 mapping_animal_mobility(
+  o_iso3 = NULL,
   o_name,
-  o_lng,
-  o_lat,
+  o_lng = NULL,
+  o_lat = NULL,
+  d_iso3 = NULL,
   d_name,
   d_lng,
   d_lat,
@@ -15,14 +17,17 @@ mapping_animal_mobility(
 )
 }
 \arguments{
-\item{o_name}{character, optional, origin name: should be the name of a country}
+\item{o_iso3}{character, optional,  origin country iso3 code}
+
+\item{o_name}{character, reauired, origin name or description}
 
 \item{o_lng}{numeric, optional, origin point longitude}
 
 \item{o_lat}{numeric, option, origin point latitude}
 
-\item{d_name}{character, optional destination name: should be the name of the country
-for which risk of introduction score is being calcaulated}
+\item{d_iso3}{character, optional,  destination country iso3 code}
+
+\item{d_name}{character, origin name or description}
 
 \item{d_lng}{numeric, required, destination point longitude}
 
@@ -30,8 +35,6 @@ for which risk of introduction score is being calcaulated}
 
 \item{quantity}{numeric, optional, used to weight animal movement flows by quantity
 of animals, if not provided no weighting is done.}
-
-\item{o_iso3}{character, optional,  origin country iso3 code}
 }
 \value{
 mapping object to be used with \code{\link[=apply_mapping]{apply_mapping()}}

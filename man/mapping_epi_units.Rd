@@ -4,14 +4,12 @@
 \alias{mapping_epi_units}
 \title{Epidemiological units dataset mapping}
 \usage{
-mapping_epi_units(eu_name, eu_id = NULL, user_id = NULL, geometry)
+mapping_epi_units(eu_id = NULL, eu_name, geometry)
 }
 \arguments{
+\item{eu_id}{charcter, optional, can be provided to join other datasets if needed}
+
 \item{eu_name}{character, required, name or description of epi units}
-
-\item{eu_id}{character, optional, epi unit identifier column}
-
-\item{user_id}{charcter, optional, can be provided to join other datasets}
 
 \item{geometry}{sf_POLYGON or sf_MULTIPOLYGON geospatial data type, representing
 the geographical areas of each epi unit.}

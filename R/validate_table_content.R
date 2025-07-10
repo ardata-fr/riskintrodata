@@ -29,7 +29,7 @@ table_name_is_valid <- function(x){
 #' The function checks the required and optional columns,
 #' and validates the data using the rules defined in the specifications.
 #' @param x A data frame or an 'sf' object to be validated.
-#' @param name A character string specifying the name of the dataset. It
+#' @param table_name A character string specifying the name of the dataset. It
 #' accepts one of the following values:
 #' - "animal_mobility"
 #' - "epi_units"
@@ -54,12 +54,19 @@ table_name_is_valid <- function(x){
 #' @example examples/read_animal_mobility.R
 #' @example examples/read_emission_risk_factors.R
 #' @example examples/read_entry_points.R
-validate_table_content <- function(x, table_name) {
+validate_table_content <- function(x, table_name, ...) {
   if (!table_name_is_valid(table_name)) {
     cli_abort(c(
       "Invalid table name {table_name}.",
       "x" = "Valid table names are: {quote_and_collapse(.validate_dataset_tables_names)}"
     ))
+  }
+
+  mapping <- list(...)
+  if (length(mapping) > 1) {
+    class(mapping) <- "mapping"
+    attr(mapping, "table_name") <- table_name
+    x <- apply_mapping(x, mapping = mapping, validate = FALSE)
   }
 
   status <- table_content_validation_status(table_name = table_name)
@@ -135,7 +142,14 @@ validate_table_content <- function(x, table_name) {
       details = results
     )
   }
+
   status$dataset <- x
+
+  if (status$validate_rules$chk) {
+    modifs <- apply_table_specific_changes(dataset = x, table_name = table_name)
+    status$dataset_changes <- modifs$modif_notes
+    status$dataset <- modifs$dataset
+  }
   attr(status$dataset, "table_name") <- table_name
   attr(status$dataset, "table_validated") <- status$validate_rules$chk
   status
@@ -186,7 +200,7 @@ validate_table_content_cli_msg <- function(x){
         ),
         setNames(
           sprintf("At rows: %s",
-                  quote_and_collapse(unlist(row$index), max_out = 6)), "i"
+                  quote_and_collapse(unlist(row$index),quote_char = "", max_out = 6)), "i"
         )
       )
     }

@@ -4,12 +4,12 @@
 \alias{validate_table_content}
 \title{Validate 'riskintro' Datasets}
 \usage{
-validate_table_content(x, table_name)
+validate_table_content(x, table_name, ...)
 }
 \arguments{
 \item{x}{A data frame or an 'sf' object to be validated.}
 
-\item{name}{A character string specifying the name of the dataset. It
+\item{table_name}{A character string specifying the name of the dataset. It
 accepts one of the following values:
 \itemize{
 \item "animal_mobility"
@@ -47,21 +47,18 @@ are not satisfied, the function returns a list with the status of the validation
 \examples{
 ## ---- read-epi-units-tunisia ----
 tun_epi_files <-
-  list.files(
-    system.file(
-      package = "riskintrodata",
-      "samples",
-      "tunisia",
-      "epi_units"
-    ),
-    full.names = TRUE
+  system.file(
+    package = "riskintrodata",
+    "samples",
+    "tunisia",
+    "epi_units", "tunisia_adm2_raw.gpkg"
   )
 
 tun_epi_unit <- read_geo_file(tun_epi_files)
 
 DATA_EPI_UNITS <- validate_table_content(
   x = tun_epi_unit,
-  name = "epi_units",
+  table_name = "epi_units",
   eu_name = "shapeName",
   user_id = "fid"
 )
@@ -69,31 +66,29 @@ DATA_EPI_UNITS <- validate_table_content(
 DATA_EPI_UNITS
 ## ---- read-animal-mobility-tunisia ----
 tun_animal_mobility <-
-  list.files(
-    system.file(
-      package = "riskintrodata",
-      "samples",
-      "tunisia",
-      "animal_mobility"
-    ),
-    full.names = TRUE
+  system.file(
+    package = "riskintrodata",
+    "samples",
+    "tunisia",
+    "animal_mobility", "ANIMAL_MOBILITY_raw.csv"
   )
 
-x <- readr::read_delim(
+x <- readr::read_csv(
   tun_animal_mobility,
-  delim = ";"
 )
 
-DATA_ANIMAL_MOBILITY <- validate_table_content(
+DATA_ANIMAL_MOBILITY <- apply_mapping(
   x,
-  name = "animal_mobility",
-  o_name = "ORIGIN_NAME",
-  o_lng = "ORIGIN_LONGITUDE_X",
-  o_lat = "ORIGIN_LATITUDE_Y",
-  d_name = "DESTINATION_NAME",
-  d_lng = "DESTINATION_LONGITUDE_X",
-  d_lat = "DESTINATION_LATITUDE_Y",
-  quantity = "HEADCOUNT"
+  mapping = mapping_animal_mobility(
+    o_name = "ORIGIN_NAME",
+    o_lng = "ORIGIN_LONGITUDE_X",
+    o_lat = "ORIGIN_LATITUDE_Y",
+    d_name = "DESTINATION_NAME",
+    d_lng = "DESTINATION_LONGITUDE_X",
+    d_lat = "DESTINATION_LATITUDE_Y",
+    quantity = "HEADCOUNT"
+  ),
+  validate = TRUE
 )
 
 DATA_ANIMAL_MOBILITY
@@ -108,7 +103,7 @@ tun_erf_file <-
   )
 x <- read_emission_risk_factor_file(tun_erf_file)
 
-DATA_ERF <- validate_table_content(x, name = "emission_risk_factors")
+DATA_ERF <- validate_table_content(x, table_name = "emission_risk_factors")
 
 DATA_ERF
 # read entry points data from Tunisia ----
@@ -121,13 +116,12 @@ tun_entry_points <- system.file(
 )
 
 x <- readr::read_delim(
-  tun_entry_points,
-  delim = ";"
+  tun_entry_points
 )
 
 DATA_ENTRY_POINTS <- validate_table_content(
   x = x,
-  name = "entry_points",
+  table_name = "entry_points",
   point_name = "NAME",
   lng = "LONGITUDE_X",
   lat = "LATITUDE_Y",
