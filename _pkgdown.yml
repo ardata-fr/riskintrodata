@@ -35,6 +35,5 @@ reference:
     - update_emission_risk_row_from_input
   - title: Miscellaneous
     contents:
-    - conn_ri
     - is.lng
     - is.lat
