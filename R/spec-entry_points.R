@@ -43,15 +43,16 @@
   "type" = list(
     required = FALSE,
     validation_func = list(
-      "should be one of the following:  \"PIF Aerien\", \"PIF Maritime\", \"PIF terrestre\", \"Passage contrebande\", \"Passage transhumance\" or missing" =
-        function(x) x %in% c(
-          "PIF Aerien",
-          "PIF Maritime",
-          "PIF terrestre",
-          "Passage contrebande",
-          "Passage transhumance",
-          NA_character_
-        )
+      "should be one of the following:  \"AIR\" (airport), \"SEA\" (sea port), \"BC\" (border crossing), \"CC\" (contraband crossing), \"TC\ (transhumance crossing) or missing" =
+        function(x){
+          x %in% c(
+          "AIR",
+          "SEA",
+          "BC",
+          "CC",
+          "TC",
+          NA_character_)
+        }
     )
   )
 )

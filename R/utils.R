@@ -57,9 +57,6 @@ quote_and_collapse <- function(value, quote_char = "`", max_out = NULL) {
   collapsed
 }
 
-#' @examples
-#' add_id_column(mtcars, name = "cars_id", prefix = "car-")
-#' add_id_column(mtcars, name = "cars_id", prefix = "car-", by = "cyl")
 #' @importFrom glue glue
 #' @importFrom dplyr mutate row_number cur_group_id
 add_id_column <- function(.data, name, by = NULL, prefix = "") {

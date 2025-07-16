@@ -56,8 +56,9 @@ apply_mapping <- function(dataset, mapping, validate = TRUE){
 #' @param mode character or factor, optional, indicates whether points are contraband (C)
 #' or non-contraband (NC). Values should be either `C`, `NC` or missing.
 #' @param type character or factors, option, should be one of the following:
-#'  \"PIF Aerien\", \"PIF Maritime\", \"PIF terrestre\", \"Passage contrebande\",
-#'  \"Passage transhumance\" or missing". Indicates the type of transport being used.
+#'  \"AIR\" (airport), \"SEA\" (sea port), \"BC\" (border crossing), \"CC\" (contraband crossing),
+#'  \"TC\" (transhumance crossing) or NA (missing)". Indicates the type of transport being used,
+#'  this is for displaying on maps and does not affect risk analysis scores.
 #' @param sources character, optional, this is a list of all the ISO3 country codes
 #' that animals enter from through this entry point.
 #' @return mapping object to be used with [apply_mapping()]

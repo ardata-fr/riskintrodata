@@ -67,10 +67,7 @@ apply_table_specific_changes <- function(dataset, table_name){
       out <- latlng_to_sf(out)
     }
 
-    out <- out |> mutate(
-      .by = all_of("geometry"),
-      point_id = cur_group_id()
-    ) |> arrange(.data[["point_id"]])
+    out <- out |> add_id_column("point_id", by = "geometry", prefix = "ep-")
 
   } else if (table_name %in% "emission_risk_factors") {
 

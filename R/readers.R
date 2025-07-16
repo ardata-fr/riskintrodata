@@ -163,6 +163,7 @@ read_emission_risk_factor_file <- function(filepath) {
 #'   road_access_raster_file <- download_road_access_raster()
 #'   ra_raster <- read_raster_file(x = road_access_raster_file)
 #' }
+#' @importFrom terra rast
 read_raster_file <- function(x) {
   if (!file.exists(x)) {
     cli_abort(c(
@@ -178,5 +179,5 @@ read_raster_file <- function(x) {
     ))
   }
 
-  rast(x)
+  terra::rast(x)
 }

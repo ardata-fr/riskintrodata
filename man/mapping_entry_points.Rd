@@ -27,8 +27,9 @@ mapping_entry_points(
 or non-contraband (NC). Values should be either \code{C}, \code{NC} or missing.}
 
 \item{type}{character or factors, option, should be one of the following:
-\"PIF Aerien\", \"PIF Maritime\", \"PIF terrestre\", \"Passage contrebande\",
-\"Passage transhumance\" or missing". Indicates the type of transport being used.}
+\"AIR\" (airport), \"SEA\" (sea port), \"BC\" (border crossing), \"CC\" (contraband crossing),
+\"TC\" (transhumance crossing) or NA (missing)". Indicates the type of transport being used,
+this is for displaying on maps and does not affect risk analysis scores.}
 
 \item{sources}{character, optional, this is a list of all the ISO3 country codes
 that animals enter from through this entry point.}

@@ -30,10 +30,6 @@
 #'  na.omit
 #' @importFrom glue
 #'  glue glue_collapse
-#' @importFrom tools
-#'  file_ext
-#' @importFrom yaml
-#'  read_yaml write_yaml
 #' @importFrom curl
 #'  curl_download
 #' @importFrom utils
