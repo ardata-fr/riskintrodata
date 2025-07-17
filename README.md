@@ -55,35 +55,33 @@ function:
 
 ``` r
 tun_files <-
-  list.files(
-    system.file(
-      package = "riskintrodata",
-      "samples",
-      "tunisia",
-      "epi_units"
-    ),
-    full.names = TRUE
+  system.file(
+    package = "riskintrodata",
+    "samples",
+    "tunisia",
+    "epi_units",
+    "tunisia_adm2_clean.gpkg"
   )
 read_geo_file(tun_files)
-#> Simple feature collection with 264 features and 6 fields
+#> Simple feature collection with 268 features and 1 field
 #> Geometry type: MULTIPOLYGON
 #> Dimension:     XY
-#> Bounding box:  xmin: 7.52228 ymin: 30.1601 xmax: 11.59919 ymax: 37.54166
+#> Bounding box:  xmin: 7.530076 ymin: 30.23681 xmax: 11.59826 ymax: 37.55986
 #> Geodetic CRS:  WGS 84
-#> # A tibble: 264 × 7
-#>      fid id    shapeName  shapeID shapeGroup shapeType                  geometry
-#>    <dbl> <chr> <chr>      <chr>   <chr>      <chr>            <MULTIPOLYGON [°]>
-#>  1 39510 <NA>  القصور     119338… TUN        ADM2      (((8.797576 35.77613, 8.…
-#>  2 39511 <NA>  المزونة    119338… TUN        ADM2      (((9.453087 34.48146, 9.…
-#>  3 39512 <NA>  العروسة    119338… TUN        ADM2      (((9.315254 36.37285, 9.…
-#>  4 39513 <NA>  ماطر       119338… TUN        ADM2      (((9.517707 36.96143, 9.…
-#>  5 39514 <NA>  الجم       119338… TUN        ADM2      (((10.67215 35.35733, 10…
-#>  6 39515 <NA>  القصر      119338… TUN        ADM2      (((8.820876 34.437, 8.83…
-#>  7 39516 <NA>  صفاقس الج… 119338… TUN        ADM2      (((10.67733 34.93905, 10…
-#>  8 39517 <NA>  غزالة      119338… TUN        ADM2      (((9.628822 37.11138, 9.…
-#>  9 39518 <NA>  سيدي عيش   119338… TUN        ADM2      (((8.62474 34.65819, 8.6…
-#> 10 39519 <NA>  الشبيكة    119338… TUN        ADM2      (((9.83956 35.74353, 9.8…
-#> # ℹ 254 more rows
+#> # A tibble: 268 × 2
+#>    eu_name                                                                  geom
+#>    <chr>                                                      <MULTIPOLYGON [°]>
+#>  1 Ariana Médina      (((10.13861 36.89453, 10.14495 36.89476, 10.15127 36.8947…
+#>  2 Ettadhamen         (((10.05585 36.84308, 10.06575 36.85019, 10.07327 36.8544…
+#>  3 Kalaat El Andalous (((10.13862 36.89416, 10.1329 36.88994, 10.13283 36.88892…
+#>  4 Mnihla             (((10.1317 36.88428, 10.1317 36.88271, 10.1317 36.8797, 1…
+#>  5 Raoued             (((10.16651 36.88694, 10.16422 36.88874, 10.1576 36.89235…
+#>  6 Sebkhet Ariana     (((10.27118 36.88874, 10.26842 36.88874, 10.26149 36.8878…
+#>  7 Sidi Thabet        (((10.01018 37.00285, 10.0102 37.00285, 10.01045 37.00283…
+#>  8 Soukra             (((10.19313 36.85656, 10.19313 36.85892, 10.19313 36.8640…
+#>  9 Amdoun             (((9.141866 36.86897, 9.140129 36.86767, 9.137473 36.8660…
+#> 10 Béja Nord          (((9.086732 36.70221, 9.082556 36.70772, 9.078131 36.7114…
+#> # ℹ 258 more rows
 
 nga_files <- system.file(
   package = "riskintrodata",
@@ -156,35 +154,35 @@ columns.
 
 ``` r
 tun_epi_files <-
-  list.files(
-    system.file(
-      package = "riskintrodata",
-      "samples",
-      "tunisia",
-      "epi_units"
-    ),
-    full.names = TRUE
+  system.file(
+    package = "riskintrodata",
+    "samples",
+    "tunisia",
+    "epi_units", "tunisia_adm2_raw.gpkg"
   )
 
 tun_epi_unit <- read_geo_file(tun_epi_files)
 
 DATA_EPI_UNITS <- validate_table_content(
   x = tun_epi_unit,
-  name = "epi_units",
+  table_name = "epi_units",
   eu_name = "shapeName",
   user_id = "fid"
 )
 
 DATA_EPI_UNITS
+#> $table_name
+#> [1] "epi_units"
+#> 
 #> $required_columns
 #> $chk
-#> [1] TRUE
+#> [1] FALSE
 #> 
 #> $msg
-#> [1] "All required columns selected."
+#> The following required columns are missing: `eu_name` and `geometry`
 #> 
 #> $details
-#> character(0)
+#> [1] "eu_name"  "geometry"
 #> 
 #> attr(,"class")
 #> [1] "validation_status"
@@ -204,44 +202,43 @@ DATA_EPI_UNITS
 #> 
 #> $validate_rules
 #> $chk
-#> [1] TRUE
+#> [1] FALSE
 #> 
 #> $msg
-#> 3 valid rules controling dataset.
+#> [1] "Found invalidities while checking dataset."
 #> 
 #> $details
-#>                                    label description items passes warning fails
-#> 1 EU name has no missing or empty values               264    264   FALSE     0
-#> 2    All values of user id are different                 1      1   FALSE     0
-#> 3           No missing values of user id               264    264   FALSE     0
-#>   error status extra_label
-#> 1 FALSE     OK        <NA>
-#> 2 FALSE     OK        <NA>
-#> 3 FALSE     OK        <NA>
+#> # A tibble: 4 × 8
+#>   colname  valid required column_found n     index value msg                    
+#>   <chr>    <lgl> <lgl>    <lgl>        <lgl> <lgl> <lgl> <glue>                 
+#> 1 eu_id    TRUE  FALSE    TRUE         NA    NA    NA    "eu_id" has been valid…
+#> 2 eu_id    TRUE  FALSE    TRUE         NA    NA    NA    "eu_id" has been valid…
+#> 3 eu_name  FALSE TRUE     FALSE        NA    NA    NA    Column: "eu_name" is m…
+#> 4 geometry FALSE TRUE     FALSE        NA    NA    NA    Column: "geometry" is …
 #> 
 #> attr(,"class")
 #> [1] "validation_status"
 #> 
 #> $dataset
-#> Simple feature collection with 264 features and 2 fields
+#> Simple feature collection with 268 features and 0 fields
 #> Geometry type: MULTIPOLYGON
 #> Dimension:     XY
-#> Bounding box:  xmin: 7.52228 ymin: 30.1601 xmax: 11.59919 ymax: 37.54166
+#> Bounding box:  xmin: 7.530076 ymin: 30.23681 xmax: 11.59826 ymax: 37.55986
 #> Geodetic CRS:  WGS 84
-#> # A tibble: 264 × 3
-#>    eu_name        user_id                                               geometry
-#>    <chr>            <dbl>                                     <MULTIPOLYGON [°]>
-#>  1 القصور           39510 (((8.797576 35.77613, 8.800061 35.78545, 8.806482 35.…
-#>  2 المزونة          39511 (((9.453087 34.48146, 9.456919 34.48654, 9.460233 34.…
-#>  3 العروسة          39512 (((9.315254 36.37285, 9.327888 36.37904, 9.332237 36.…
-#>  4 ماطر             39513 (((9.517707 36.96143, 9.519985 36.97143, 9.51605 36.9…
-#>  5 الجم             39514 (((10.67215 35.35733, 10.67516 35.34927, 10.68002 35.…
-#>  6 القصر            39515 (((8.820876 34.437, 8.833821 34.45662, 8.842519 34.45…
-#>  7 صفاقس الجنوبية   39516 (((10.67733 34.93905, 10.67826 34.93152, 10.68095 34.…
-#>  8 غزالة            39517 (((9.628822 37.11138, 9.617742 37.1028, 9.619917 37.0…
-#>  9 سيدي عيش         39518 (((8.62474 34.65819, 8.650837 34.67699, 8.6585 34.679…
-#> 10 الشبيكة          39519 (((9.83956 35.74353, 9.838628 35.75733, 9.840595 35.7…
-#> # ℹ 254 more rows
+#> # A tibble: 268 × 1
+#>                                                                             geom
+#>                                                               <MULTIPOLYGON [°]>
+#>  1 (((10.13861 36.89453, 10.14495 36.89476, 10.15127 36.89476, 10.1576 36.89235…
+#>  2 (((10.05585 36.84308, 10.06575 36.85019, 10.07327 36.8544, 10.07366 36.85451…
+#>  3 (((10.13862 36.89416, 10.1329 36.88994, 10.13283 36.88892, 10.1326 36.88572,…
+#>  4 (((10.1317 36.88428, 10.1317 36.88271, 10.1317 36.8797, 10.12929 36.87579, 1…
+#>  5 (((10.16651 36.88694, 10.16422 36.88874, 10.1576 36.89235, 10.15127 36.89476…
+#>  6 (((10.27118 36.88874, 10.26842 36.88874, 10.26149 36.88783, 10.25577 36.8863…
+#>  7 (((10.01018 37.00285, 10.0102 37.00285, 10.01045 37.00283, 10.01063 37.00281…
+#>  8 (((10.19313 36.85656, 10.19313 36.85892, 10.19313 36.86404, 10.19313 36.8667…
+#>  9 (((9.141866 36.86897, 9.140129 36.86767, 9.137473 36.86604, 9.133329 36.8623…
+#> 10 (((9.086732 36.70221, 9.082556 36.70772, 9.078131 36.71146, 9.075724 36.7131…
+#> # ℹ 258 more rows
 #> 
 #> attr(,"class")
 #> [1] "table_validation_status"
