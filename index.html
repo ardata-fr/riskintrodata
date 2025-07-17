@@ -253,6 +253,62 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attr(,"class")</span></span>
 <span><span class="co">#&gt; [1] "table_validation_status"</span></span></code></pre></div>
+<p>The <code>mapping_*</code> functions are utilities to help users map their own data column names to the standardized column names expected by the ‘riskintrodata’ package. These mappings are used with the <code><a href="reference/apply_mapping.html">apply_mapping()</a></code> function to rename, select, and validate columns for risk analysis workflows.</p>
+</div>
+<div class="section level3">
+<h3 id="available-mapping-functions">Available Mapping Functions<a class="anchor" aria-label="anchor" href="#available-mapping-functions"></a>
+</h3>
+<div class="section level4">
+<h4 id="mapping_entry_points">
+<code>mapping_entry_points()</code><a class="anchor" aria-label="anchor" href="#mapping_entry_points"></a>
+</h4>
+<p>Maps columns for entry points datasets (e.g., border crossings, airports, seaports).</p>
+<p>Required:<br>
+- <code>point_name</code>: Name/description of the entry point<br>
+- Geospatial info: either <code>lat</code>/<code>lng</code> or <code>geometry</code></p>
+<p>Optional:<br>
+- <code>mode</code>: Contraband status (<code>C</code>, <code>NC</code>, or missing)<br>
+- <code>type</code>: Type of entry point (<code>AIR</code>, <code>SEA</code>, <code>BC</code>, <code>CC</code>, <code>TC</code>, or missing)<br>
+- <code>sources</code>: List of ISO3 codes for source countries</p>
+</div>
+<div class="section level4">
+<h4 id="mapping_epi_units">
+<code>mapping_epi_units()</code><a class="anchor" aria-label="anchor" href="#mapping_epi_units"></a>
+</h4>
+<p>Maps columns for epidemiological units datasets (e.g., administrative areas).</p>
+<p>Required:<br>
+- <code>eu_name</code>: Name/description of the epi unit<br>
+- <code>geometry</code>: Geospatial polygon/multipolygon</p>
+<p>Optional:<br>
+- <code>eu_id</code>: Unique identifier for the epi unit</p>
+</div>
+<div class="section level4">
+<h4 id="mapping_animal_mobility">
+<code>mapping_animal_mobility()</code><a class="anchor" aria-label="anchor" href="#mapping_animal_mobility"></a>
+</h4>
+<p>Maps columns for animal movement datasets.</p>
+<p>Required:<br>
+- <code>o_name</code>: Origin name<br>
+- <code>d_name</code>: Destination name<br>
+- <code>d_lng</code>, <code>d_lat</code>: Destination longitude/latitude</p>
+<p>Optional:<br>
+- <code>o_iso3</code>, <code>o_lng</code>, <code>o_lat</code>: Origin ISO3 code or coordinates<br>
+- <code>d_iso3</code>: Destination ISO3 code<br>
+- <code>quantity</code>: Number of animals moved</p>
+</div>
+<div class="section level4">
+<h4 id="mapping_emission_risk_factors">
+<code>mapping_emission_risk_factors()</code><a class="anchor" aria-label="anchor" href="#mapping_emission_risk_factors"></a>
+</h4>
+<p>Maps columns for emission risk factors datasets (used for risk scoring).</p>
+<p>Required:<br>
+- <code>iso3</code>, <code>country</code>, <code>disease</code>, <code>animal_category</code>, <code>species</code><br>
+- Control/surveillance measures: <code>disease_notification</code>, <code>targeted_surveillance</code>, <code>general_surveillance</code>, <code>screening</code>, <code>precautions_at_the_borders</code>, <code>slaughter</code>, <code>selective_killing_and_disposal</code>, <code>zoning</code>, <code>official_vaccination</code><br>
+- <code>last_outbreak_end_date</code>, <code>commerce_illegal</code>, <code>commerce_legal</code></p>
+<p>Optional:<br>
+- <code>data_source</code>: Source of the data</p>
+<p>Each mapping function returns a mapping object that can be passed to <code><a href="reference/apply_mapping.html">apply_mapping()</a></code> to standardize and validate your dataset for use in the ‘riskintro’ analysis pipeline.</p>
+</div>
 </div>
 </div>
 <div class="section level2">

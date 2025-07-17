@@ -78,10 +78,15 @@ or non-contraband (NC). Values should be either <code>C</code>, <code>NC</code> 
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>character or factors, option, should be one of the following:
-\"AIR\" (airport), \"SEA\" (sea port), \"BC\" (border crossing), \"CC\" (contraband crossing),
-\"TC\" (transhumance crossing) or NA (missing)". Indicates the type of transport being used,
-this is for displaying on maps and does not affect risk analysis scores.</p></dd>
+<dd><p>Optional, indicates the type of transport being used,
+this is for displaying on maps and does not affect risk analysis scores. It
+can be a character or a factor, should be one of the following:</p><ul><li><p>"AIR" (airport),</p></li>
+<li><p>"SEA" (sea port),</p></li>
+<li><p>"BC" (border crossing),</p></li>
+<li><p>"CC" (contraband crossing),</p></li>
+<li><p>"TC" (transhumance crossing)</p></li>
+<li><p>NA (missing)".</p></li>
+</ul></dd>
 
 
 <dt id="arg-sources">sources<a class="anchor" aria-label="anchor" href="#arg-sources"></a></dt>
@@ -92,6 +97,14 @@ that animals enter from through this entry point.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>mapping object to be used with <code><a href="apply_mapping.html">apply_mapping()</a></code></p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other functions for mapping tables:
+<code><a href="apply_mapping.html">apply_mapping</a>()</code>,
+<code><a href="mapping_animal_mobility.html">mapping_animal_mobility</a>()</code>,
+<code><a href="mapping_emission_risk_factors.html">mapping_emission_risk_factors</a>()</code>,
+<code><a href="mapping_epi_units.html">mapping_epi_units</a>()</code></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
