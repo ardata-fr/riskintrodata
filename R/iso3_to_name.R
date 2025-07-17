@@ -14,7 +14,7 @@
 #' iso3_to_name(c("USA", "FRA", "DEU"))
 iso3_to_name <- function(x, lang = "en") {
   x <- as.character(x)
-  country_ref[[paste0("name_", lang)]][match(x, country_ref$iso3)] %||% NA
+  riskintrodata::country_ref[[paste0("name_", lang)]][match(x, riskintrodata::country_ref$iso3)] %||% NA
 }
 
 #' @export
@@ -29,5 +29,5 @@ iso3_to_name <- function(x, lang = "en") {
 #' @examples
 #' country_reference()
 country_reference <- function() {
-  country_ref
+  riskintrodata::country_ref
 }

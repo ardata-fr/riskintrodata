@@ -27,6 +27,7 @@ Imports:
     stats,
     terra,
     tibble,
+    tools,
     utils
 Suggests: 
     tidyr,

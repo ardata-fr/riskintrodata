@@ -1,0 +1,18 @@
+- `iso3`: ISO3 country code (e.g., "FRA"), it should be a valid ISO3 code with a match in column `iso3` returned by [riskintrodata::country_reference()] or a string starting with 'JOKER'.
+- `country`: Country name (e.g., "France"), the name is free text, but is expected to match the country name `name_en` or `name_fr` in the dataset returned by [riskintrodata::country_reference()].
+- `disease`: Disease name (e.g., "ASF"), it should be a valid disease code or name. For now there is no check for the disease name: it is expected to match the disease name in the dataset of WAHIS diseases but as the data are not covering all deceases, it is not checked so that users can add their own diseases.
+- `animal_category`: Animal category, one of "wild" or "domestic".
+- `species`: Species name (e.g., "pig"), it is a free text. It's expected to match the species name in the dataset returned by WAHIS species dataset but as the data are not covering all species, it is not checked so that users can add their own species.
+- `disease_notification`: Integer (0 or 1). All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `targeted_surveillance`: Integer (0 or 1). Is targeted surveillance applied? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `general_surveillance`: Integer (0 or 1). Is general surveillance applied? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `screening`: Integer (0 or 1). Are screening measures in place? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `precautions_at_the_borders`: Integer (0 or 1). Are precautions taken at the borders? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `slaughter`: Integer (0 or 1). Are slaughter processes in place? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `selective_killing_and_disposal`: Integer (0 or 1). Are selective killing and disposal procedures in place? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `zoning`: Integer (0 or 1). Are zoning strategies applied? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `official_vaccination`: Integer (0 or 1). Are official vaccination programs applied? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.
+- `last_outbreak_end_date`: Date. The end date of the last outbreak.
+- `commerce_illegal`: Integer (0, 1). Indicators of whether illegal commerce are being conducted.
+- `commerce_legal`: Integer (0, 1). Indicators of whether legal commerce are being conducted.
+- `data_source`: Character. A description of the data source, defaulting to the user name and current date. This is free text.

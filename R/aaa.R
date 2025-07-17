@@ -2,6 +2,8 @@
 #'  :=
 #' @importFrom stats
 #'  setNames
+#' @importFrom tools
+#'  file_ext
 #' @importFrom cli
 #'  cli_abort cli_warn ansi_strip cli_h3 cli_ul cli_ol cli_li cli_alert_success
 #' @importFrom sf

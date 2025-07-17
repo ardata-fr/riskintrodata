@@ -28,6 +28,7 @@ reference:
     - validate_table_content
     - country_reference
     - iso3_to_name
+    - apply_mapping
   - title: Data Structures for Risk Introduction Estimation
     contents:
     - create_emission_risk_row
