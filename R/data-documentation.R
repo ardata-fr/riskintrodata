@@ -9,6 +9,7 @@
 #'
 #' @docType data
 #' @keywords data
+#' @keywords internal
 "emission_risk_weights"
 
 
@@ -25,6 +26,7 @@
 #'
 #' @docType data
 #' @keywords data
+#' @keywords internal
 "neighbours_table"
 
 
@@ -36,11 +38,13 @@
 #'
 #' @docType data
 #' @keywords data
+#' @keywords internal
 "world_sf"
 
 #' Country references dataset
 #' @docType data
 #' @keywords data
+#' @keywords internal
 "country_ref"
 
 #' Emission Risk Factors dataset from WAHIS
@@ -111,4 +115,5 @@
 #'
 #' @docType data
 #' @keywords data
+#' @keywords internal
 "wahis_emission_risk_factors"

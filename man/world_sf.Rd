@@ -17,3 +17,4 @@ world_sf
 SF dataset containing global administrative boundaries for most countries.
 }
 \keyword{data}
+\keyword{internal}

@@ -20,15 +20,23 @@ reference:
     - read_geo_file
     - read_raster_file
     - read_emission_risk_factor_file
+  - title: Emission Risk Factors (ERF)
+    contents:
+    - wahis_emission_risk_factors
+    - get_wahis_erf
+    - erf_row
+    - get_erf_weights
   - title: Download datasets
     contents:
     - download_road_access_raster
   - title: Data Validation and References
     contents:
     - validate_table_content
+    - validate_table_content_cli_msg
     - country_reference
     - iso3_to_name
     - apply_mapping
+    - starts_with("mapping_")
   - title: Data Structures for Risk Introduction Estimation
     contents:
     - create_emission_risk_row
