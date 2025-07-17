@@ -77,6 +77,10 @@ if(FALSE){
 
 }
 \seealso{
-\code{\link[=mapping_entry_points]{mapping_entry_points()}}, \code{\link[=mapping_epi_units]{mapping_epi_units()}},
-\code{\link[=mapping_emission_risk_factors]{mapping_emission_risk_factors()}}, \code{\link[=mapping_animal_mobility]{mapping_animal_mobility()}}
+Other functions for mapping tables: 
+\code{\link{mapping_animal_mobility}()},
+\code{\link{mapping_emission_risk_factors}()},
+\code{\link{mapping_entry_points}()},
+\code{\link{mapping_epi_units}()}
 }
+\concept{functions for mapping tables}

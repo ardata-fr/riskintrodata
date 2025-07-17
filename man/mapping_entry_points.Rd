@@ -26,10 +26,17 @@ mapping_entry_points(
 \item{mode}{character or factor, optional, indicates whether points are contraband (C)
 or non-contraband (NC). Values should be either \code{C}, \code{NC} or missing.}
 
-\item{type}{character or factors, option, should be one of the following:
-\"AIR\" (airport), \"SEA\" (sea port), \"BC\" (border crossing), \"CC\" (contraband crossing),
-\"TC\" (transhumance crossing) or NA (missing)". Indicates the type of transport being used,
-this is for displaying on maps and does not affect risk analysis scores.}
+\item{type}{Optional, indicates the type of transport being used,
+this is for displaying on maps and does not affect risk analysis scores. It
+can be a character or a factor, should be one of the following:
+\itemize{
+\item "AIR" (airport),
+\item "SEA" (sea port),
+\item "BC" (border crossing),
+\item "CC" (contraband crossing),
+\item "TC" (transhumance crossing)
+\item NA (missing)".
+}}
 
 \item{sources}{character, optional, this is a list of all the ISO3 country codes
 that animals enter from through this entry point.}
@@ -41,3 +48,11 @@ mapping object to be used with \code{\link[=apply_mapping]{apply_mapping()}}
 A dataset mapping is used with \code{\link[=apply_mapping]{apply_mapping()}} to renames, select and validation
 the columns in a dataset that correspond to the parameter names below.
 }
+\seealso{
+Other functions for mapping tables: 
+\code{\link{apply_mapping}()},
+\code{\link{mapping_animal_mobility}()},
+\code{\link{mapping_emission_risk_factors}()},
+\code{\link{mapping_epi_units}()}
+}
+\concept{functions for mapping tables}

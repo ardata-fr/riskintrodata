@@ -43,3 +43,11 @@ mapping object to be used with \code{\link[=apply_mapping]{apply_mapping()}}
 A dataset mapping is used with \code{\link[=apply_mapping]{apply_mapping()}} to renames, select and validation
 the columns in a dataset that correspond to the parameter names below.
 }
+\seealso{
+Other functions for mapping tables: 
+\code{\link{apply_mapping}()},
+\code{\link{mapping_emission_risk_factors}()},
+\code{\link{mapping_entry_points}()},
+\code{\link{mapping_epi_units}()}
+}
+\concept{functions for mapping tables}

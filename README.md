@@ -244,6 +244,74 @@ DATA_EPI_UNITS
 #> [1] "table_validation_status"
 ```
 
+The `mapping_*` functions are utilities to help users map their own data
+column names to the standardized column names expected by the
+‘riskintrodata’ package. These mappings are used with the
+`apply_mapping()` function to rename, select, and validate columns for
+risk analysis workflows.
+
+### Available Mapping Functions
+
+#### `mapping_entry_points()`
+
+Maps columns for entry points datasets (e.g., border crossings,
+airports, seaports).
+
+Required:  
+- `point_name`: Name/description of the entry point  
+- Geospatial info: either `lat`/`lng` or `geometry`
+
+Optional:  
+- `mode`: Contraband status (`C`, `NC`, or missing)  
+- `type`: Type of entry point (`AIR`, `SEA`, `BC`, `CC`, `TC`, or
+missing)  
+- `sources`: List of ISO3 codes for source countries
+
+#### `mapping_epi_units()`
+
+Maps columns for epidemiological units datasets (e.g., administrative
+areas).
+
+Required:  
+- `eu_name`: Name/description of the epi unit  
+- `geometry`: Geospatial polygon/multipolygon
+
+Optional:  
+- `eu_id`: Unique identifier for the epi unit
+
+#### `mapping_animal_mobility()`
+
+Maps columns for animal movement datasets.
+
+Required:  
+- `o_name`: Origin name  
+- `d_name`: Destination name  
+- `d_lng`, `d_lat`: Destination longitude/latitude
+
+Optional:  
+- `o_iso3`, `o_lng`, `o_lat`: Origin ISO3 code or coordinates  
+- `d_iso3`: Destination ISO3 code  
+- `quantity`: Number of animals moved
+
+#### `mapping_emission_risk_factors()`
+
+Maps columns for emission risk factors datasets (used for risk scoring).
+
+Required:  
+- `iso3`, `country`, `disease`, `animal_category`, `species`  
+- Control/surveillance measures: `disease_notification`,
+`targeted_surveillance`, `general_surveillance`, `screening`,
+`precautions_at_the_borders`, `slaughter`,
+`selective_killing_and_disposal`, `zoning`, `official_vaccination`  
+- `last_outbreak_end_date`, `commerce_illegal`, `commerce_legal`
+
+Optional:  
+- `data_source`: Source of the data
+
+Each mapping function returns a mapping object that can be passed to
+`apply_mapping()` to standardize and validate your dataset for use in
+the ‘riskintro’ analysis pipeline.
+
 ## References data
 
 The package includes several reference datasets that are used in the

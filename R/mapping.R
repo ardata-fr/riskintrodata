@@ -1,6 +1,6 @@
 
-#' Apply dataset mapping to dataset
-#'
+#' @title Apply dataset mapping to dataset
+#' @description
 #' Utility function to use alongside the mapping object creator functions such as
 #'  `mapping_entry_points`, `mapping_animal_mobility`, etc.. To mapping column names
 #'  to the required values and validate the dataset for use in riskintro analysis
@@ -14,8 +14,7 @@
 #'  if validated or not.
 #' @export
 #' @example examples/apply_mapping.R
-#' @seealso [mapping_entry_points()], [mapping_epi_units()],
-#' [mapping_emission_risk_factors()], [mapping_animal_mobility()]
+#' @family functions for mapping tables
 apply_mapping <- function(dataset, mapping, validate = TRUE){
 
   mapping_attr <- attributes(mapping)
@@ -55,15 +54,21 @@ apply_mapping <- function(dataset, mapping, validate = TRUE){
 #' @param geometry sf_POINTS column if the dataset is of class `sf` (simple feature)
 #' @param mode character or factor, optional, indicates whether points are contraband (C)
 #' or non-contraband (NC). Values should be either `C`, `NC` or missing.
-#' @param type character or factors, option, should be one of the following:
-#'  \"AIR\" (airport), \"SEA\" (sea port), \"BC\" (border crossing), \"CC\" (contraband crossing),
-#'  \"TC\" (transhumance crossing) or NA (missing)". Indicates the type of transport being used,
-#'  this is for displaying on maps and does not affect risk analysis scores.
+#' @param type Optional, indicates the type of transport being used,
+#'  this is for displaying on maps and does not affect risk analysis scores. It
+#'  can be a character or a factor, should be one of the following:
+#' - "AIR" (airport),
+#' - "SEA" (sea port),
+#' - "BC" (border crossing),
+#' - "CC" (contraband crossing),
+#' - "TC" (transhumance crossing)
+#' - NA (missing)".
 #' @param sources character, optional, this is a list of all the ISO3 country codes
 #' that animals enter from through this entry point.
 #' @return mapping object to be used with [apply_mapping()]
 #' @export
 #' @importFrom cli cli_abort
+#' @family functions for mapping tables
 mapping_entry_points <- function(
     point_name, lng = NULL, lat = NULL, geometry = NULL,
     mode = NULL, type = NULL, sources = NULL
@@ -104,6 +109,7 @@ mapping_entry_points <- function(
 #' the geographical areas of each epi unit.
 #' @return mapping object to be used with [apply_mapping()]
 #' @export
+#' @family functions for mapping tables
 mapping_epi_units <- function(
     eu_id = NULL,
     eu_name,
@@ -136,6 +142,7 @@ mapping_epi_units <- function(
 #' of animals, if not provided no weighting is done.
 #' @return mapping object to be used with [apply_mapping()]
 #' @export
+#' @family functions for mapping tables
 mapping_animal_mobility <- function(
     o_iso3 = NULL,
     o_name,
@@ -181,38 +188,34 @@ mapping_animal_mobility <- function(
 }
 
 
-#' Emission risk factors dataset mapping
-#'
+#' @title Emission risk factors dataset mapping
+#' @description
 #' A dataset mapping is used with [apply_mapping()] to renames, select and validation
 #' the columns in a dataset that correspond to the parameter names below.
 #'
 #' For more about the data requirements of this dataset see [riskintrodata::wahis_emission_risk_factors] documentation
 #'
-#' @param iso3 character, required, country iso3 code
-#' @param country character, required, country name
-#' @param disease character, required, disease name
-#' @param animal_category character, required, animal category "Wild" or "Domestic"
-#' @param species character, required, animal species name
-#' @param disease_notification integer, required, must be NA, 1 or 0: 1 representing this policy is not
-#' enforced in that country (i.e. 1 is risky, 0 is not).
-#' @param targeted_surveillance as `disease_notification`
-#' @param general_surveillance as `disease_notification`
-#' @param screening as `disease_notification`
-#' @param precautions_at_the_borders as `disease_notification`
-#' @param slaughter as `disease_notification`
-#' @param selective_killing_and_disposal as `disease_notification`
-#' @param zoning as `disease_notification`
-#' @param official_vaccination as `disease_notification`
-#' @param last_outbreak_end_date date, required, must be a date: represents the
-#' last time there was an outbreak of this disease in this country.
-#' @param commerce_illegal integer, required, must be NA, 1 or 0: 1 representing
-#' this type of commerce is conducted between this country and country for which
-#' risk of introduction is been calcalated (i.e. 1 is risky, 0 is not).
-#' @param commerce_legal as `commerce_illegal`
-#' @param data_source character, optional, used to keep track of where the data
-#' is sourced.
+#' @param iso3 `r erf_param_desc[["iso3"]]`
+#' @param country `r erf_param_desc[["country"]]`
+#' @param disease `r erf_param_desc[["disease"]]`
+#' @param animal_category `r erf_param_desc[["animal_category"]]`
+#' @param species `r erf_param_desc[["species"]]`
+#' @param disease_notification `r erf_param_desc[["disease_notification"]]`
+#' @param targeted_surveillance `r erf_param_desc[["targeted_surveillance"]]`
+#' @param general_surveillance `r erf_param_desc[["general_surveillance"]]`
+#' @param screening `r erf_param_desc[["screening"]]`
+#' @param precautions_at_the_borders `r erf_param_desc[["precautions_at_the_borders"]]`
+#' @param slaughter `r erf_param_desc[["slaughter"]]`
+#' @param selective_killing_and_disposal `r erf_param_desc[["selective_killing_and_disposal"]]`
+#' @param zoning `r erf_param_desc[["zoning"]]`
+#' @param official_vaccination `r erf_param_desc[["official_vaccination"]]`
+#' @param last_outbreak_end_date `r erf_param_desc[["last_outbreak_end_date"]]`
+#' @param commerce_illegal `r erf_param_desc[["commerce_illegal"]]`
+#' @param commerce_legal `r erf_param_desc[["commerce_legal"]]`
+#' @param data_source `r erf_param_desc[["data_source"]]`
 #' @return mapping object to be used with [apply_mapping()]
 #' @export
+#' @family functions for mapping tables
 mapping_emission_risk_factors <- function(
     iso3,
     country,

@@ -26,46 +26,41 @@ mapping_emission_risk_factors(
 )
 }
 \arguments{
-\item{iso3}{character, required, country iso3 code}
+\item{iso3}{ISO3 country code (e.g., "FRA"), it should be a valid ISO3 code with a match in column \code{iso3} returned by \code{\link[=country_reference]{country_reference()}} or a string starting with 'JOKER'.}
 
-\item{country}{character, required, country name}
+\item{country}{Country name (e.g., "France"), the name is free text, but is expected to match the country name \code{name_en} or \code{name_fr} in the dataset returned by \code{\link[=country_reference]{country_reference()}}.}
 
-\item{disease}{character, required, disease name}
+\item{disease}{Disease name (e.g., "ASF"), it should be a valid disease code or name. For now there is no check for the disease name: it is expected to match the disease name in the dataset of WAHIS diseases but as the data are not covering all deceases, it is not checked so that users can add their own diseases.}
 
-\item{animal_category}{character, required, animal category "Wild" or "Domestic"}
+\item{animal_category}{Animal category, one of "wild" or "domestic".}
 
-\item{species}{character, required, animal species name}
+\item{species}{Species name (e.g., "pig"), it is a free text. It's expected to match the species name in the dataset returned by WAHIS species dataset but as the data are not covering all species, it is not checked so that users can add their own species.}
 
-\item{disease_notification}{integer, required, must be NA, 1 or 0: 1 representing this policy is not
-enforced in that country (i.e. 1 is risky, 0 is not).}
+\item{disease_notification}{Integer (0 or 1). All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{targeted_surveillance}{as \code{disease_notification}}
+\item{targeted_surveillance}{Integer (0 or 1). Is targeted surveillance applied? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{general_surveillance}{as \code{disease_notification}}
+\item{general_surveillance}{Integer (0 or 1). Is general surveillance applied? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{screening}{as \code{disease_notification}}
+\item{screening}{Integer (0 or 1). Are screening measures in place? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{precautions_at_the_borders}{as \code{disease_notification}}
+\item{precautions_at_the_borders}{Integer (0 or 1). Are precautions taken at the borders? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{slaughter}{as \code{disease_notification}}
+\item{slaughter}{Integer (0 or 1). Are slaughter processes in place? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{selective_killing_and_disposal}{as \code{disease_notification}}
+\item{selective_killing_and_disposal}{Integer (0 or 1). Are selective killing and disposal procedures in place? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{zoning}{as \code{disease_notification}}
+\item{zoning}{Integer (0 or 1). Are zoning strategies applied? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{official_vaccination}{as \code{disease_notification}}
+\item{official_vaccination}{Integer (0 or 1). Are official vaccination programs applied? All are either 1 or 0, 0 means 'measure inplace' and 1 means 'no measure inplace', i.e. 1 = there is a risk, 0 = there is no risk.}
 
-\item{last_outbreak_end_date}{date, required, must be a date: represents the
-last time there was an outbreak of this disease in this country.}
+\item{last_outbreak_end_date}{Date. The end date of the last outbreak.}
 
-\item{commerce_illegal}{integer, required, must be NA, 1 or 0: 1 representing
-this type of commerce is conducted between this country and country for which
-risk of introduction is been calcalated (i.e. 1 is risky, 0 is not).}
+\item{commerce_illegal}{Integer (0, 1). Indicators of whether illegal commerce are being conducted.}
 
-\item{commerce_legal}{as \code{commerce_illegal}}
+\item{commerce_legal}{Integer (0, 1). Indicators of whether legal commerce are being conducted.}
 
-\item{data_source}{character, optional, used to keep track of where the data
-is sourced.}
+\item{data_source}{Character. A description of the data source, defaulting to the user name and current date. This is free text.}
 }
 \value{
 mapping object to be used with \code{\link[=apply_mapping]{apply_mapping()}}
@@ -73,7 +68,14 @@ mapping object to be used with \code{\link[=apply_mapping]{apply_mapping()}}
 \description{
 A dataset mapping is used with \code{\link[=apply_mapping]{apply_mapping()}} to renames, select and validation
 the columns in a dataset that correspond to the parameter names below.
-}
-\details{
+
 For more about the data requirements of this dataset see \link{wahis_emission_risk_factors} documentation
 }
+\seealso{
+Other functions for mapping tables: 
+\code{\link{apply_mapping}()},
+\code{\link{mapping_animal_mobility}()},
+\code{\link{mapping_entry_points}()},
+\code{\link{mapping_epi_units}()}
+}
+\concept{functions for mapping tables}
