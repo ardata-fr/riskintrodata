@@ -39,9 +39,7 @@ You can install the development version of riskintrodata like so:
 pak::pak("ardata-fr/riskintrodata")
 ```
 
-## Usage
-
-### Read data
+## Read data
 
 ``` r
 library(riskintrodata)
@@ -124,7 +122,7 @@ There is no specific function to read tabular data, but you can use the
 package ‘readr’ or ‘readxl’ to read the data if the format is CSV or
 Excel.
 
-### Validate data
+## Validate data
 
 The package provides a function named `validate_table_content()` to
 validate the content of datasets. This function checks the structure of
@@ -250,9 +248,7 @@ column names to the standardized column names expected by the
 `apply_mapping()` function to rename, select, and validate columns for
 risk analysis workflows.
 
-### Available Mapping Functions
-
-#### `mapping_entry_points()`
+### Mapping for entry points
 
 Maps columns for entry points datasets (e.g., border crossings,
 airports, seaports).
@@ -267,7 +263,7 @@ Optional:
 missing)  
 - `sources`: List of ISO3 codes for source countries
 
-#### `mapping_epi_units()`
+### Mapping for epidemiological units
 
 Maps columns for epidemiological units datasets (e.g., administrative
 areas).
@@ -279,7 +275,7 @@ Required:
 Optional:  
 - `eu_id`: Unique identifier for the epi unit
 
-#### `mapping_animal_mobility()`
+### Mapping for animal mobility
 
 Maps columns for animal movement datasets.
 
@@ -293,7 +289,7 @@ Optional:
 - `d_iso3`: Destination ISO3 code  
 - `quantity`: Number of animals moved
 
-#### `mapping_emission_risk_factors()`
+### Mapping for emission risk factors
 
 Maps columns for emission risk factors datasets (used for risk scoring).
 
