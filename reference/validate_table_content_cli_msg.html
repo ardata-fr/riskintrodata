@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">riskintrodata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,21 +57,64 @@ from <code><a href="validate_table_content.html">validate_table_content()</a></c
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_wahis_erf.html">get_wahis_erf</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  disease <span class="op">=</span> <span class="st">"Anthrax"</span>,</span></span>
+<span class="r-in"><span>  species <span class="op">=</span> <span class="st">"Cattle"</span>,</span></span>
+<span class="r-in"><span>  animal_category <span class="op">=</span> <span class="st">"Domestic"</span>,</span></span>
+<span class="r-in"><span>  validate <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># default</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> All data in "emission_risk_factors" valided.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> WAHIS emission risk factors dataset has 65 entries for `disease = Anthrax`, `species = Cattle`, and `animal_category = Domestic`.</span>
+<span class="r-in"><span><span class="va">status</span> <span class="op">&lt;-</span> <span class="fu"><a href="validate_table_content.html">validate_table_content</a></span><span class="op">(</span><span class="va">x</span>, table_name <span class="op">=</span> <span class="st">"emission_risk_factors"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">validate_table_content_cli_msg</span><span class="op">(</span><span class="va">status</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> All data in "emission_risk_factors" valided.</span>
+<span class="r-in"><span><span class="va">dataset</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 65 × 18</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    iso3  country            disease animal_category species disease_notification</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ALB   Albania            Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ARM   Armenia            Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> CYM   Cayman Islands     Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> HRV   Croatia            Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> FLK   Falkland Islands … Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> JPN   Japan              Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> KGZ   Kyrgyzstan         Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> MEX   Mexico             Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> RUS   Russia             Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> SYC   Seychelles         Anthrax Domestic        Cattle                     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 55 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 12 more variables: targeted_surveillance &lt;int&gt;, general_surveillance &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   screening &lt;int&gt;, precautions_at_the_borders &lt;int&gt;, slaughter &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   selective_killing_and_disposal &lt;int&gt;, zoning &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   official_vaccination &lt;int&gt;, last_outbreak_end_date &lt;date&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   commerce_illegal &lt;int&gt;, commerce_legal &lt;int&gt;, data_source &lt;chr&gt;</span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">wahis_emission_risk_factors</span></span></span>
 <span class="r-in"><span><span class="va">status</span> <span class="op">&lt;-</span> <span class="fu"><a href="validate_table_content.html">validate_table_content</a></span><span class="op">(</span><span class="va">x</span>, table_name <span class="op">=</span> <span class="st">"emission_risk_factors"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">validate_table_content_cli_msg</span><span class="op">(</span><span class="va">status</span><span class="op">)</span> <span class="co"># error here if invalid data</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> All data in "emission_risk_factors" valided.</span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">validate_table_content_cli_msg</span><span class="op">(</span><span class="va">status</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># error here if invalid data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi_strip.html" class="external-link">ansi_strip</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Error in validate_table_content_cli_msg(status) : </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   ✖ Data validation errors (3) found for "emission_risk_factors":</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 1. Values for "iso3" has duplicate values</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2. Values for "animal_category" has multiple values, each riskintro study</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> should only have one animal category</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 3. Values for "species" has multiple values, each riskintro study should only</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> have one animal category</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># example of non-valid data</span></span></span>
-<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">wrong_data</span> <span class="op">&lt;-</span> <span class="va">mtcars</span></span></span>
 <span class="r-in"><span><span class="va">wrong_data</span><span class="op">$</span><span class="va">slaughter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">wrong_data</span><span class="op">$</span><span class="va">last_outbreak_end_date</span> <span class="op">&lt;-</span> <span class="st">"HELLO"</span></span></span>
 <span class="r-in"><span><span class="va">status</span> <span class="op">&lt;-</span> <span class="fu"><a href="validate_table_content.html">validate_table_content</a></span><span class="op">(</span><span class="va">wrong_data</span>, table_name <span class="op">=</span> <span class="st">"emission_risk_factors"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">validate_table_content_cli_msg</span><span class="op">(</span><span class="va">status</span><span class="op">)</span> <span class="co"># error here if invalid data</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">validate_table_content_cli_msg</span><span class="op">(</span><span class="va">status</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/ansi_strip.html" class="external-link">ansi_strip</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Error in validate_table_content_cli_msg(status) : </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   ✖ Data validation errors (3) found for "emission_risk_factors":</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 1. Values for "iso3" has duplicate values</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2. Values for "animal_category" has multiple values, each riskintro study</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> should only have one animal category</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 3. Values for "species" has multiple values, each riskintro study should only</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> have one animal category</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

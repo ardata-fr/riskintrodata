@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">riskintrodata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,11 +73,8 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 <code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"ardata-fr/riskintrodata"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+<h2 id="read-data">Read data<a class="anchor" aria-label="anchor" href="#read-data"></a>
 </h2>
-<div class="section level3">
-<h3 id="read-data">Read data<a class="anchor" aria-label="anchor" href="#read-data"></a>
-</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">riskintrodata</span><span class="op">)</span></span></code></pre></div>
 <p>The package provides functions to read and validate geographic and tabular datasets.</p>
@@ -146,9 +143,9 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 <span><span class="va">ra_raster</span></span></code></pre></div>
 <p>There is no specific function to read tabular data, but you can use the package ‘readr’ or ‘readxl’ to read the data if the format is CSV or Excel.</p>
 </div>
-<div class="section level3">
-<h3 id="validate-data">Validate data<a class="anchor" aria-label="anchor" href="#validate-data"></a>
-</h3>
+<div class="section level2">
+<h2 id="validate-data">Validate data<a class="anchor" aria-label="anchor" href="#validate-data"></a>
+</h2>
 <p>The package provides a function named <code><a href="reference/validate_table_content.html">validate_table_content()</a></code> to validate the content of datasets. This function checks the structure of the data and ensures that it meets the expected format, the function will check:</p>
 <ul>
 <li>the presence of required columns</li>
@@ -254,14 +251,9 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 <span><span class="co">#&gt; attr(,"class")</span></span>
 <span><span class="co">#&gt; [1] "table_validation_status"</span></span></code></pre></div>
 <p>The <code>mapping_*</code> functions are utilities to help users map their own data column names to the standardized column names expected by the ‘riskintrodata’ package. These mappings are used with the <code><a href="reference/apply_mapping.html">apply_mapping()</a></code> function to rename, select, and validate columns for risk analysis workflows.</p>
-</div>
 <div class="section level3">
-<h3 id="available-mapping-functions">Available Mapping Functions<a class="anchor" aria-label="anchor" href="#available-mapping-functions"></a>
+<h3 id="mapping-for-entry-points">Mapping for entry points<a class="anchor" aria-label="anchor" href="#mapping-for-entry-points"></a>
 </h3>
-<div class="section level4">
-<h4 id="mapping_entry_points">
-<code>mapping_entry_points()</code><a class="anchor" aria-label="anchor" href="#mapping_entry_points"></a>
-</h4>
 <p>Maps columns for entry points datasets (e.g., border crossings, airports, seaports).</p>
 <p>Required:<br>
 - <code>point_name</code>: Name/description of the entry point<br>
@@ -271,10 +263,9 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 - <code>type</code>: Type of entry point (<code>AIR</code>, <code>SEA</code>, <code>BC</code>, <code>CC</code>, <code>TC</code>, or missing)<br>
 - <code>sources</code>: List of ISO3 codes for source countries</p>
 </div>
-<div class="section level4">
-<h4 id="mapping_epi_units">
-<code>mapping_epi_units()</code><a class="anchor" aria-label="anchor" href="#mapping_epi_units"></a>
-</h4>
+<div class="section level3">
+<h3 id="mapping-for-epidemiological-units">Mapping for epidemiological units<a class="anchor" aria-label="anchor" href="#mapping-for-epidemiological-units"></a>
+</h3>
 <p>Maps columns for epidemiological units datasets (e.g., administrative areas).</p>
 <p>Required:<br>
 - <code>eu_name</code>: Name/description of the epi unit<br>
@@ -282,10 +273,9 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 <p>Optional:<br>
 - <code>eu_id</code>: Unique identifier for the epi unit</p>
 </div>
-<div class="section level4">
-<h4 id="mapping_animal_mobility">
-<code>mapping_animal_mobility()</code><a class="anchor" aria-label="anchor" href="#mapping_animal_mobility"></a>
-</h4>
+<div class="section level3">
+<h3 id="mapping-for-animal-mobility">Mapping for animal mobility<a class="anchor" aria-label="anchor" href="#mapping-for-animal-mobility"></a>
+</h3>
 <p>Maps columns for animal movement datasets.</p>
 <p>Required:<br>
 - <code>o_name</code>: Origin name<br>
@@ -296,10 +286,9 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 - <code>d_iso3</code>: Destination ISO3 code<br>
 - <code>quantity</code>: Number of animals moved</p>
 </div>
-<div class="section level4">
-<h4 id="mapping_emission_risk_factors">
-<code>mapping_emission_risk_factors()</code><a class="anchor" aria-label="anchor" href="#mapping_emission_risk_factors"></a>
-</h4>
+<div class="section level3">
+<h3 id="mapping-for-emission-risk-factors">Mapping for emission risk factors<a class="anchor" aria-label="anchor" href="#mapping-for-emission-risk-factors"></a>
+</h3>
 <p>Maps columns for emission risk factors datasets (used for risk scoring).</p>
 <p>Required:<br>
 - <code>iso3</code>, <code>country</code>, <code>disease</code>, <code>animal_category</code>, <code>species</code><br>
@@ -308,7 +297,6 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 <p>Optional:<br>
 - <code>data_source</code>: Source of the data</p>
 <p>Each mapping function returns a mapping object that can be passed to <code><a href="reference/apply_mapping.html">apply_mapping()</a></code> to standardize and validate your dataset for use in the ‘riskintro’ analysis pipeline.</p>
-</div>
 </div>
 </div>
 <div class="section level2">
@@ -324,6 +312,7 @@ import functions, ‘riskintrodata’ minimizes package dependencies.</p>
 <h1 id="todo">TODO<a class="anchor" aria-label="anchor" href="#todo"></a>
 </h1>
 <ul class="task-list">
+<li><label><input type="checkbox">list reference datasets</label></li>
 <li><label><input type="checkbox">document and illustrate <code><a href="reference/read_emission_risk_factor_file.html">read_emission_risk_factor_file()</a></code></label></li>
 <li><label><input type="checkbox">fortify <code><a href="reference/create_emission_risk_row.html">create_emission_risk_row()</a></code> and ensure it works as expected.</label></li>
 <li><label><input type="checkbox"><em>Entry point</em> type is in French (“PIF Aerien”), CIRAD suggested to use English names but the data we have is in French, so we need to decide whether to keep it in French or translate it to English.</label></li>

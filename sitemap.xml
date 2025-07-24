@@ -17,6 +17,7 @@
 <url><loc>/reference/get_wahis_erf.html</loc></url>
 <url><loc>/reference/has_internet.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/init_riskintrodata_cache.html</loc></url>
 <url><loc>/reference/is.lat.html</loc></url>
 <url><loc>/reference/is.lng.html</loc></url>
 <url><loc>/reference/iso3_to_name.html</loc></url>
@@ -28,6 +29,10 @@
 <url><loc>/reference/read_emission_risk_factor_file.html</loc></url>
 <url><loc>/reference/read_geo_file.html</loc></url>
 <url><loc>/reference/read_raster_file.html</loc></url>
+<url><loc>/reference/riskintrodata_cache_dir.html</loc></url>
+<url><loc>/reference/riskintrodata_cache_exists.html</loc></url>
+<url><loc>/reference/riskintrodata_dummy_setup.html</loc></url>
+<url><loc>/reference/rm_riskintrodata_cache.html</loc></url>
 <url><loc>/reference/update_emission_risk_row_from_input.html</loc></url>
 <url><loc>/reference/validate_table_content.html</loc></url>
 <url><loc>/reference/validate_table_content_cli_msg.html</loc></url>
