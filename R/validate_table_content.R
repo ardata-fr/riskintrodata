@@ -163,20 +163,28 @@ validate_table_content <- function(x, table_name, ...) {
 #'
 #' @export
 #' @examples
+#' x <- get_wahis_erf(
+#'   disease = "Anthrax",
+#'   species = "Cattle",
+#'   animal_category = "Domestic",
+#'   validate = TRUE # default
+#' )
+#' status <- validate_table_content(x, table_name = "emission_risk_factors")
+#' dataset <- validate_table_content_cli_msg(status)
+#' dataset
 #'
 #' x <- wahis_emission_risk_factors
 #' status <- validate_table_content(x, table_name = "emission_risk_factors")
-#' dataset <- validate_table_content_cli_msg(status) # error here if invalid data
+#' z <- try(validate_table_content_cli_msg(status), silent = TRUE) # error here if invalid data
+#' message(cli::ansi_strip(z))
 #'
-#' # example of non-valid data
-#' if(FALSE){
+#'
 #' wrong_data <- mtcars
 #' wrong_data$slaughter <- as.integer(round(runif(nrow(mtcars))))
 #' wrong_data$last_outbreak_end_date <- "HELLO"
 #' status <- validate_table_content(wrong_data, table_name = "emission_risk_factors")
-#' dataset <- validate_table_content_cli_msg(status) # error here if invalid data
-#' }
-#'
+#' dataset <- try(validate_table_content_cli_msg(status), silent = TRUE)
+#' message(cli::ansi_strip(z))
 validate_table_content_cli_msg <- function(x){
   y <- x$dataset
   if (attr(y, "table_validated")) {

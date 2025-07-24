@@ -17,6 +17,9 @@ Reads a raster file from the specified path. The function checks if the
 file exists and if it is a valid raster file (tif, tiff, png).
 }
 \examples{
+\dontshow{
+riskintrodata_dummy_setup()
+}
 if (curl::has_internet()) {
   road_access_raster_file <- download_road_access_raster()
   ra_raster <- read_raster_file(x = road_access_raster_file)

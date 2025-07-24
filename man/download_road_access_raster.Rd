@@ -4,11 +4,11 @@
 \alias{download_road_access_raster}
 \title{Download Road Access Raster}
 \usage{
-download_road_access_raster(destfile = NULL)
+download_road_access_raster(force = FALSE)
 }
 \arguments{
-\item{destfile}{A character string with the name where the downloaded file
-is saved. If NULL, a temporary file is created.}
+\item{force}{if TRUE, the function will re-download the file even if it already exists
+in the cache directory.}
 }
 \value{
 The path to the downloaded file.
@@ -19,6 +19,9 @@ located at \url{https://github.com/ardata-fr/road-access-raster} and saves it to
 a specified destination file.
 }
 \examples{
+\dontshow{
+riskintrodata_dummy_setup()
+}
 if (curl::has_internet()) {
   road_access_raster_file <- download_road_access_raster()
 }

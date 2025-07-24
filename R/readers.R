@@ -159,6 +159,9 @@ read_emission_risk_factor_file <- function(filepath) {
 #' @param x A character string specifying the path to the raster file.
 #' @return A `SpatRaster` object representing the raster data.
 #' @examples
+#' \dontshow{
+#' riskintrodata_dummy_setup()
+#' }
 #' if (curl::has_internet()) {
 #'   road_access_raster_file <- download_road_access_raster()
 #'   ra_raster <- read_raster_file(x = road_access_raster_file)
