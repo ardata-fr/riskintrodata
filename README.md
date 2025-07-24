@@ -319,6 +319,7 @@ context of animal disease risk estimation:
 
 # TODO
 
+- [ ] list reference datasets
 - [ ] document and illustrate `read_emission_risk_factor_file()`
 - [ ] fortify `create_emission_risk_row()` and ensure it works as
   expected.

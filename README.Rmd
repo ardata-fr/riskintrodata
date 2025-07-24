@@ -183,6 +183,7 @@ Also a utility function `iso3_to_name()` is provided to convert ISO3 codes to co
 
 # TODO
 
+- [ ] list reference datasets
 - [ ] document and illustrate `read_emission_risk_factor_file()`
 - [ ] fortify `create_emission_risk_row()` and ensure it works as expected.
 - [ ] *Entry point* type is in French ("PIF Aerien"), CIRAD suggested to use English names but the data we have is in French, so we need to decide whether to keep it in French or translate it to English.
