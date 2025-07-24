@@ -2,7 +2,8 @@
   iso3 = list(
     required = TRUE,
     validation_func = list(
-      "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x))
+      "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x)),
+      "has duplicate values" = function(x) length(x) == length(unique(x))
     )
   ),
 
@@ -10,27 +11,30 @@
     required = TRUE,
     validation_func = list(
       "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x))
-    )
   ),
 
   disease = list(
     required = TRUE,
     validation_func = list(
-      "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x))
+      "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x)),
+      "has multiple values, each riskintro study should only have one disease" = function(x) length(unique(x)) == 1
+    )
     )
   ),
 
   animal_category = list(
     required = TRUE,
     validation_func = list(
-      "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x))
+      "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x)),
+      "has multiple values, each riskintro study should only have one animal category" = function(x) length(unique(x)) == 1
     )
   ),
 
   species = list(
     required = TRUE,
     validation_func = list(
-      "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x))
+      "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x)),
+      "has multiple values, each riskintro study should only have one animal category" = function(x) length(unique(x)) == 1
     )
   ),
 

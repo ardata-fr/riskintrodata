@@ -13,51 +13,104 @@
 #' @param disease filter dataset for one or more disease
 #' @param species filter dataset for one or more species
 #' @param animal_category filter dataset for one or more animal_category
+#' @param validate defaults to TRUE - ensuring that the table is valid for use
+#' in following `riskintroanalysis` steps.
 #'
 #' @return the emission risk factorts dataset as documented here [riskintrodata::wahis_emission_risk_factors]
 #' @examples
-#' get_wahis_erf(
+#' data_for_riskintro_study <- get_wahis_erf(
 #'   disease = "Anthrax",
 #'   species = "Cattle",
-#'   animal_category = "Domestic"
+#'   animal_category = "Domestic",
+#'   validate = TRUE # default
 #' )
+#' data_for_riskintro_study
+#'
+#' all_erf_data <- get_wahis_erf(
+#'   validate = FALSE # default
+#' )
+#'
 #' @export
 #' @importFrom dplyr filter
 #' @family functions for "Emission Risk Factors" management
 get_wahis_erf <- function(
-    disease = character(),
-    species = character(),
-    animal_category = character()
+    disease = NULL,
+    species = NULL,
+    animal_category = NULL,
+    validate = TRUE
 ){
 
-  filters <- list()
+  wahis_erf <- riskintrodata::wahis_emission_risk_factors
 
+  if (validate) {
+    cli_abort_if_not(
+      "Ensure you provide one value for {.arg disease}" = length(disease) == 1,
+      "Ensure you provide one value for {.arg species}" = length(species) == 1,
+      "Ensure you provide one value for {.arg animal_category}" = length(animal_category) == 1,
+      "Value {.arg {disease}} does not exists for column {.arg disease} in WAHIS dataset" = disease %in% wahis_erf$disease,
+      "Value {.arg {species}} does not exists for column {.arg species} in WAHIS dataset" = species %in% wahis_erf$species,
+      "Value {.arg {animal_category}} does not exists for column {.arg animal_category} in WAHIS dataset" = animal_category %in% wahis_erf$animal_category
+    )
+  }
+
+  filters <- list()
   if (length(disease) > 0) {
     filters <- append(
       filters,
       rlang::expr(disease %in% !!disease)
     )
   }
-
   if (length(species) > 0) {
     filters <- append(
       filters,
       rlang::expr(species %in% !!species)
     )
   }
-
   if (length(animal_category) > 0) {
     filters <- append(
       filters,
       rlang::expr(animal_category %in% !!animal_category)
     )
   }
-
-  x <- riskintrodata::wahis_emission_risk_factors |>
+  x <- wahis_erf |>
     dplyr::filter(!!!filters)
 
-  x <- validate_table_content(x, "emission_risk_factors")
-  x <- validate_table_content_cli_msg(x)
+
+  if (validate) {
+    if (nrow(x) > 0) {
+
+      x <- validate_table_content(x, "emission_risk_factors")
+      x <- validate_table_content_cli_msg(x)
+
+      cli_alert_success(paste(
+        "WAHIS emission risk factors dataset has {nrow(x)} entr{?y/ies} for",
+        "{.code disease = {disease}}, {.code species = {species}},",
+        "and {.code animal_category = {animal_category}}."
+      ))
+    } else {
+      cli_abort(paste(
+        "WAHIS emission risk factors dataset has no entries for",
+        "{.code disease = {disease}}, {.code species = {species}},",
+        "and {.code animal_category = {animal_category}}."
+      ))
+    }
+  } else {
+    if (nrow(x) > 0) {
+      cli_alert_success(paste(
+        "WAHIS emission risk factors dataset has {nrow(x)} entr{?y/ies} for the following filters: ",
+        "{.code disease = \"{disease}\"}, {.code species = \"{species}\"},",
+        "and {.code animal_category = \"{animal_category}\"}."
+      ))
+    } else {
+      cli_warn(paste(
+        "WAHIS emission risk factors dataset has no entries for the following filters:",
+        "{.code disease = \"{disease}\"}, {.code species = \"{species}\"},",
+        "and {.code animal_category = \"{animal_category}\"}."
+      ))
+    }
+  }
+
+  attr(x,"table_name") <- "emission_risk_factors"
   x
 }
 

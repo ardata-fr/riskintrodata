@@ -5,9 +5,10 @@
 \title{Get WAHIS Emission Risk Factors Dataset}
 \usage{
 get_wahis_erf(
-  disease = character(),
-  species = character(),
-  animal_category = character()
+  disease = NULL,
+  species = NULL,
+  animal_category = NULL,
+  validate = TRUE
 )
 }
 \arguments{
@@ -16,6 +17,9 @@ get_wahis_erf(
 \item{species}{filter dataset for one or more species}
 
 \item{animal_category}{filter dataset for one or more animal_category}
+
+\item{validate}{defaults to TRUE - ensuring that the table is valid for use
+in following \code{riskintroanalysis} steps.}
 }
 \value{
 the emission risk factorts dataset as documented here \link{wahis_emission_risk_factors}
@@ -32,11 +36,18 @@ be involved in the introduction of a risk. The function can not be used to
 gather data for different diseases, species or animal categories at the same time.
 }
 \examples{
-get_wahis_erf(
+data_for_riskintro_study <- get_wahis_erf(
   disease = "Anthrax",
   species = "Cattle",
-  animal_category = "Domestic"
+  animal_category = "Domestic",
+  validate = TRUE # default
 )
+data_for_riskintro_study
+
+all_erf_data <- get_wahis_erf(
+  validate = FALSE # default
+)
+
 }
 \seealso{
 Other functions for "Emission Risk Factors" management: 

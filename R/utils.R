@@ -119,3 +119,17 @@ erf_column_param <- c("#' @param iso3 ISO3 country code (e.g., \"FRA\"), it shou
 has_internet <- function() {
   curl::has_internet()
 }
+
+cli_abort_if_not <- function(..., .call = .envir, .envir = parent.frame(), .frame = .envir) {
+  for (i in seq_len(...length())) {
+    if (!all(...elt(i))) {
+      cli::cli_abort(
+        ...names()[i],
+        .call = .call,
+        .envir = .envir,
+        .frame = .frame
+      )
+    }
+  }
+  invisible(NULL)
+}
