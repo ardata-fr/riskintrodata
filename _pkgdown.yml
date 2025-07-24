@@ -42,6 +42,13 @@ reference:
     - create_emission_risk_row
     - get_emission_risk_edit_row
     - update_emission_risk_row_from_input
+  - title: Cache Management
+    contents:
+    - init_riskintrodata_cache
+    - riskintrodata_cache_dir
+    - riskintrodata_cache_exists
+    - riskintrodata_dummy_setup
+    - rm_riskintrodata_cache
   - title: Miscellaneous
     contents:
     - is.lng
