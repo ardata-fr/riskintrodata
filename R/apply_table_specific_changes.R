@@ -50,6 +50,16 @@ apply_table_specific_changes <- function(dataset, table_name){
       modif_notes <- c(modif_notes, "Animal mobility table augmented with destination iso3 codes")
     }
 
+    if (!"o_country" %in% colnames(dataset)){
+      out <- mutate(out, o_country = iso3_to_name(.data$o_iso3, lang = "en"))
+      modif_notes <- c(modif_notes, "Animal mobility table origin country name added from iso3 code")
+    }
+
+    if (!"d_country" %in% colnames(dataset)){
+      out <- mutate(out, d_country = iso3_to_name(.data$d_iso3, lang = "en"))
+      modif_notes <- c(modif_notes, "Animal mobility table destination country name added from iso3 code")
+    }
+
   } else if (table_name %in% "epi_units") {
 
     col_names <- colnames(dataset)
