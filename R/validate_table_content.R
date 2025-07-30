@@ -216,4 +216,22 @@ validate_table_content_cli_msg <- function(x){
   cli_abort(messages)
 }
 
+#' @export
+#' @importFrom cli cli_abort
+#' @importFrom rlang caller_env
+check_dataset_valid <- function(
+    x,
+    arg = deparse(substitute(x)),
+    call = caller_env()
+) {
+  validated <- attr(x, "table_validated")
+  if (!isTruthy(validated)){
+    cli_abort(paste(
+      "{.arg {arg}} must be validated.",
+      "See {.help [{.fun apply_mapping}](riskintrodata::apply_mapping)}"
+    ),
+    call = call)
+  }
+  invisible(TRUE)
+}
 
