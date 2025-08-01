@@ -36,19 +36,17 @@ read_geo_file <- function(x) {
   is_shp_not_unique <- length(shp) > 1
   is_shp_not_alone <- is_shp && length(x) > 1
 
-  if (!is_shp) {
-    polygon <- read_sf(x)
-    return(polygon)
+  if (is_shp) {
+    x <- shp
   }
-
-  if (!is_shp_not_alone) {
+  if (is_shp && !is_shp_not_alone) {
     cli_warn(
       c(
         "Shapefiles should be multiple files, only one is selected.",
         "i" = "Please select all the files with the same name."
       )
     )
-  } else if (is_shp_not_unique) {
+  } else if (is_shp && is_shp_not_unique) {
     cli_abort(
       c(
         "Shapefiles should be multiple files, but only one shape file.",
@@ -56,7 +54,7 @@ read_geo_file <- function(x) {
       )
     )
   }
-  polygon <- read_sf(shp)
+  polygon <- read_sf(x)
 
 
   # force geometry column to be named "geometry"
