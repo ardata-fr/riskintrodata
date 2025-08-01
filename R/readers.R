@@ -56,7 +56,42 @@ read_geo_file <- function(x) {
       )
     )
   }
-  read_sf(shp)
+  polygon <- read_sf(shp)
+
+
+  # force geometry column to be named "geometry"
+  st_geometry(polygon) <- "geometry"
+
+  # Standarised geospatial data to 4326 crs (leaflet compatible)
+  polygon <- st_transform(polygon, crs = 4326)
+
+  # Check for empty polygons
+  empty_poly <- polygon |> filter(st_is_empty(.data$geometry))
+  if (nrow(empty_poly) > 0) {
+    cli::cli_warn(
+      paste(nrow(empty_poly), "rows removed from dataset because of empty geometry.")
+    )
+  }
+
+  polygon <- polygon |> filter(!st_is_empty(.data$geometry))
+
+  # Check that sf data types are homogenous (POLYGON/MULTIPOLYGON is OK)
+  unique_types <- unique(st_geometry_type(polygon))
+  all_polygons <- all(unique_types %in% c("POLYGON", "MULTIPOLYGON"))
+  unique_type <- length(unique_types) == 1
+
+  if (!(all_polygons || unique_type)) {
+    cli::cli_abort(
+      paste(
+        "Geospatial file contains multiple geometry types: ",
+        paste(unique_types, collapse = ', ')
+      )
+    )
+  }
+
+
+  polygon
+
 }
 
 

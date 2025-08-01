@@ -11,7 +11,7 @@
 #'  st_coordinates st_crs st_difference st_drop_geometry st_geometry_type
 #'  st_intersection st_intersects st_is_empty st_join st_length st_line_merge
 #'  st_make_valid st_nearest_feature st_point_on_surface st_polygon st_sfc
-#'  st_snap st_transform st_union st_write
+#'  st_snap st_transform st_union st_write st_geometry<-
 #' @importFrom terra
 #'  rast
 #' @importFrom tibble
