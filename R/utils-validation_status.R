@@ -38,6 +38,10 @@ table_content_validation_status <- function(table_name) {
       chk = FALSE,
       msg = "validation has not run yet."
     ),
+    specific_changes = validation_status(
+      chk = FALSE,
+      msg = "validation has not run yet."
+    ),
     dataset = NULL
   )
   class(status) <- "table_validation_status"

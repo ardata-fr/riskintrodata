@@ -54,6 +54,7 @@ table_name_is_valid <- function(x){
 #' @example examples/read_animal_mobility.R
 #' @example examples/read_emission_risk_factors.R
 #' @example examples/read_entry_points.R
+#' @example examples/read_epi_unit_error.R
 validate_table_content <- function(x, table_name, ...) {
   if (!table_name_is_valid(table_name)) {
     cli_abort(c(
@@ -147,12 +148,39 @@ validate_table_content <- function(x, table_name, ...) {
 
   if (status$validate_rules$chk) {
     modifs <- apply_table_specific_changes(dataset = x, table_name = table_name)
-    status$dataset_changes <- modifs$modif_notes
+    status$specific_changes <- validation_status(
+      chk = TRUE,
+      msg = "dataset is valid",
+      details = modifs$modif_notes
+    )
     status$dataset <- modifs$dataset
   }
-  attr(status$dataset, "table_name") <- table_name
-  attr(status$dataset, "valid") <- status$validate_rules$chk
   status
+}
+
+is_dataset_valid <- function(x) {
+  inherits(x, "table_validation_status") &&
+    x$specific_changes$chk
+}
+
+#' @export
+#' @title Extract dataset from validation status
+#' @description
+#' Extracts the dataset from the validation status object returned by
+#' [validate_table_content()].
+#' @param status A validation status object returned by [validate_table_content()].
+#' @return The dataset from the validation status object, with attributes
+#' `table_name` and `valid` set.
+#' @example examples/extract_table.R
+extract_table <- function(status) {
+  stopifnot(
+    "status must be a validation status object" = inherits(status, "table_validation_status"),
+    "status must have a valid dataset" = is_dataset_valid(status),
+    "status must have a table_name" = !is.null(status$table_name)
+  )
+  x <- status$dataset
+  attr(x, "table_name") <- status$table_name
+  x
 }
 
 #' Format validate_table_content into CLI message
@@ -186,10 +214,9 @@ validate_table_content <- function(x, table_name, ...) {
 #' dataset <- try(validate_table_content_cli_msg(status), silent = TRUE)
 #' message(cli::ansi_strip(z))
 validate_table_content_cli_msg <- function(x){
-  y <- x$dataset
-  if (attr(y, "valid")) {
+  if (is_dataset_valid(x)) {
     cli::cli_alert_success("All data in \"{x$table_name}\" valided.")
-    return(y)
+    return(extract_table(x))
   }
 
   invalid <- x$validate_rules$details[!x$validate_rules$details[["valid"]], ]
@@ -225,7 +252,7 @@ check_dataset_valid <- function(
     call = caller_env()
 ) {
 
-  validated <- attr(x, "valid")
+  validated <- is_dataset_valid(x)
   if (!isTruthy(validated)){
     cli_abort(paste(
       "{.arg {arg}} must be validated.",
