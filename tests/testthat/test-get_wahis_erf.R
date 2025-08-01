@@ -44,7 +44,7 @@ test_that("wahis validation works", {
     validate = FALSE
   )
 
-  expect_true(attr(zz, "table_validated"))
+  expect_true(attr(zz, "valid"))
   expect_true(attr(zz, "table_name") == "emission_risk_factors")
 
 })

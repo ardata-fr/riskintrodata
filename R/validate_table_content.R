@@ -151,7 +151,7 @@ validate_table_content <- function(x, table_name, ...) {
     status$dataset <- modifs$dataset
   }
   attr(status$dataset, "table_name") <- table_name
-  attr(status$dataset, "table_validated") <- status$validate_rules$chk
+  attr(status$dataset, "valid") <- status$validate_rules$chk
   status
 }
 
@@ -187,7 +187,7 @@ validate_table_content <- function(x, table_name, ...) {
 #' message(cli::ansi_strip(z))
 validate_table_content_cli_msg <- function(x){
   y <- x$dataset
-  if (attr(y, "table_validated")) {
+  if (attr(y, "valid")) {
     cli::cli_alert_success("All data in \"{x$table_name}\" valided.")
     return(y)
   }
@@ -224,7 +224,8 @@ check_dataset_valid <- function(
     arg = deparse(substitute(x)),
     call = caller_env()
 ) {
-  validated <- attr(x, "table_validated")
+
+  validated <- attr(x, "valid")
   if (!isTruthy(validated)){
     cli_abort(paste(
       "{.arg {arg}} must be validated.",
