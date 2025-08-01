@@ -7,7 +7,7 @@
   "emission_risk_factors"
 )
 
-table_name_is_valid <- function(x){
+table_name_is_valid <- function(x) {
   length(x) == 1 && x %in% .validate_dataset_tables_names
 }
 
@@ -55,7 +55,7 @@ table_name_is_valid <- function(x){
 #' @example examples/read_emission_risk_factors.R
 #' @example examples/read_entry_points.R
 #' @example examples/read_epi_unit_error.R
-validate_table_content <- function(x, table_name, ...) {
+validate_dataset_content <- function(x, table_name, ...) {
   if (!table_name_is_valid(table_name)) {
     cli_abort(c(
       "Invalid table name {table_name}.",
@@ -73,8 +73,7 @@ validate_table_content <- function(x, table_name, ...) {
   status <- table_content_validation_status(table_name = table_name)
 
   # define the specifications for the table
-  spec <- switch(
-    table_name,
+  spec <- switch(table_name,
     "animal_mobility" = .spec_animal_mobility,
     "epi_units" = .spec_epi_units,
     "entry_points" = .spec_entry_points,
@@ -87,7 +86,7 @@ validate_table_content <- function(x, table_name, ...) {
   )
 
   required_columns <- results[results$required, "colname", drop = TRUE]
-  missing_cols <- results[results$required & !results$column_found,  "colname", drop = TRUE]
+  missing_cols <- results[results$required & !results$column_found, "colname", drop = TRUE]
   if (length(missing_cols) > 0) {
     status$required_columns <- validation_status(
       chk = FALSE,
@@ -106,7 +105,7 @@ validate_table_content <- function(x, table_name, ...) {
 
   ## check optional columns ---------
   optional_columns <- results[!results$required, "colname", drop = TRUE]
-  missing_cols <- results[!results$required & !results$column_found,  "colname", drop = TRUE]
+  missing_cols <- results[!results$required & !results$column_found, "colname", drop = TRUE]
   if (length(optional_columns) == 0L) {
     status$optional_columns <- validation_status(
       chk = TRUE,
@@ -158,6 +157,7 @@ validate_table_content <- function(x, table_name, ...) {
   status
 }
 
+#' @export
 is_dataset_valid <- function(x) {
   inherits(x, "table_validation_status") &&
     x$specific_changes$chk
@@ -167,12 +167,12 @@ is_dataset_valid <- function(x) {
 #' @title Extract dataset from validation status
 #' @description
 #' Extracts the dataset from the validation status object returned by
-#' [validate_table_content()].
-#' @param status A validation status object returned by [validate_table_content()].
+#' [validate_dataset_content()].
+#' @param status A validation status object returned by [validate_dataset_content()].
 #' @return The dataset from the validation status object, with attributes
 #' `table_name` and `valid` set.
-#' @example examples/extract_table.R
-extract_table <- function(status) {
+#' @example examples/extract_dataset.R
+extract_dataset <- function(status) {
   stopifnot(
     "status must be a validation status object" = inherits(status, "table_validation_status"),
     "status must have a valid dataset" = is_dataset_valid(status),
@@ -183,11 +183,11 @@ extract_table <- function(status) {
   x
 }
 
-#' Format validate_table_content into CLI message
-#' @param x the output of [validate_table_content()]
+#' Format validate_dataset_content into CLI message
+#' @param x the output of [validate_dataset_content()]
 #'
 #' @return the dataset of `x`, throws errors if there are any validation issues
-#' from [validate_table_content()]
+#' from [validate_dataset_content()]
 #'
 #' @export
 #' @examples
@@ -197,45 +197,49 @@ extract_table <- function(status) {
 #'   animal_category = "Domestic",
 #'   validate = TRUE # default
 #' )
-#' status <- validate_table_content(x, table_name = "emission_risk_factors")
-#' dataset <- validate_table_content_cli_msg(status)
+#' status <- validate_dataset_content(x, table_name = "emission_risk_factors")
+#' dataset <- validate_dataset_content_cli_msg(status)
 #' dataset
 #'
 #' x <- wahis_emission_risk_factors
-#' status <- validate_table_content(x, table_name = "emission_risk_factors")
-#' z <- try(validate_table_content_cli_msg(status), silent = TRUE) # error here if invalid data
+#' status <- validate_dataset_content(x, table_name = "emission_risk_factors")
+#' z <- try(validate_dataset_content_cli_msg(status), silent = TRUE) # error here if invalid data
 #' message(cli::ansi_strip(z))
 #'
 #'
 #' wrong_data <- mtcars
 #' wrong_data$slaughter <- as.integer(round(runif(nrow(mtcars))))
 #' wrong_data$last_outbreak_end_date <- "HELLO"
-#' status <- validate_table_content(wrong_data, table_name = "emission_risk_factors")
-#' dataset <- try(validate_table_content_cli_msg(status), silent = TRUE)
+#' status <- validate_dataset_content(wrong_data, table_name = "emission_risk_factors")
+#' dataset <- try(validate_dataset_content_cli_msg(status), silent = TRUE)
 #' message(cli::ansi_strip(z))
-validate_table_content_cli_msg <- function(x){
+validate_dataset_content_cli_msg <- function(x, cli = TRUE) {
   if (is_dataset_valid(x)) {
     cli::cli_alert_success("All data in \"{x$table_name}\" valided.")
-    return(extract_table(x))
+    return(extract_dataset(x))
   }
 
   invalid <- x$validate_rules$details[!x$validate_rules$details[["valid"]], ]
-  messages <- setNames(paste0("Data validation errors (", nrow(invalid) ,") found for ", quote_and_collapse(x$table_name, quote_char = '"'), ":"), "x")
+  messages <- setNames(paste0("Data validation errors (", nrow(invalid), ") found for ", quote_and_collapse(x$table_name, quote_char = '"'), ":"), "x")
   for (i in seq_len(nrow(invalid))) {
     row <- invalid[i, ]
-    if(is.null(unlist(row$index))){
+    if (is.null(unlist(row$index))) {
       messages <- c(messages, paste0(i, ". ", row$msg))
     } else {
       messages <- c(
         messages,
         paste0(i, ". ", row$msg),
         setNames(
-          sprintf("Invalid values: %s",
-                  quote_and_collapse(unlist(row$value), max_out = 6)), "!"
+          sprintf(
+            "Invalid values: %s",
+            quote_and_collapse(unlist(row$value), max_out = 6)
+          ), "!"
         ),
         setNames(
-          sprintf("At rows: %s",
-                  quote_and_collapse(unlist(row$index),quote_char = "", max_out = 6)), "i"
+          sprintf(
+            "At rows: %s",
+            quote_and_collapse(unlist(row$index), quote_char = "", max_out = 6)
+          ), "i"
         )
       )
     }
@@ -249,17 +253,16 @@ validate_table_content_cli_msg <- function(x){
 check_dataset_valid <- function(
     x,
     arg = deparse(substitute(x)),
-    call = caller_env()
-) {
-
+    call = caller_env()) {
   validated <- is_dataset_valid(x)
-  if (!isTruthy(validated)){
-    cli_abort(paste(
-      "{.arg {arg}} must be validated.",
-      "See {.help [{.fun apply_mapping}](riskintrodata::apply_mapping)}"
-    ),
-    call = call)
+  if (!isTruthy(validated)) {
+    cli_abort(
+      paste(
+        "{.arg {arg}} must be validated.",
+        "See {.help [{.fun apply_mapping}](riskintrodata::apply_mapping)}"
+      ),
+      call = call
+    )
   }
   invisible(TRUE)
 }
-

@@ -11,7 +11,7 @@ x <- readr::read_delim(
   tun_entry_points
 )
 
-DATA_ENTRY_POINTS <- validate_table_content(
+DATA_ENTRY_POINTS <- validate_dataset_content(
   x = x,
   table_name = "entry_points",
   point_name = "NAME",

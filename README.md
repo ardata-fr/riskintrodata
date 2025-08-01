@@ -124,7 +124,7 @@ Excel.
 
 ## Validate data
 
-The package provides a function named `validate_table_content()` to
+The package provides a function named `validate_dataset_content()` to
 validate the content of datasets. This function checks the structure of
 the data and ensures that it meets the expected format, the function
 will check:
@@ -135,13 +135,13 @@ will check:
 
 It can be used with datasets for:
 
-- Epi units, use `validate_table_content(..., name = "epi_units")`.
+- Epi units, use `validate_dataset_content(..., name = "epi_units")`.
 - Emission risks, use
-  `validate_table_content(..., name = "emission_risk_factors")`.
+  `validate_dataset_content(..., name = "emission_risk_factors")`.
 - Animal mobility, use
-  `validate_table_content(..., name = "animal_mobility")`.
+  `validate_dataset_content(..., name = "animal_mobility")`.
 - Entry points, use
-  `validate_table_content(..., name = "entry_points")`.
+  `validate_dataset_content(..., name = "entry_points")`.
 
 The function takes a data frame or an ‘sf’ object as input, along with
 the type of the dataset and any additional arguments for mapping
@@ -161,7 +161,7 @@ tun_epi_files <-
 
 tun_epi_unit <- read_geo_file(tun_epi_files)
 
-DATA_EPI_UNITS <- validate_table_content(
+DATA_EPI_UNITS <- validate_dataset_content(
   x = tun_epi_unit,
   table_name = "epi_units",
   eu_name = "shapeName",

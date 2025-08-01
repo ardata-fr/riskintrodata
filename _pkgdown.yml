@@ -31,8 +31,8 @@ reference:
     - download_road_access_raster
   - title: Data Validation and References
     contents:
-    - validate_table_content
-    - validate_table_content_cli_msg
+    - validate_dataset_content
+    - validate_dataset_content_cli_msg
     - country_reference
     - iso3_to_name
     - apply_mapping

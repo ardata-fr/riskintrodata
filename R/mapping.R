@@ -1,4 +1,3 @@
-
 #' @title Apply dataset mapping to dataset
 #' @description
 #' Utility function to use alongside the mapping object creator functions such as
@@ -15,26 +14,26 @@
 #' @export
 #' @example examples/apply_mapping.R
 #' @family functions for mapping tables
-apply_mapping <- function(dataset, mapping, validate = TRUE){
-
+apply_mapping <- function(dataset, mapping, validate = TRUE) {
   mapping_attr <- attributes(mapping)
   stopifnot(
-    "mapping should have class mapping" =  "mapping" %in% mapping_attr$class,
+    "mapping should have class mapping" = "mapping" %in% mapping_attr$class,
     "mapping should have attribute table_name" = !is.null(mapping_attr$table_name),
     "mapping attribute table_name is invalid" = table_name_is_valid(mapping_attr$table_name)
   )
 
-  # missing columns are checked by validate_table_content
+  # missing columns are checked by validate_dataset_content
   clean_mapping <- nullify(mapping[mapping %in% colnames(dataset)])
-  x <- dataset |> rename(!!!clean_mapping) |>
+  x <- dataset |>
+    rename(!!!clean_mapping) |>
     dplyr::select(all_of(names(clean_mapping)))
 
-  if(validate){
-    validation_status <- validate_table_content(
+  if (validate) {
+    validation_status <- validate_dataset_content(
       x = x,
       table_name = attr(mapping, "table_name")
     )
-    x <- validate_table_content_cli_msg(validation_status)
+    x <- validate_dataset_content_cli_msg(validation_status)
   } else {
     attr(x, "table_name") <- attr(mapping, "table_name")
     attr(x, "valid") <- FALSE
@@ -71,8 +70,7 @@ apply_mapping <- function(dataset, mapping, validate = TRUE){
 #' @family functions for mapping tables
 mapping_entry_points <- function(
     point_name, lng = NULL, lat = NULL, geometry = NULL,
-    mode = NULL, type = NULL, sources = NULL
-){
+    mode = NULL, type = NULL, sources = NULL) {
   if (all(is.null(lat), is.null(lng), is.null(geometry))) {
     cli_abort(
       c(
@@ -113,8 +111,7 @@ mapping_entry_points <- function(
 mapping_epi_units <- function(
     eu_id = NULL,
     eu_name,
-    geometry
-){
+    geometry) {
   x <- list(
     eu_id = eu_id,
     eu_name = eu_name,
@@ -152,11 +149,9 @@ mapping_animal_mobility <- function(
     d_name,
     d_lng,
     d_lat,
-    quantity = NULL
-){
-
+    quantity = NULL) {
   lat_lng_nulls <- sum(c(is.null(o_lng), is.null(o_lat)))
-  if(!lat_lng_nulls %in% c(0, 2)) {
+  if (!lat_lng_nulls %in% c(0, 2)) {
     cli_abort(
       c("If {.var o_lng} is provided then {.var o_lat} and vice versa")
     )
@@ -167,7 +162,7 @@ mapping_animal_mobility <- function(
         "*" = "{.var o_lng} and {.var o_lat}",
         "*" = "{.var o_iso3}",
         "This is used to identify country of provenance."
-        )
+      )
     )
   }
 
@@ -234,8 +229,7 @@ mapping_emission_risk_factors <- function(
     last_outbreak_end_date,
     commerce_illegal,
     commerce_legal,
-    data_source = NULL
-){
+    data_source = NULL) {
   x <- list(
     iso3 = iso3,
     country = country,
@@ -260,4 +254,3 @@ mapping_emission_risk_factors <- function(
   attr(x, "table_name") <- "emission_risk_factors"
   x
 }
-
