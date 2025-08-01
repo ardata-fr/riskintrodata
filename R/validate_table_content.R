@@ -219,32 +219,40 @@ validate_dataset_content_cli_msg <- function(x, cli = TRUE) {
     return(extract_dataset(x))
   }
 
-  invalid <- x$validate_rules$details[!x$validate_rules$details[["valid"]], ]
-  messages <- setNames(paste0("Data validation errors (", nrow(invalid), ") found for ", quote_and_collapse(x$table_name, quote_char = '"'), ":"), "x")
-  for (i in seq_len(nrow(invalid))) {
-    row <- invalid[i, ]
-    if (is.null(unlist(row$index))) {
-      messages <- c(messages, paste0(i, ". ", row$msg))
-    } else {
-      messages <- c(
-        messages,
-        paste0(i, ". ", row$msg),
-        setNames(
-          sprintf(
-            "Invalid values: %s",
-            quote_and_collapse(unlist(row$value), max_out = 6)
-          ), "!"
-        ),
-        setNames(
-          sprintf(
-            "At rows: %s",
-            quote_and_collapse(unlist(row$index), quote_char = "", max_out = 6)
-          ), "i"
-        )
-      )
-    }
-  }
-  cli_abort(messages)
+  dplyr::bind_rows(
+    tibble(
+      type = if(x$required_columns$chk) "success" else "error",
+      message = x$required_columns$msg,
+      index = 1,
+      sub_index = 1
+    ),
+    tibble(
+      type = if(x$optional_columns$chk) "success" else "error",
+      message = x$optional_columns$msg,
+      index = 2,
+      sub_index = 1
+    ),
+    x$validate_rules$details |>
+      filter(!.data$valid) |>
+      dplyr::transmute(
+        type = ifelse(.data$valid, "success", "error"),
+        message = .data$msg,
+        index = 3,
+        sub_index = seq_len(n())
+      ),
+    tibble(
+      type = if(x$specific_changes$chk) "success" else "error",
+      message = x$specific_changes$msg,
+      index = 4,
+      sub_index = 1
+    )
+  ) |> dplyr::arrange(.data$index, .data$sub_index) |>
+    dplyr::mutate(
+      index = NULL, sub_index = NULL
+    ) |> filter(type %in% "error")
+
+
+
 }
 
 #' @export
