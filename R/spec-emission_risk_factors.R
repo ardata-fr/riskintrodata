@@ -17,7 +17,7 @@
     required = TRUE,
     validation_func = list(
       "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x)),
-      "has multiple values, each riskintro study should only have one disease" = function(x) length(unique(x)) == 1
+      "has multiple values, each riskintro study should only have one disease" = function(x) length(unique(x)) %in% c(1,0)
     )
     )
   ),
@@ -26,7 +26,7 @@
     required = TRUE,
     validation_func = list(
       "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x)),
-      "has multiple values, each riskintro study should only have one animal category" = function(x) length(unique(x)) == 1
+      "has multiple values, each riskintro study should only have one animal category" = function(x) length(unique(x)) %in% c(1,0)
     )
   ),
 
@@ -34,7 +34,7 @@
     required = TRUE,
     validation_func = list(
       "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x)),
-      "has multiple values, each riskintro study should only have one animal category" = function(x) length(unique(x)) == 1
+      "has multiple values, each riskintro study should only have one animal category" = function(x) length(unique(x)) %in% c(1,0)
     )
   ),
 

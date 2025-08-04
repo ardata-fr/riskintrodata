@@ -5,10 +5,10 @@
 \title{Get WAHIS Emission Risk Factors Dataset}
 \usage{
 get_wahis_erf(
-  disease = NULL,
-  species = NULL,
-  animal_category = NULL,
-  validate = TRUE
+  disease,
+  species,
+  animal_category = c("Domestic", "Wild"),
+  quiet = FALSE
 )
 }
 \arguments{
@@ -18,36 +18,32 @@ get_wahis_erf(
 
 \item{animal_category}{filter dataset for one or more animal_category}
 
-\item{validate}{defaults to TRUE - ensuring that the table is valid for use
-in following \code{riskintroanalysis} steps.}
+\item{quiet}{whether to quieten information message. Default is FALSE.}
 }
 \value{
-the emission risk factorts dataset as documented here \link{wahis_emission_risk_factors}
+A tibble of emission risk factors data. Also has the attributes:
+\itemize{
+\item \code{table_name = "emission_risk_factors"}
+\item \code{study_settings} which is a named character vector containing the
+parameter arguments.
+}
 }
 \description{
-Helper function for getting the WAHIS emission risk factors dataset. As most
-analysis done require filtering for one type of each of diease, species and
-animal_category, this function is a helper for that.
+Helper function for getting the WAHIS emission risk factors dataset. Riskintro
+analysis is intended one value of each of \code{disease}, \code{species} and
+\code{animal_category}, this function is a helper for that. That is to say only
+one disease in one animal is analysed at a time.
 
-For dataset documentation see: \link{wahis_emission_risk_factors}.
-
-The function is supposed to be used to get data for all countries that could
-be involved in the introduction of a risk. The function can not be used to
-gather data for different diseases, species or animal categories at the same time.
+For dataset documentation see: \link{wahis_emission_risk_factors}
 }
 \examples{
 data_for_riskintro_study <- get_wahis_erf(
   disease = "Anthrax",
   species = "Cattle",
-  animal_category = "Domestic",
-  validate = TRUE # default
+  animal_category = "Domestic"
 )
 data_for_riskintro_study
-
-all_erf_data <- get_wahis_erf(
-  validate = FALSE # default
-)
-
+attr(data_for_riskintro_study, "study_settings")
 }
 \seealso{
 Other functions for "Emission Risk Factors" management: 
