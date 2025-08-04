@@ -159,29 +159,41 @@ read_emission_risk_factor_file <- function(filepath) {
     ))
   }
 
-  read_delim(
-    filepath,
-    col_types = cols(
-      iso3 = col_character(),
-      country = col_character(),
-      disease = col_character(),
-      animal_category = col_character(),
-      species = col_character(),
-      disease_notification = col_integer(),
-      targeted_surveillance = col_integer(),
-      general_surveillance = col_integer(),
-      screening = col_integer(),
-      precautions_at_the_borders = col_integer(),
-      slaughter = col_integer(),
-      selective_killing_and_disposal = col_integer(),
-      zoning = col_integer(),
-      official_vaccination = col_integer(),
-      last_outbreak_end_date = col_date(),
-      commerce_illegal = col_integer(),
-      commerce_legal = col_integer(),
-      data_source = col_character()
-    )
+  col_types <- cols(
+    iso3 = col_character(),
+    country = col_character(),
+    disease = col_character(),
+    animal_category = col_character(),
+    species = col_character(),
+    disease_notification = col_integer(),
+    targeted_surveillance = col_integer(),
+    general_surveillance = col_integer(),
+    screening = col_integer(),
+    precautions_at_the_borders = col_integer(),
+    slaughter = col_integer(),
+    selective_killing_and_disposal = col_integer(),
+    zoning = col_integer(),
+    official_vaccination = col_integer(),
+    last_outbreak_end_date = col_date(),
+    commerce_illegal = col_integer(),
+    commerce_legal = col_integer(),
+    data_source = col_character()
   )
+  dataset <- read_delim(
+    filepath,
+    col_types = col_types,
+    col_select = names(col_types$cols)
+  )
+
+  validation_status <- validate_dataset(dataset, "emission_risk_factors")
+  out <- extract_dataset(validation_status)
+
+  attr(out, "study_settings") <- c(
+    disease = unique(out$disease),
+    species = unique(out$species),
+    animal_category = unique(out$animal_category)
+  )
+  out
 }
 
 #' @export
