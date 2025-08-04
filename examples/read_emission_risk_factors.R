@@ -9,6 +9,6 @@ tun_erf_file <-
   )
 x <- read_emission_risk_factor_file(tun_erf_file)
 
-DATA_ERF <- validate_table_content(x, table_name = "emission_risk_factors")
+DATA_ERF <- validate_dataset_content(x, table_name = "emission_risk_factors")
 
 DATA_ERF

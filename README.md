@@ -1,37 +1,47 @@
 
+- [1 riskintrodata](#1-riskintrodata)
+  - [1.1 Motivation](#11-motivation)
+  - [1.2 Installation](#12-installation)
+  - [1.3 Read data](#13-read-data)
+  - [1.4 Validate data](#14-validate-data)
+    - [1.4.1 Mapping for entry points](#141-mapping-for-entry-points)
+    - [1.4.2 Mapping for epidemiological
+      units](#142-mapping-for-epidemiological-units)
+    - [1.4.3 Mapping for animal
+      mobility](#143-mapping-for-animal-mobility)
+    - [1.4.4 Mapping for emission risk
+      factors](#144-mapping-for-emission-risk-factors)
+  - [1.5 Emission risk factors
+    management](#15-emission-risk-factors-management)
+  - [1.6 References data](#16-references-data)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# riskintrodata
+# 1 riskintrodata
 
 The ‘riskintrodata’ package is designed to provide a set of functions
-and datasets  
-that support the management of data used to estimate the risk of
-introducing an animal  
-disease into a specific geographical region.
+and datasets that support the management of data used to estimate the
+risk of introducing an animal disease into a specific geographical
+region.
 
 It includes tools for reading and validating both geographic and tabular
-datasets  
-commonly used in the context of animal disease risk estimation.
+datasets commonly used in the context of animal disease risk estimation.
 
-## Motivation
+## 1.1 Motivation
 
 The primary motivation for creating ‘riskintrodata’ is to isolate and
 centralize the datasets and data import functions required by the
-‘riskintro’ application  
-into a dedicated package. This separation simplifies testing, improves
-clarity,  
-and makes it easier to document the datasets used in the application in
-a structured way.
+‘riskintro’ application into a dedicated package. This separation
+simplifies testing, improves clarity, and makes it easier to document
+the datasets used in the application in a structured way.
 
 Additionally, the ‘riskintrodata’ package is designed to simplify
-package management.  
-It helps reduce the complexity of handling the numerous packages
-required by the  
-‘riskintro’ application. By centralizing essential datasets and their
-associated  
-import functions, ‘riskintrodata’ minimizes package dependencies.
+package management. It helps reduce the complexity of handling the
+numerous packages required by the ‘riskintro’ application. By
+centralizing essential datasets and their associated import functions,
+‘riskintrodata’ minimizes package dependencies.
 
-## Installation
+## 1.2 Installation
 
 You can install the development version of riskintrodata like so:
 
@@ -39,7 +49,7 @@ You can install the development version of riskintrodata like so:
 pak::pak("ardata-fr/riskintrodata")
 ```
 
-## Read data
+## 1.3 Read data
 
 ``` r
 library(riskintrodata)
@@ -67,8 +77,8 @@ read_geo_file(tun_files)
 #> Bounding box:  xmin: 7.530076 ymin: 30.23681 xmax: 11.59826 ymax: 37.55986
 #> Geodetic CRS:  WGS 84
 #> # A tibble: 268 × 2
-#>    eu_name                                                                  geom
-#>    <chr>                                                      <MULTIPOLYGON [°]>
+#>    eu_name                                                              geometry
+#>  * <chr>                                                      <MULTIPOLYGON [°]>
 #>  1 Ariana Médina      (((10.13861 36.89453, 10.14495 36.89476, 10.15127 36.8947…
 #>  2 Ettadhamen         (((10.05585 36.84308, 10.06575 36.85019, 10.07327 36.8544…
 #>  3 Kalaat El Andalous (((10.13862 36.89416, 10.1329 36.88994, 10.13283 36.88892…
@@ -96,7 +106,7 @@ read_geo_file(nga_files)
 #> Geodetic CRS:  WGS 84
 #> # A tibble: 37 × 6
 #>    shapeName     shapeISO shapeID shapeGroup shapeType                  geometry
-#>    <chr>         <chr>    <chr>   <chr>      <chr>                 <POLYGON [°]>
+#>  * <chr>         <chr>    <chr>   <chr>      <chr>                 <POLYGON [°]>
 #>  1 Cross River   NG-CR    276711… NGA        ADM1      ((8.274303 4.854739, 8.3…
 #>  2 Abuja Federa… NG-FC    276711… NGA        ADM1      ((6.980815 8.443728, 7.0…
 #>  3 Ogun          NG-OG    276711… NGA        ADM1      ((4.483238 6.326054, 4.4…
@@ -118,13 +128,19 @@ ra_raster <- read_raster_file(x = road_access_raster_file)
 ra_raster
 ```
 
-There is no specific function to read tabular data, but you can use the
+A third function, `read_emission_risk_factor_file()`, is available to
+read tabular data related to emission risk factors. This function reads
+a text file containing emission risk factors for animal diseases. The
+file should be in a tabular format with specific columns (see details in
+the function documentation).
+
+There is no other function to read tabular data, but you can use the
 package ‘readr’ or ‘readxl’ to read the data if the format is CSV or
 Excel.
 
-## Validate data
+## 1.4 Validate data
 
-The package provides a function named `validate_table_content()` to
+The package provides a function named `validate_dataset_content()` to
 validate the content of datasets. This function checks the structure of
 the data and ensures that it meets the expected format, the function
 will check:
@@ -135,13 +151,14 @@ will check:
 
 It can be used with datasets for:
 
-- Epi units, use `validate_table_content(..., name = "epi_units")`.
+- Epi units, use
+  `validate_dataset_content(..., table_name = "epi_units")`.
 - Emission risks, use
-  `validate_table_content(..., name = "emission_risk_factors")`.
+  `validate_dataset_content(..., table_name = "emission_risk_factors")`.
 - Animal mobility, use
-  `validate_table_content(..., name = "animal_mobility")`.
+  `validate_dataset_content(..., table_name = "animal_mobility")`.
 - Entry points, use
-  `validate_table_content(..., name = "entry_points")`.
+  `validate_dataset_content(..., table_name = "entry_points")`.
 
 The function takes a data frame or an ‘sf’ object as input, along with
 the type of the dataset and any additional arguments for mapping
@@ -161,7 +178,7 @@ tun_epi_files <-
 
 tun_epi_unit <- read_geo_file(tun_epi_files)
 
-DATA_EPI_UNITS <- validate_table_content(
+DATA_EPI_UNITS <- validate_dataset_content(
   x = tun_epi_unit,
   table_name = "epi_units",
   eu_name = "shapeName",
@@ -172,15 +189,28 @@ DATA_EPI_UNITS
 #> $table_name
 #> [1] "epi_units"
 #> 
+#> $matching_columns
+#> $chk
+#> [1] FALSE
+#> 
+#> $msg
+#> The mapped names are not available in the dataset: `shapeName` and `fid`.
+#> 
+#> $details
+#> [1] "shapeName" "fid"      
+#> 
+#> attr(,"class")
+#> [1] "validation_status"
+#> 
 #> $required_columns
 #> $chk
 #> [1] FALSE
 #> 
 #> $msg
-#> The following required columns are missing: `eu_name` and `geometry`
+#> The following required columns are missing: `eu_name`
 #> 
 #> $details
-#> [1] "eu_name"  "geometry"
+#> [1] "eu_name"
 #> 
 #> attr(,"class")
 #> [1] "validation_status"
@@ -206,13 +236,27 @@ DATA_EPI_UNITS
 #> [1] "Found invalidities while checking dataset."
 #> 
 #> $details
-#> # A tibble: 4 × 8
+#> # A tibble: 5 × 8
 #>   colname  valid required column_found n     index value msg                    
 #>   <chr>    <lgl> <lgl>    <lgl>        <lgl> <lgl> <lgl> <glue>                 
 #> 1 eu_id    TRUE  FALSE    TRUE         NA    NA    NA    "eu_id" has been valid…
 #> 2 eu_id    TRUE  FALSE    TRUE         NA    NA    NA    "eu_id" has been valid…
 #> 3 eu_name  FALSE TRUE     FALSE        NA    NA    NA    Column: "eu_name" is m…
-#> 4 geometry FALSE TRUE     FALSE        NA    NA    NA    Column: "geometry" is …
+#> 4 geometry TRUE  TRUE     TRUE         NA    NA    NA    "geometry" has been va…
+#> 5 geometry TRUE  TRUE     TRUE         NA    NA    NA    "geometry" has been va…
+#> 
+#> attr(,"class")
+#> [1] "validation_status"
+#> 
+#> $specific_changes
+#> $chk
+#> [1] FALSE
+#> 
+#> $msg
+#> [1] "transformations not applied."
+#> 
+#> $details
+#> NULL
 #> 
 #> attr(,"class")
 #> [1] "validation_status"
@@ -224,7 +268,7 @@ DATA_EPI_UNITS
 #> Bounding box:  xmin: 7.530076 ymin: 30.23681 xmax: 11.59826 ymax: 37.55986
 #> Geodetic CRS:  WGS 84
 #> # A tibble: 268 × 1
-#>                                                                             geom
+#>                                                                         geometry
 #>                                                               <MULTIPOLYGON [°]>
 #>  1 (((10.13861 36.89453, 10.14495 36.89476, 10.15127 36.89476, 10.1576 36.89235…
 #>  2 (((10.05585 36.84308, 10.06575 36.85019, 10.07327 36.8544, 10.07366 36.85451…
@@ -242,13 +286,7 @@ DATA_EPI_UNITS
 #> [1] "table_validation_status"
 ```
 
-The `mapping_*` functions are utilities to help users map their own data
-column names to the standardized column names expected by the
-‘riskintrodata’ package. These mappings are used with the
-`apply_mapping()` function to rename, select, and validate columns for
-risk analysis workflows.
-
-### Mapping for entry points
+### 1.4.1 Mapping for entry points
 
 Maps columns for entry points datasets (e.g., border crossings,
 airports, seaports).
@@ -263,7 +301,7 @@ Optional:
 missing)  
 - `sources`: List of ISO3 codes for source countries
 
-### Mapping for epidemiological units
+### 1.4.2 Mapping for epidemiological units
 
 Maps columns for epidemiological units datasets (e.g., administrative
 areas).
@@ -275,7 +313,7 @@ Required:
 Optional:  
 - `eu_id`: Unique identifier for the epi unit
 
-### Mapping for animal mobility
+### 1.4.3 Mapping for animal mobility
 
 Maps columns for animal movement datasets.
 
@@ -289,7 +327,7 @@ Optional:
 - `d_iso3`: Destination ISO3 code  
 - `quantity`: Number of animals moved
 
-### Mapping for emission risk factors
+### 1.4.4 Mapping for emission risk factors
 
 Maps columns for emission risk factors datasets (used for risk scoring).
 
@@ -305,10 +343,25 @@ Optional:
 - `data_source`: Source of the data
 
 Each mapping function returns a mapping object that can be passed to
-`apply_mapping()` to standardize and validate your dataset for use in
-the ‘riskintro’ analysis pipeline.
+`validate_dataset_content()` to standardize and validate your dataset
+for use in the ‘riskintro’ analysis pipeline.
 
-## References data
+## 1.5 Emission risk factors management
+
+`get_wahis_erf` is an helper function for getting the WAHIS emission
+risk factors dataset. As most analysis done require filtering for one
+type of each of diease, species and animal_category, this function is a
+helper for that.
+
+`erf_row` is a function to create a single row of emission risk factors
+data. It takes parameters corresponding to the columns of the emission
+risk factors dataset and returns a tibble with the provided values.
+
+`read_emission_risk_factor_file()` reads a text file containing emission
+risk factors for animal diseases. The file should be in a tabular format
+with specific columns (see details in the function documentation).
+
+## 1.6 References data
 
 The package includes several reference datasets that are used in the
 context of animal disease risk estimation:
@@ -316,13 +369,13 @@ context of animal disease risk estimation:
 - iso3 country codes, available with the function `country_reference()`.
   Also a utility function `iso3_to_name()` is provided to convert ISO3
   codes to country names.
-
-# TODO
-
-- [ ] list reference datasets
-- [ ] document and illustrate `read_emission_risk_factor_file()`
-- [ ] fortify `create_emission_risk_row()` and ensure it works as
-  expected.
-- [ ] *Entry point* type is in French (“PIF Aerien”), CIRAD suggested to
-  use English names but the data we have is in French, so we need to
-  decide whether to keep it in French or translate it to English.
+- list `emission_risk_weights` contains the emission risk weights by
+  default used to calculate emission risk scores and emission risk from
+  emission risk factors.
+- `neighbours_table` A correspondence table of all countries and their
+  neighbours,
+- `world_sf`, an SF dataset containing global administrative boundaries
+  for most countries,
+- `wahis_emission_risk_factors`: Emission Risk Factors dataset from
+  WAHIS,
+- get default emission risk weights with `get_erf_weights()` function.

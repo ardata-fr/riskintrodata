@@ -1,5 +1,9 @@
 ---
-output: github_document
+output:
+  github_document:
+    toc: true
+    toc_depth: 4
+    number_sections: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -15,24 +19,24 @@ knitr::opts_chunk$set(
 
 # riskintrodata
 
-The 'riskintrodata' package is designed to provide a set of functions and datasets  
-that support the management of data used to estimate the risk of introducing an animal  
+The 'riskintrodata' package is designed to provide a set of functions and datasets
+that support the management of data used to estimate the risk of introducing an animal
 disease into a specific geographical region.
 
-It includes tools for reading and validating both geographic and tabular datasets  
+It includes tools for reading and validating both geographic and tabular datasets
 commonly used in the context of animal disease risk estimation.
 
 
 ## Motivation
 
 The primary motivation for creating 'riskintrodata' is to isolate and centralize
-the datasets and data import functions required by the 'riskintro' application  
-into a dedicated package. This separation simplifies testing, improves clarity,  
+the datasets and data import functions required by the 'riskintro' application 
+into a dedicated package. This separation simplifies testing, improves clarity,
 and makes it easier to document the datasets used in the application in a structured way.
 
-Additionally, the 'riskintrodata' package is designed to simplify package management.  
-It helps reduce the complexity of handling the numerous packages required by the  
-'riskintro' application. By centralizing essential datasets and their associated  
+Additionally, the 'riskintrodata' package is designed to simplify package management.
+It helps reduce the complexity of handling the numerous packages required by the
+'riskintro' application. By centralizing essential datasets and their associated
 import functions, 'riskintrodata' minimizes package dependencies.
 
 
@@ -87,12 +91,17 @@ ra_raster <- read_raster_file(x = road_access_raster_file)
 ra_raster
 ```
 
-There is no specific function to read tabular data, but you can use the
+A third function, `read_emission_risk_factor_file()`, is available to read 
+tabular data related to emission risk factors. This function reads a text file
+containing emission risk factors for animal diseases. The file should be in a tabular
+format with specific columns (see details in the function documentation).
+
+There is no other function to read tabular data, but you can use the
 package 'readr' or 'readxl' to read the data if the format is CSV or Excel.
 
 ## Validate data
 
-The package provides a function named `validate_table_content()` to validate 
+The package provides a function named `validate_dataset_content()` to validate 
 the content of datasets. This function checks the structure of the data and ensures that it meets the expected format, the function will check:
 
 - the presence of required columns
@@ -101,10 +110,10 @@ the content of datasets. This function checks the structure of the data and ensu
 
 It can be used with datasets for:
 
-- Epi units, use `validate_table_content(..., name = "epi_units")`.
-- Emission risks, use `validate_table_content(..., name = "emission_risk_factors")`.
-- Animal mobility, use `validate_table_content(..., name = "animal_mobility")`.
-- Entry points, use `validate_table_content(..., name = "entry_points")`.
+- Epi units, use `validate_dataset_content(..., table_name = "epi_units")`.
+- Emission risks, use `validate_dataset_content(..., table_name = "emission_risk_factors")`.
+- Animal mobility, use `validate_dataset_content(..., table_name = "animal_mobility")`.
+- Entry points, use `validate_dataset_content(..., table_name = "entry_points")`.
 
 The function takes a data frame or an 'sf' object as input, along with the type of the dataset and any additional arguments for mapping columns. It returns a list containing the validation status of the dataset, i.e. the required and optional columns, the validation rules, and the dataset itself after renaming and selecting the specified columns.
 
@@ -114,9 +123,6 @@ knitr::read_chunk("examples/read_epi_unit.R")
 
 ```{r read-epi-units-tunisia, echo=TRUE}
 ```
-
-
-The `mapping_*` functions are utilities to help users map their own data column names to the standardized column names expected by the 'riskintrodata' package. These mappings are used with the `apply_mapping()` function to rename, select, and validate columns for risk analysis workflows.
 
 ### Mapping for entry points
 
@@ -170,20 +176,39 @@ Optional:
 
 
 Each mapping function returns a mapping object that can be passed to 
-`apply_mapping()` to standardize and validate your dataset for use in the 
+`validate_dataset_content()` to standardize and validate your dataset for use in the 
 'riskintro' analysis pipeline.
 
+## Data structures utilities
 
-## References data
+### Emission risk factors management
+
+`get_wahis_erf` is an helper function for getting the WAHIS emission risk factors dataset. As most analysis done require filtering for one type of each of diease, species and animal_category, this function is a helper for that.
+
+`erf_row` is a function to create a single row of emission risk factors data. It takes parameters corresponding to the columns of the emission risk factors dataset and returns a tibble with the provided values.
+
+`read_emission_risk_factor_file()` reads a text file containing emission risk factors for animal diseases. The file should be in a tabular format with specific columns (see details in the function documentation).
+
+### Emission risk management
+
+`create_emission_risk_row` is a function to create a single row of emission risk data. It takes parameters corresponding to the columns of the emission risk dataset and returns a tibble with the provided values.
+
+`get_emission_risk_edit_row` is a function to get a row of emission risk data for editing. It takes parameters corresponding to the columns of the emission risk dataset and returns a tibble with the provided values.
+
+`update_emission_risk_row_from_input`
+
+
+## Reference datasets
 
 The package includes several reference datasets that are used in the context of animal disease risk estimation:
 
 - iso3 country codes, available with the function `country_reference()`. 
 Also a utility function `iso3_to_name()` is provided to convert ISO3 codes to country names.
+- list `emission_risk_weights` contains the emission risk weights by default 
+used to calculate emission risk scores and emission risk from emission risk factors.
+- `neighbours_table` A correspondence table of all countries and their neighbours,
+- `world_sf`, an SF dataset containing global administrative boundaries for most 
+countries,
+- `wahis_emission_risk_factors`: Emission Risk Factors dataset from WAHIS,
+- get default emission risk weights with `get_erf_weights()` function.
 
-# TODO
-
-- [ ] list reference datasets
-- [ ] document and illustrate `read_emission_risk_factor_file()`
-- [ ] fortify `create_emission_risk_row()` and ensure it works as expected.
-- [ ] *Entry point* type is in French ("PIF Aerien"), CIRAD suggested to use English names but the data we have is in French, so we need to decide whether to keep it in French or translate it to English.

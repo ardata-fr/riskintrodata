@@ -2,7 +2,7 @@
 % Please edit documentation in R/mapping.R
 \name{mapping_emission_risk_factors}
 \alias{mapping_emission_risk_factors}
-\title{Emission risk factors dataset mapping}
+\title{Emission Risk Mapping}
 \usage{
 mapping_emission_risk_factors(
   iso3,
@@ -63,17 +63,18 @@ mapping_emission_risk_factors(
 \item{data_source}{Character. A description of the data source, defaulting to the user name and current date. This is free text.}
 }
 \value{
-mapping object to be used with \code{\link[=apply_mapping]{apply_mapping()}}
+mapping object to be used by \code{\link[=validate_dataset_content]{validate_dataset_content()}}
 }
 \description{
-A dataset mapping is used with \code{\link[=apply_mapping]{apply_mapping()}} to renames, select and validation
-the columns in a dataset that correspond to the parameter names below.
-
+Get mapping description for \emph{Emission Risk}.
 For more about the data requirements of this dataset see \link{wahis_emission_risk_factors} documentation
+}
+\details{
+A dataset mapping is used by \code{\link[=validate_dataset_content]{validate_dataset_content()}} to rename, select and validation
+the columns in a dataset that correspond to the parameter names below.
 }
 \seealso{
 Other functions for mapping tables: 
-\code{\link{apply_mapping}()},
 \code{\link{mapping_animal_mobility}()},
 \code{\link{mapping_entry_points}()},
 \code{\link{mapping_epi_units}()}

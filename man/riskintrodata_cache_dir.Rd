@@ -34,3 +34,4 @@ Other riskintrodata cache management:
 \code{\link{rm_riskintrodata_cache}()}
 }
 \concept{riskintrodata cache management}
+\keyword{internal}

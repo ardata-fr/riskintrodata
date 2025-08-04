@@ -37,9 +37,7 @@ get_wahis_erf <- function(
     disease = NULL,
     species = NULL,
     animal_category = NULL,
-    validate = TRUE
-){
-
+    validate = TRUE) {
   wahis_erf <- riskintrodata::wahis_emission_risk_factors
 
   if (validate) {
@@ -78,10 +76,8 @@ get_wahis_erf <- function(
 
   if (validate) {
     if (nrow(x) > 0) {
-
-      x <- validate_table_content(x, "emission_risk_factors")
-      x <- validate_table_content_cli_msg(x)
-
+      x <- validate_dataset_content(x, "emission_risk_factors")
+      x <- extract_dataset(x)
       cli_alert_success(paste(
         "WAHIS emission risk factors dataset has {nrow(x)} entr{?y/ies} for",
         "{.code disease = {disease}}, {.code species = {species}},",
@@ -110,7 +106,7 @@ get_wahis_erf <- function(
     }
   }
 
-  attr(x,"table_name") <- "emission_risk_factors"
+  attr(x, "table_name") <- "emission_risk_factors"
   x
 }
 
@@ -178,7 +174,6 @@ get_wahis_erf <- function(
 #' @family functions for "Emission Risk Factors" management
 #' @export
 #' @importFrom tibble tibble
-#' @importFrom riskintrodata validate_table_content validate_table_content_cli_msg
 erf_row <- function(
     iso3,
     country,
@@ -197,11 +192,7 @@ erf_row <- function(
     last_outbreak_end_date = as.Date("01/01/1900"),
     commerce_illegal = 0L,
     commerce_legal = 0L,
-    data_source = paste0("User ", Sys.info()[["user"]], " - ", Sys.Date())
-){
-
-
-
+    data_source = paste0("User ", Sys.info()[["user"]], " - ", Sys.Date())) {
   x <- tibble::tibble(
     iso3 = iso3,
     country = country,
@@ -223,15 +214,13 @@ erf_row <- function(
     data_source = data_source
   )
 
-  status <- validate_table_content(x, table_name = "emission_risk_factors")
-  dataset <- validate_table_content_cli_msg(status)
-
-  attr(dataset, "datatype") <- "erf_table"
+  status <- validate_dataset_content(x, table_name = "emission_risk_factors")
+  dataset <- extract_dataset(status)
   dataset
 }
 
-if_numeric_to_int <- function(x){
-  ifelse(class(x) %in% c("numeric", "logical") , as.integer(x), x)
+if_numeric_to_int <- function(x) {
+  ifelse(class(x) %in% c("numeric", "logical"), as.integer(x), x)
 }
 
 if_not_date <- function(x) {

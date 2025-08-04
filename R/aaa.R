@@ -17,7 +17,7 @@
 #' @importFrom tibble
 #'  tibble
 #' @importFrom dplyr
-#'  arrange distinct filter rename select mutate summarise
+#'  arrange distinct filter rename select mutate summarise transmute
 #'  group_by rowwise ungroup
 #'  bind_rows rows_append rows_delete rows_update rows_upsert
 #'  anti_join inner_join left_join right_join

@@ -2,7 +2,7 @@
 % Please edit documentation in R/mapping.R
 \name{mapping_animal_mobility}
 \alias{mapping_animal_mobility}
-\title{Animal movement dataset mapping}
+\title{Animal Movement Mapping}
 \usage{
 mapping_animal_mobility(
   o_iso3 = NULL,
@@ -37,15 +37,17 @@ mapping_animal_mobility(
 of animals, if not provided no weighting is done.}
 }
 \value{
-mapping object to be used with \code{\link[=apply_mapping]{apply_mapping()}}
+mapping object to be used by \code{\link[=validate_dataset_content]{validate_dataset_content()}}
 }
 \description{
-A dataset mapping is used with \code{\link[=apply_mapping]{apply_mapping()}} to renames, select and validation
+Get mapping description for \emph{Animal Movement}.
+}
+\details{
+A dataset mapping is used by \code{\link[=validate_dataset_content]{validate_dataset_content()}} to rename, select and validation
 the columns in a dataset that correspond to the parameter names below.
 }
 \seealso{
 Other functions for mapping tables: 
-\code{\link{apply_mapping}()},
 \code{\link{mapping_emission_risk_factors}()},
 \code{\link{mapping_entry_points}()},
 \code{\link{mapping_epi_units}()}
