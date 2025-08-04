@@ -1,4 +1,3 @@
-
 #' @title Apply dataset mapping to dataset
 #' @description
 #' Utility function to use alongside the mapping object creator functions such as
@@ -8,46 +7,31 @@
 #'
 #' @param dataset dataset to apply mapping to
 #' @param mapping mapping to apply to dataset
-#' @param validate whether to validate the dataset, TRUE by default
-#' @return `dataset` with renamed columns based on mapping and with attribute
-#'  "table_name" set to the expected table type and attribute "valid" indicating
-#'  if validated or not.
-#' @export
-#' @example examples/apply_mapping.R
-#' @family functions for mapping tables
-apply_mapping <- function(dataset, mapping, validate = TRUE){
-
+#' @return `dataset` with renamed columns based on mapping.
+#' @noRd
+apply_mapping <- function(dataset, mapping) {
   mapping_attr <- attributes(mapping)
-  stopifnot(
-    "mapping should have class mapping" =  "mapping" %in% mapping_attr$class,
+  cli_abort_if_not(
+    "mapping should have class mapping" = "mapping" %in% mapping_attr$class,
     "mapping should have attribute table_name" = !is.null(mapping_attr$table_name),
     "mapping attribute table_name is invalid" = table_name_is_valid(mapping_attr$table_name)
   )
 
-  # missing columns are checked by validate_table_content
+  # missing columns are checked by validate_dataset_content
   clean_mapping <- nullify(mapping[mapping %in% colnames(dataset)])
-  x <- dataset |> rename(!!!clean_mapping) |>
+  x <- dataset |>
+    rename(!!!clean_mapping) |>
     dplyr::select(all_of(names(clean_mapping)))
-
-  if(validate){
-    validation_status <- validate_table_content(
-      x = x,
-      table_name = attr(mapping, "table_name")
-    )
-    x <- validate_table_content_cli_msg(validation_status)
-  } else {
-    attr(x, "table_name") <- attr(mapping, "table_name")
-    attr(x, "valid") <- FALSE
-  }
 
   x
 }
 
-#' Entry points dataset mapping
-#'
-#' A dataset mapping is used with [apply_mapping()] to renames, select and validation
+#' @title Entry Points Mapping
+#' @description
+#' Get mapping description for *Entry Points*.
+#' @details
+#' A dataset mapping is used by [validate_dataset_content()] to rename, select and validation
 #' the columns in a dataset that correspond to the parameter names below.
-#'
 #' @param point_name character column naming or describing the point
 #' @param lng numeric column, latitude of point
 #' @param lat numeric column, longitude of point (required if no geometry column present)
@@ -65,14 +49,13 @@ apply_mapping <- function(dataset, mapping, validate = TRUE){
 #' - NA (missing)".
 #' @param sources character, optional, this is a list of all the ISO3 country codes
 #' that animals enter from through this entry point.
-#' @return mapping object to be used with [apply_mapping()]
+#' @return mapping object to be used by [validate_dataset_content()]
 #' @export
 #' @importFrom cli cli_abort
 #' @family functions for mapping tables
 mapping_entry_points <- function(
     point_name, lng = NULL, lat = NULL, geometry = NULL,
-    mode = NULL, type = NULL, sources = NULL
-){
+    mode = NULL, type = NULL, sources = NULL) {
   if (all(is.null(lat), is.null(lng), is.null(geometry))) {
     cli_abort(
       c(
@@ -98,23 +81,20 @@ mapping_entry_points <- function(
   x
 }
 
-#' Epidemiological units dataset mapping
-#'
-#' A dataset mapping is used with [apply_mapping()] to renames, select and validation
-#' the columns in a dataset that correspond to the parameter names below.
-#'
+#' @title Epidemiological Units Mapping
+#' @description
+#' Get mapping description for *Epidemiological Units*.
+#' @inherit mapping_entry_points details return
 #' @param eu_name character, required, name or description of epi units
 #' @param eu_id charcter, optional, can be provided to join other datasets if needed
 #' @param geometry sf_POLYGON or sf_MULTIPOLYGON geospatial data type, representing
 #' the geographical areas of each epi unit.
-#' @return mapping object to be used with [apply_mapping()]
 #' @export
 #' @family functions for mapping tables
 mapping_epi_units <- function(
     eu_id = NULL,
     eu_name,
-    geometry
-){
+    geometry) {
   x <- list(
     eu_id = eu_id,
     eu_name = eu_name,
@@ -125,11 +105,10 @@ mapping_epi_units <- function(
   x
 }
 
-#' Animal movement dataset mapping
-#'
-#' A dataset mapping is used with [apply_mapping()] to renames, select and validation
-#' the columns in a dataset that correspond to the parameter names below.
-#'
+#' @title Animal Movement Mapping
+#' @description
+#' Get mapping description for *Animal Movement*.
+#' @inherit mapping_entry_points details return
 #' @param o_name character, reauired, origin name or description
 #' @param o_iso3 character, optional,  origin country iso3 code
 #' @param o_lng numeric, optional, origin point longitude
@@ -140,7 +119,6 @@ mapping_epi_units <- function(
 #' @param d_lat numeric, required, destination point latitude
 #' @param quantity numeric, optional, used to weight animal movement flows by quantity
 #' of animals, if not provided no weighting is done.
-#' @return mapping object to be used with [apply_mapping()]
 #' @export
 #' @family functions for mapping tables
 mapping_animal_mobility <- function(
@@ -152,11 +130,9 @@ mapping_animal_mobility <- function(
     d_name,
     d_lng,
     d_lat,
-    quantity = NULL
-){
-
+    quantity = NULL) {
   lat_lng_nulls <- sum(c(is.null(o_lng), is.null(o_lat)))
-  if(!lat_lng_nulls %in% c(0, 2)) {
+  if (!lat_lng_nulls %in% c(0, 2)) {
     cli_abort(
       c("If {.var o_lng} is provided then {.var o_lat} and vice versa")
     )
@@ -167,7 +143,7 @@ mapping_animal_mobility <- function(
         "*" = "{.var o_lng} and {.var o_lat}",
         "*" = "{.var o_iso3}",
         "This is used to identify country of provenance."
-        )
+      )
     )
   }
 
@@ -187,14 +163,11 @@ mapping_animal_mobility <- function(
   x
 }
 
-
-#' @title Emission risk factors dataset mapping
+#' @title Emission Risk Mapping
 #' @description
-#' A dataset mapping is used with [apply_mapping()] to renames, select and validation
-#' the columns in a dataset that correspond to the parameter names below.
-#'
+#' Get mapping description for *Emission Risk*.
 #' For more about the data requirements of this dataset see [riskintrodata::wahis_emission_risk_factors] documentation
-#'
+#' @inherit mapping_entry_points details return
 #' @param iso3 `r erf_param_desc[["iso3"]]`
 #' @param country `r erf_param_desc[["country"]]`
 #' @param disease `r erf_param_desc[["disease"]]`
@@ -213,7 +186,6 @@ mapping_animal_mobility <- function(
 #' @param commerce_illegal `r erf_param_desc[["commerce_illegal"]]`
 #' @param commerce_legal `r erf_param_desc[["commerce_legal"]]`
 #' @param data_source `r erf_param_desc[["data_source"]]`
-#' @return mapping object to be used with [apply_mapping()]
 #' @export
 #' @family functions for mapping tables
 mapping_emission_risk_factors <- function(
@@ -234,8 +206,7 @@ mapping_emission_risk_factors <- function(
     last_outbreak_end_date,
     commerce_illegal,
     commerce_legal,
-    data_source = NULL
-){
+    data_source = NULL) {
   x <- list(
     iso3 = iso3,
     country = country,
@@ -260,4 +231,3 @@ mapping_emission_risk_factors <- function(
   attr(x, "table_name") <- "emission_risk_factors"
   x
 }
-

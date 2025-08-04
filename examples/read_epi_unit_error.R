@@ -12,8 +12,8 @@ tun_epi_unit <- read_geo_file(tun_epi_files)
 DATA_EPI_UNITS <- validate_dataset_content(
   x = tun_epi_unit,
   table_name = "epi_units",
-  eu_name = "shapeName",
+  eu_name = "shape Name",
   user_id = "fid"
 )
 
-DATA_EPI_UNITS
+try(extract_dataset(DATA_EPI_UNITS))

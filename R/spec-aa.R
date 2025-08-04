@@ -5,6 +5,7 @@
 #' @param x numeric vector
 #' @return logical vector of the same length as x
 #' @family functions for validation process
+#' @keywords internal
 is.lat <- function(x) {
   # z <- na.omit(x)
   x <= 90 & x >= -90
@@ -15,7 +16,8 @@ is.lat <- function(x) {
 #' @description Check if a vector is a valid longitude
 #' @param x numeric vector
 #' @return logical vector of the same length as x
-#' @family validation process
+#' @family functions for validation process
+#' @keywords internal
 is.lng <- function(x) {
   # z <- na.omit(x)
   x <= 180 & x >= -180

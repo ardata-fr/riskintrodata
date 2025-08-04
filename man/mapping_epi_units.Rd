@@ -2,7 +2,7 @@
 % Please edit documentation in R/mapping.R
 \name{mapping_epi_units}
 \alias{mapping_epi_units}
-\title{Epidemiological units dataset mapping}
+\title{Epidemiological Units Mapping}
 \usage{
 mapping_epi_units(eu_id = NULL, eu_name, geometry)
 }
@@ -15,15 +15,17 @@ mapping_epi_units(eu_id = NULL, eu_name, geometry)
 the geographical areas of each epi unit.}
 }
 \value{
-mapping object to be used with \code{\link[=apply_mapping]{apply_mapping()}}
+mapping object to be used by \code{\link[=validate_dataset_content]{validate_dataset_content()}}
 }
 \description{
-A dataset mapping is used with \code{\link[=apply_mapping]{apply_mapping()}} to renames, select and validation
+Get mapping description for \emph{Epidemiological Units}.
+}
+\details{
+A dataset mapping is used by \code{\link[=validate_dataset_content]{validate_dataset_content()}} to rename, select and validation
 the columns in a dataset that correspond to the parameter names below.
 }
 \seealso{
 Other functions for mapping tables: 
-\code{\link{apply_mapping}()},
 \code{\link{mapping_animal_mobility}()},
 \code{\link{mapping_emission_risk_factors}()},
 \code{\link{mapping_entry_points}()}

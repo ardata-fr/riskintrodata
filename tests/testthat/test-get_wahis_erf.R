@@ -38,13 +38,20 @@ test_that("wahis validation works", {
   })
 
   zz <- get_wahis_erf(
-    disease = "Avian infectious laryngotracheitis",
+    disease = "Anthrax",
+    species = "Cattle",
+    animal_category = "Domestic",
+    validate = TRUE
+  )
+  expect_true(attr(zz, "table_name") == "emission_risk_factors")
+
+  zz <- get_wahis_erf(
+    disease = "Anthrax",
     species = "Cattle",
     animal_category = "Domestic",
     validate = FALSE
   )
 
-  expect_true(attr(zz, "valid"))
   expect_true(attr(zz, "table_name") == "emission_risk_factors")
 
 })

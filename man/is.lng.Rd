@@ -15,4 +15,9 @@ logical vector of the same length as x
 \description{
 Check if a vector is a valid longitude
 }
-\concept{validation process}
+\seealso{
+Other functions for validation process: 
+\code{\link{is.lat}()}
+}
+\concept{functions for validation process}
+\keyword{internal}

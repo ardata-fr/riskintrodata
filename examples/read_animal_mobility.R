@@ -11,18 +11,16 @@ x <- readr::read_csv(
   tun_animal_mobility,
 )
 
-DATA_ANIMAL_MOBILITY <- apply_mapping(
+DATA_ANIMAL_MOBILITY <- validate_dataset_content(
   x,
-  mapping = mapping_animal_mobility(
-    o_name = "ORIGIN_NAME",
-    o_lng = "ORIGIN_LONGITUDE_X",
-    o_lat = "ORIGIN_LATITUDE_Y",
-    d_name = "DESTINATION_NAME",
-    d_lng = "DESTINATION_LONGITUDE_X",
-    d_lat = "DESTINATION_LATITUDE_Y",
-    quantity = "HEADCOUNT"
-  ),
-  validate = TRUE
+  table_name = "animal_mobility",
+  o_name = "ORIGIN_NAME",
+  o_lng = "ORIGIN_LONGITUDE_X",
+  o_lat = "ORIGIN_LATITUDE_Y",
+  d_name = "DESTINATION_NAME",
+  d_lng = "DESTINATION_LONGITUDE_X",
+  d_lat = "DESTINATION_LATITUDE_Y",
+  quantity = "HEADCOUNT"
 )
 
-DATA_ANIMAL_MOBILITY
+extract_dataset(DATA_ANIMAL_MOBILITY)

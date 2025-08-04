@@ -1,47 +1,52 @@
 url: ~
 template:
   bootstrap: 5
+  theme: breeze-light
+  bootswatch: simplex
   bslib:
-    base_font: {google: "Open Sans"}
-    heading_font: {google: "Open Sans"}
-destination: public
-navbar:
-  bg: "#06292b"
+    pkgdown-nav-height: 100px
+    base_font:
+      google: "Open Sans"
 
 footer:
   structure:
     left: [developed_by]
   components:
-    developed_by: This application was developed by Ardata for CIRAD, with the aim of providing a tool for assessing epidemiological risk using spatial analysis in RShiny
+    developed_by: |
+      This R package was developed by [Ardata](https://ardata.fr/) for CIRAD to provide a tool for
+      analysing geospatial epidemiological.
 
 reference:
   - title: Data Importation
     contents:
     - read_geo_file
     - read_raster_file
-    - read_emission_risk_factor_file
-  - title: Emission Risk Factors (ERF)
-    contents:
-    - wahis_emission_risk_factors
-    - get_wahis_erf
-    - erf_row
-    - get_erf_weights
-  - title: Download datasets
+  - title: Download Datasets
     contents:
     - download_road_access_raster
-  - title: Data Validation and References
+  - title: Datasets Validation
     contents:
-    - validate_table_content
-    - validate_table_content_cli_msg
+    - validate_dataset_content
+    - extract_dataset
+    - is_dataset_valid
+    - check_dataset_valid
+  - title: References Datasets
+    contents:
+    - wahis_emission_risk_factors
+    - get_erf_weights
     - country_reference
     - iso3_to_name
-    - apply_mapping
     - starts_with("mapping_")
-  - title: Data Structures for Risk Introduction Estimation
+  - title: Data Structures for Emission Risk
     contents:
     - create_emission_risk_row
     - get_emission_risk_edit_row
     - update_emission_risk_row_from_input
+  - title: Data Structures for Emission Risk Factors (ERF)
+    contents:
+    - get_wahis_erf
+    - erf_row
+    - read_emission_risk_factor_file
   - title: Cache Management
     contents:
     - init_riskintrodata_cache
@@ -49,7 +54,3 @@ reference:
     - riskintrodata_cache_exists
     - riskintrodata_dummy_setup
     - rm_riskintrodata_cache
-  - title: Miscellaneous
-    contents:
-    - is.lng
-    - is.lat

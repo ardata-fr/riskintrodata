@@ -24,3 +24,4 @@ Other riskintrodata cache management:
 \code{\link{riskintrodata_dummy_setup}()}
 }
 \concept{riskintrodata cache management}
+\keyword{internal}

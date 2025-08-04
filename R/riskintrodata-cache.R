@@ -19,6 +19,7 @@
 #' riskintrodata_cache_dir()
 #' Sys.setenv(RISKINTRODATA_CACHE_DIR = "")
 #' @family riskintrodata cache management
+#' @keywords internal
 riskintrodata_cache_dir <- function() {
   if (dir.exists(Sys.getenv("RISKINTRODATA_CACHE_DIR"))) {
     dir <- Sys.getenv("RISKINTRODATA_CACHE_DIR")
@@ -45,6 +46,7 @@ riskintrodata_cache_dir <- function() {
 #' rm_riskintrodata_cache()
 #' }
 #' @family riskintrodata cache management
+#' @keywords internal
 riskintrodata_dummy_setup <- function() {
 
   dont_init_with_dummy <-
@@ -89,6 +91,7 @@ riskintrodata_dummy_setup <- function() {
 #' init_riskintrodata_cache()
 #' riskintrodata_cache_exists()
 #' @family riskintrodata cache management
+#' @keywords internal
 riskintrodata_cache_exists <- function() {
   dir.exists(riskintrodata_cache_dir())
 }
@@ -104,6 +107,7 @@ riskintrodata_cache_exists <- function() {
 #' rm_riskintrodata_cache()
 #' }
 #' @family riskintrodata cache management
+#' @keywords internal
 rm_riskintrodata_cache <- function() {
   dir <- riskintrodata_cache_dir()
   unlink(dir, recursive = TRUE, force = TRUE)
@@ -127,6 +131,7 @@ rm_riskintrodata_cache <- function() {
 #' init_riskintrodata_cache(force = TRUE)
 #' }
 #' @family riskintrodata cache management
+#' @keywords internal
 init_riskintrodata_cache <- function(force = FALSE) {
   if (force) {
     rm_riskintrodata_cache()
