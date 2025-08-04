@@ -140,7 +140,7 @@ Excel.
 
 ## 1.4 Validate data
 
-The package provides a function named `validate_dataset_content()` to
+The package provides a function named `validate_dataset()` to
 validate the content of datasets. This function checks the structure of
 the data and ensures that it meets the expected format, the function
 will check:
@@ -152,13 +152,13 @@ will check:
 It can be used with datasets for:
 
 - Epi units, use
-  `validate_dataset_content(..., table_name = "epi_units")`.
+  `validate_dataset(..., table_name = "epi_units")`.
 - Emission risks, use
-  `validate_dataset_content(..., table_name = "emission_risk_factors")`.
+  `validate_dataset(..., table_name = "emission_risk_factors")`.
 - Animal mobility, use
-  `validate_dataset_content(..., table_name = "animal_mobility")`.
+  `validate_dataset(..., table_name = "animal_mobility")`.
 - Entry points, use
-  `validate_dataset_content(..., table_name = "entry_points")`.
+  `validate_dataset(..., table_name = "entry_points")`.
 
 The function takes a data frame or an ‘sf’ object as input, along with
 the type of the dataset and any additional arguments for mapping
@@ -178,7 +178,7 @@ tun_epi_files <-
 
 tun_epi_unit <- read_geo_file(tun_epi_files)
 
-DATA_EPI_UNITS <- validate_dataset_content(
+DATA_EPI_UNITS <- validate_dataset(
   x = tun_epi_unit,
   table_name = "epi_units",
   eu_name = "shapeName",
@@ -343,7 +343,7 @@ Optional:
 - `data_source`: Source of the data
 
 Each mapping function returns a mapping object that can be passed to
-`validate_dataset_content()` to standardize and validate your dataset
+`validate_dataset()` to standardize and validate your dataset
 for use in the ‘riskintro’ analysis pipeline.
 
 ## 1.5 Emission risk factors management

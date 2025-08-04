@@ -56,7 +56,7 @@ table_name_is_valid <- function(x) {
 #' @example examples/read_emission_risk_factors.R
 #' @example examples/read_entry_points.R
 #' @example examples/read_epi_unit_error.R
-validate_dataset_content <- function(x, table_name, ...) {
+validate_dataset <- function(x, table_name, ...) {
   if (!table_name_is_valid(table_name)) {
     cli_abort(c(
       "Invalid table name {table_name}.",
@@ -183,8 +183,8 @@ validate_dataset_content <- function(x, table_name, ...) {
 #' @title Check if Dataset is Valid
 #' @description
 #' Checks if the dataset is valid based on the validation status object
-#' returned by [validate_dataset_content()].
-#' @param x A validation status object returned by [validate_dataset_content()].
+#' returned by [validate_dataset()].
+#' @param x A validation status object returned by [validate_dataset()].
 #' @return A logical value indicating whether the dataset is valid.
 #' @examples
 #' library(riskintrodata)
@@ -198,7 +198,7 @@ validate_dataset_content <- function(x, table_name, ...) {
 #'
 #' tun_epi_unit <- read_geo_file(tun_epi_files)
 #'
-#' DATA_EPI_UNITS <- validate_dataset_content(
+#' DATA_EPI_UNITS <- validate_dataset(
 #'   x = tun_epi_unit,
 #'   table_name = "epi_units",
 #'   eu_name = "NAME_2",
@@ -219,11 +219,11 @@ is_dataset_valid <- function(x) {
 #' @title Extract dataset from validation status
 #' @description
 #' Extracts the dataset from the validation status object returned by
-#' [validate_dataset_content()].
+#' [validate_dataset()].
 #'
 #' If the dataset is not valid, an error is raised and the details of the
 #' validation errors are printed.
-#' @param status A validation status object returned by [validate_dataset_content()].
+#' @param status A validation status object returned by [validate_dataset()].
 #' @return The dataset from the validation status object, with attributes
 #' `table_name` and `valid` set.
 #' @example examples/extract_dataset.R
@@ -258,8 +258,8 @@ extract_dataset <- function(status) {
 #' @title Check if Dataset is Valid
 #' @description
 #' Checks if the dataset is valid based on the validation status object
-#' returned by [validate_dataset_content()].
-#' @param x A validation status object returned by [validate_dataset_content()].
+#' returned by [validate_dataset()].
+#' @param x A validation status object returned by [validate_dataset()].
 #' @param arg A character string representing the name of the argument.
 #' @param call The environment from which the function was called.
 #' @return NULL, if invalid an error is raised.
@@ -271,7 +271,7 @@ extract_dataset <- function(status) {
 #'   ) |>
 #'   read_geo_file()
 #'
-#' nc_epi_unit <- validate_dataset_content(
+#' nc_epi_unit <- validate_dataset(
 #'   x = nc_data,
 #'   table_name = "epi_units",
 #'   eu_name = "NAME",
@@ -280,7 +280,7 @@ extract_dataset <- function(status) {
 #'
 #' check_dataset_valid(nc_epi_unit)
 #'
-#' nc_epi_unit <- validate_dataset_content(
+#' nc_epi_unit <- validate_dataset(
 #'   x = nc_data,
 #'   table_name = "epi_units",
 #'   eu_name = "BLAH",
@@ -296,8 +296,8 @@ check_dataset_valid <- function(
   if (!isTRUE(attr(x, "ri_dataset")) && !inherits(x, "table_validation_status")) {
     cli_abort(
       paste(
-        "{.arg {arg}} must result from `validate_dataset_content()` or `extract_dataset()`.",
-        "See {.help [{.fun validate_dataset_content}](riskintrodata::validate_dataset_content)}"
+        "{.arg {arg}} must result from `validate_dataset()` or `extract_dataset()`.",
+        "See {.help [{.fun validate_dataset}](riskintrodata::validate_dataset)}"
       ),
       call = call
     )
@@ -312,8 +312,8 @@ check_dataset_valid <- function(
   } else if (!isTRUE(attr(x, "ri_dataset"))) {
     cli_abort(
       paste(
-        "{.arg {arg}} must result from `validate_dataset_content()` or `extract_dataset()`.",
-        "See {.help [{.fun validate_dataset_content}](riskintrodata::validate_dataset_content)}"
+        "{.arg {arg}} must result from `validate_dataset()` or `extract_dataset()`.",
+        "See {.help [{.fun validate_dataset}](riskintrodata::validate_dataset)}"
       ),
       call = call
     )

@@ -11,7 +11,7 @@ x <- readr::read_csv(
   tun_animal_mobility,
 )
 
-DATA_ANIMAL_MOBILITY <- validate_dataset_content(
+DATA_ANIMAL_MOBILITY <- validate_dataset(
   x,
   table_name = "animal_mobility",
   o_name = "ORIGIN_NAME",

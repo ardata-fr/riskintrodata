@@ -241,10 +241,10 @@ wahis_emission_risk_factors <- emission_risk_factor_defaults |>
       as.integer
     )
   ) |>
-  validate_dataset_content(
+  validate_dataset(
     table_name = "emission_risk_factors"
   ) |>
-  validate_dataset_content_cli_msg()
+  validate_dataset_cli_msg()
 
 
 epistatus_source_info <- list(

@@ -11,7 +11,7 @@ x <- readr::read_delim(
   tun_entry_points
 )
 
-DATA_ENTRY_POINTS <- validate_dataset_content(
+DATA_ENTRY_POINTS <- validate_dataset(
   x = x,
   table_name = "entry_points",
   point_name = "NAME",
@@ -23,7 +23,7 @@ DATA_ENTRY_POINTS <- validate_dataset_content(
 
 DATA_ENTRY_POINTS
 
-DATA_ENTRY_POINTS <- validate_dataset_content(
+DATA_ENTRY_POINTS <- validate_dataset(
   x = x,
   table_name = "entry_points",
   point_name = "NAME",
@@ -48,7 +48,7 @@ entry_points_wrong[23:30, "NAME"] <- NA_character_
 
 entry_points_wrong$NAME <- NULL
 
-entry_points_mapped <- validate_dataset_content(
+entry_points_mapped <- validate_dataset(
   x = entry_points_wrong,
   table_name = "entry_points",
   point_name = "NAME",

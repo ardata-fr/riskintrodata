@@ -15,13 +15,13 @@ mapping_epi_units(eu_id = NULL, eu_name, geometry)
 the geographical areas of each epi unit.}
 }
 \value{
-mapping object to be used by \code{\link[=validate_dataset_content]{validate_dataset_content()}}
+mapping object to be used by \code{\link[=validate_dataset]{validate_dataset()}}
 }
 \description{
 Get mapping description for \emph{Epidemiological Units}.
 }
 \details{
-A dataset mapping is used by \code{\link[=validate_dataset_content]{validate_dataset_content()}} to rename, select and validation
+A dataset mapping is used by \code{\link[=validate_dataset]{validate_dataset()}} to rename, select and validation
 the columns in a dataset that correspond to the parameter names below.
 }
 \seealso{

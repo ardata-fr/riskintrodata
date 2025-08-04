@@ -112,7 +112,7 @@ validations_for_cli <- function(x) {
   z <- setNames(
     c("{.arg {arg}} is invalid because of validation errors.",
       as.character(z$message),
-      "See {.help [{.fun validate_dataset_content}](riskintrodata::validate_dataset_content)}"
+      "See {.help [{.fun validate_dataset}](riskintrodata::validate_dataset)}"
     ),
     c("", z$name, "?")
   )

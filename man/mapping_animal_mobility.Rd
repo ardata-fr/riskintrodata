@@ -37,13 +37,13 @@ mapping_animal_mobility(
 of animals, if not provided no weighting is done.}
 }
 \value{
-mapping object to be used by \code{\link[=validate_dataset_content]{validate_dataset_content()}}
+mapping object to be used by \code{\link[=validate_dataset]{validate_dataset()}}
 }
 \description{
 Get mapping description for \emph{Animal Movement}.
 }
 \details{
-A dataset mapping is used by \code{\link[=validate_dataset_content]{validate_dataset_content()}} to rename, select and validation
+A dataset mapping is used by \code{\link[=validate_dataset]{validate_dataset()}} to rename, select and validation
 the columns in a dataset that correspond to the parameter names below.
 }
 \seealso{

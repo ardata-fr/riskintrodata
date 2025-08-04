@@ -7,7 +7,7 @@
 extract_dataset(status)
 }
 \arguments{
-\item{status}{A validation status object returned by \code{\link[=validate_dataset_content]{validate_dataset_content()}}.}
+\item{status}{A validation status object returned by \code{\link[=validate_dataset]{validate_dataset()}}.}
 }
 \value{
 The dataset from the validation status object, with attributes
@@ -15,7 +15,7 @@ The dataset from the validation status object, with attributes
 }
 \description{
 Extracts the dataset from the validation status object returned by
-\code{\link[=validate_dataset_content]{validate_dataset_content()}}.
+\code{\link[=validate_dataset]{validate_dataset()}}.
 
 If the dataset is not valid, an error is raised and the details of the
 validation errors are printed.
@@ -32,14 +32,14 @@ tun_epi_files <-
 
 tun_epi_unit <- read_geo_file(tun_epi_files)
 
-validate_dataset_content(
+validate_dataset(
   x = tun_epi_unit,
   table_name = "epi_units",
   eu_name = "NAME_2",
   user_id = "GID_2"
 ) |> extract_dataset()
 
-x <- validate_dataset_content(
+x <- validate_dataset(
   x = tun_epi_unit,
   table_name = "epi_units",
   eu_name = "NAME_ 2",

@@ -7,7 +7,7 @@
 check_dataset_valid(x, arg = deparse(substitute(x)), call = caller_env())
 }
 \arguments{
-\item{x}{A validation status object returned by \code{\link[=validate_dataset_content]{validate_dataset_content()}}.}
+\item{x}{A validation status object returned by \code{\link[=validate_dataset]{validate_dataset()}}.}
 
 \item{arg}{A character string representing the name of the argument.}
 
@@ -18,7 +18,7 @@ NULL, if invalid an error is raised.
 }
 \description{
 Checks if the dataset is valid based on the validation status object
-returned by \code{\link[=validate_dataset_content]{validate_dataset_content()}}.
+returned by \code{\link[=validate_dataset]{validate_dataset()}}.
 }
 \examples{
 nc_data <- list.files(
@@ -28,7 +28,7 @@ nc_data <- list.files(
   ) |>
   read_geo_file()
 
-nc_epi_unit <- validate_dataset_content(
+nc_epi_unit <- validate_dataset(
   x = nc_data,
   table_name = "epi_units",
   eu_name = "NAME",
@@ -37,7 +37,7 @@ nc_epi_unit <- validate_dataset_content(
 
 check_dataset_valid(nc_epi_unit)
 
-nc_epi_unit <- validate_dataset_content(
+nc_epi_unit <- validate_dataset(
   x = nc_data,
   table_name = "epi_units",
   eu_name = "BLAH",

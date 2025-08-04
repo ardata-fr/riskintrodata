@@ -56,7 +56,7 @@ get_wahis_erf <- function(
     drop = FALSE
   ]
 
-  validation_status <- validate_dataset_content(dataset, "emission_risk_factors")
+  validation_status <- validate_dataset(dataset, "emission_risk_factors")
   x <- extract_dataset(validation_status)
 
   if (!quiet){
@@ -190,7 +190,7 @@ erf_row <- function(
     data_source = data_source
   )
 
-  status <- validate_dataset_content(x, table_name = "emission_risk_factors")
+  status <- validate_dataset(x, table_name = "emission_risk_factors")
   dataset <- extract_dataset(status)
   dataset
 }

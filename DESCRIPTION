@@ -1,43 +1,43 @@
 Type: Package
 Package: riskintrodata
 Title: Data Tools for Managing Animal Disease Introduction Risk
-Version: 0.0.5.006
+Version: 0.0.5.003
 Authors@R: c(
     person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = c("aut", "cre")),
     person("David", "Gohel", , "david.gohel@ardata.fr", role = "aut"),
     person("ArData", role = "ctr"),
     person("CIRAD", role = "cph")
   )
-Description: The package provides functions for users to import and
-    validate data that will be used to estimate the risk of an animal
-    disease being introduced into a given geographical region.
+Description: The package provides functions for users to import and validate
+    data that will be used to estimate the risk of an animal disease being introduced 
+    into a given geographical region.
 License: MIT + file LICENSE
 Depends: 
     R (>= 4.4.0)
 Imports: 
     cli,
+    rlang, 
+    stats,
+    glue,
     curl,
     dplyr (>= 1.1.4),
-    glue,
-    purrr,
     readr,
-    rlang,
+    purrr,
     sf (>= 1.0-20),
-    stats,
     stats,
     terra,
     tibble,
     tools,
     utils
 Suggests: 
-    countries,
+    tidyr,
     geodata,
     rnaturalearth,
-    testthat (>= 3.0.0),
-    tidyr
-Config/testthat/edition: 3
+    countries,
+    testthat (>= 3.0.0)
 Encoding: UTF-8
 Language: en
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+LazyData: true
+Config/testthat/edition: 3

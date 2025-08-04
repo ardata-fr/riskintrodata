@@ -26,7 +26,7 @@ reference:
     - download_road_access_raster
   - title: Datasets Validation
     contents:
-    - validate_dataset_content
+    - validate_dataset
     - extract_dataset
     - is_dataset_valid
     - check_dataset_valid

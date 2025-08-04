@@ -7,14 +7,14 @@
 is_dataset_valid(x)
 }
 \arguments{
-\item{x}{A validation status object returned by \code{\link[=validate_dataset_content]{validate_dataset_content()}}.}
+\item{x}{A validation status object returned by \code{\link[=validate_dataset]{validate_dataset()}}.}
 }
 \value{
 A logical value indicating whether the dataset is valid.
 }
 \description{
 Checks if the dataset is valid based on the validation status object
-returned by \code{\link[=validate_dataset_content]{validate_dataset_content()}}.
+returned by \code{\link[=validate_dataset]{validate_dataset()}}.
 }
 \examples{
 library(riskintrodata)
@@ -28,7 +28,7 @@ tun_epi_files <-
 
 tun_epi_unit <- read_geo_file(tun_epi_files)
 
-DATA_EPI_UNITS <- validate_dataset_content(
+DATA_EPI_UNITS <- validate_dataset(
   x = tun_epi_unit,
   table_name = "epi_units",
   eu_name = "NAME_2",

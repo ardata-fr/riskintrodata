@@ -42,13 +42,13 @@ can be a character or a factor, should be one of the following:
 that animals enter from through this entry point.}
 }
 \value{
-mapping object to be used by \code{\link[=validate_dataset_content]{validate_dataset_content()}}
+mapping object to be used by \code{\link[=validate_dataset]{validate_dataset()}}
 }
 \description{
 Get mapping description for \emph{Entry Points}.
 }
 \details{
-A dataset mapping is used by \code{\link[=validate_dataset_content]{validate_dataset_content()}} to rename, select and validation
+A dataset mapping is used by \code{\link[=validate_dataset]{validate_dataset()}} to rename, select and validation
 the columns in a dataset that correspond to the parameter names below.
 }
 \seealso{

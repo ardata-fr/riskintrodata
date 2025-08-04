@@ -9,14 +9,14 @@ tun_epi_files <-
 
 tun_epi_unit <- read_geo_file(tun_epi_files)
 
-validate_dataset_content(
+validate_dataset(
   x = tun_epi_unit,
   table_name = "epi_units",
   eu_name = "NAME_2",
   user_id = "GID_2"
 ) |> extract_dataset()
 
-x <- validate_dataset_content(
+x <- validate_dataset(
   x = tun_epi_unit,
   table_name = "epi_units",
   eu_name = "NAME_ 2",

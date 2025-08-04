@@ -14,7 +14,7 @@ test_that("check_dataset_valid errors as expected", {
 
   tun_epi_unit <- read_geo_file(tun_epi_files)
 
-  x <- validate_dataset_content(
+  x <- validate_dataset(
     x = tun_epi_unit,
     table_name = "epi_units",
     eu_name = "NAME_2",
@@ -22,7 +22,7 @@ test_that("check_dataset_valid errors as expected", {
   )
   testthat::expect_silent(check_dataset_valid(x))
 
-  x <- validate_dataset_content(
+  x <- validate_dataset(
     x = tun_epi_unit,
     table_name = "epi_units",
     eu_name = "shape Name",

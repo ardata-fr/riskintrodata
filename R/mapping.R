@@ -17,7 +17,7 @@ apply_mapping <- function(dataset, mapping) {
     "mapping attribute table_name is invalid" = table_name_is_valid(mapping_attr$table_name)
   )
 
-  # missing columns are checked by validate_dataset_content
+  # missing columns are checked by validate_dataset
   clean_mapping <- nullify(mapping[mapping %in% colnames(dataset)])
   x <- dataset |>
     rename(!!!clean_mapping) |>
@@ -30,7 +30,7 @@ apply_mapping <- function(dataset, mapping) {
 #' @description
 #' Get mapping description for *Entry Points*.
 #' @details
-#' A dataset mapping is used by [validate_dataset_content()] to rename, select and validation
+#' A dataset mapping is used by [validate_dataset()] to rename, select and validation
 #' the columns in a dataset that correspond to the parameter names below.
 #' @param point_name character column naming or describing the point
 #' @param lng numeric column, latitude of point
@@ -49,7 +49,7 @@ apply_mapping <- function(dataset, mapping) {
 #' - NA (missing)".
 #' @param sources character, optional, this is a list of all the ISO3 country codes
 #' that animals enter from through this entry point.
-#' @return mapping object to be used by [validate_dataset_content()]
+#' @return mapping object to be used by [validate_dataset()]
 #' @export
 #' @importFrom cli cli_abort
 #' @family functions for mapping tables
