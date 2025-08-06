@@ -30,6 +30,11 @@
 #' read_geo_file(nga_files)
 #' @export
 read_geo_file <- function(x) {
+  cli_abort_if_not(
+    "{.arg x} is a {.cls {class(x)}}, but should be {.cls character}." = is_charcter(x),
+    "File(s) in {.arg x} are missing." = all(file.exists(x))
+  )
+
   # Handling shapefiles differently because they are made up of multiple files
   shp <- x[endsWith(x, suffix = ".shp")]
   is_shp <- length(shp) > 0
