@@ -31,7 +31,7 @@
 #' @export
 read_geo_file <- function(x) {
   cli_abort_if_not(
-    "{.arg x} is a {.cls {class(x)}}, but should be {.cls character}." = is_charcter(x),
+    "{.arg x} is a {.cls {class(x)}}, but should be {.cls character}." = is.character(x),
     "File(s) in {.arg x} are missing." = all(file.exists(x))
   )
 
