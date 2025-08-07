@@ -1,7 +1,7 @@
 Type: Package
 Package: riskintrodata
 Title: Data Tools for Managing Animal Disease Introduction Risk
-Version: 0.0.5.006
+Version: 0.0.5
 Authors@R: c(
     person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = c("aut", "cre")),
     person("David", "Gohel", , "david.gohel@ardata.fr", role = "aut"),
