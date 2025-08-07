@@ -48,16 +48,17 @@ riskintrodata_cache_dir <- function() {
 #' @family riskintrodata cache management
 #' @keywords internal
 riskintrodata_dummy_setup <- function() {
-
   dont_init_with_dummy <-
     nchar(Sys.info()[["user"]]) > 0 &&
     tolower(Sys.info()[["user"]]) %in% c("elidaniels", "davidgohel")
 
   if (dont_init_with_dummy) {
+    dummy_fp <- "~/riskintrocache/riskintrodata_dummy_setup.txt"
+    dir.create(dirname(dummy_fp), recursive = TRUE, showWarnings = FALSE)
     str <- c(
       "dont_init_with_dummy",
       riskintrodata_cache_dir()
-    ) |> writeLines("~/Documents/skintrodata_dummy_setup.txt")
+    ) |> writeLines(dummy_fp)
     return(riskintrodata_cache_dir())
   }
 
