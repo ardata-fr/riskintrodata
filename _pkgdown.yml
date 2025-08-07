@@ -37,11 +37,6 @@ reference:
     - country_reference
     - iso3_to_name
     - starts_with("mapping_")
-  - title: Data Structures for Emission Risk
-    contents:
-    - create_emission_risk_row
-    - get_emission_risk_edit_row
-    - update_emission_risk_row_from_input
   - title: Data Structures for Emission Risk Factors (ERF)
     contents:
     - get_wahis_erf

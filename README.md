@@ -4,16 +4,23 @@
   - [1.2 Installation](#12-installation)
   - [1.3 Read data](#13-read-data)
   - [1.4 Validate data](#14-validate-data)
-    - [1.4.1 Mapping for entry points](#141-mapping-for-entry-points)
-    - [1.4.2 Mapping for epidemiological
-      units](#142-mapping-for-epidemiological-units)
-    - [1.4.3 Mapping for animal
-      mobility](#143-mapping-for-animal-mobility)
-    - [1.4.4 Mapping for emission risk
-      factors](#144-mapping-for-emission-risk-factors)
-  - [1.5 Emission risk factors
-    management](#15-emission-risk-factors-management)
-  - [1.6 References data](#16-references-data)
+    - [1.4.1 Supported dataset types](#141-supported-dataset-types)
+    - [1.4.2 Column mapping with the `...`
+      argument](#142-column-mapping-with-the--argument)
+      - [1.4.2.1 Example: Validating epidemiological
+        units](#1421-example-validating-epidemiological-units)
+      - [1.4.2.2 Example: Validating entry
+        points](#1422-example-validating-entry-points)
+    - [1.4.3 Validation workflow](#143-validation-workflow)
+    - [1.4.4 Error handling](#144-error-handling)
+  - [1.5 Data structures utilities](#15-data-structures-utilities)
+    - [1.5.1 Emission risk factors
+      management](#151-emission-risk-factors-management)
+    - [1.5.2 Building emission risk
+      datasets](#152-building-emission-risk-datasets)
+      - [1.5.2.1 Example: Combining WAHIS data with custom
+        entries](#1521-example-combining-wahis-data-with-custom-entries)
+  - [1.6 Reference datasets](#16-reference-datasets)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -140,213 +147,118 @@ Excel.
 
 ## 1.4 Validate data
 
-The package provides a function named `validate_dataset()` to
-validate the content of datasets. This function checks the structure of
-the data and ensures that it meets the expected format, the function
-will check:
+All input datasets used in risk analysis must be validated before they
+can be processed. The `validate_dataset()` function ensures that
+datasets meet the expected format and contain the required information
+for risk calculations.
 
-- the presence of required columns
-- the data types of the columns, mandatory or optional
-- and a set of rules to validate the data.
+The validation system checks:
 
-It can be used with datasets for:
+- **Required columns**: Presence of essential fields needed for analysis
+- **Data types**: Correct formats for different column types (character,
+  numeric, spatial, etc.)
+- **Data values**: Content validation using predefined rules (e.g.,
+  valid coordinates, acceptable category values)  
+- **Consistency**: Cross-field validation and logical constraints
 
-- Epi units, use
-  `validate_dataset(..., table_name = "epi_units")`.
-- Emission risks, use
-  `validate_dataset(..., table_name = "emission_risk_factors")`.
-- Animal mobility, use
-  `validate_dataset(..., table_name = "animal_mobility")`.
-- Entry points, use
-  `validate_dataset(..., table_name = "entry_points")`.
+### 1.4.1 Supported dataset types
 
-The function takes a data frame or an ‘sf’ object as input, along with
-the type of the dataset and any additional arguments for mapping
-columns. It returns a list containing the validation status of the
-dataset, i.e. the required and optional columns, the validation rules,
-and the dataset itself after renaming and selecting the specified
-columns.
+The function can validate four types of datasets used in risk analysis:
+
+- **Epidemiological units**: `table_name = "epi_units"` - Administrative
+  areas or regions for risk assessment
+- **Entry points**: `table_name = "entry_points"` - Border crossings,
+  airports, seaports where animals/products enter  
+- **Animal mobility**: `table_name = "animal_mobility"` - Animal
+  movement flows between locations
+- **Emission risk factors**: `table_name = "emission_risk_factors"` -
+  Disease control and surveillance measures by country
+
+### 1.4.2 Column mapping with the `...` argument
+
+When your dataset has different column names than expected, use the
+`...` argument to map your columns to the required field names. This
+allows you to rename columns during validation without modifying your
+original dataset.
+
+#### 1.4.2.1 Example: Validating epidemiological units
 
 ``` r
-tun_epi_files <-
-  system.file(
-    package = "riskintrodata",
-    "samples",
-    "tunisia",
-    "epi_units", "tunisia_adm2_raw.gpkg"
-  )
+# Load a sample dataset with non-standard column names
+nga_files <- system.file(
+  package = "riskintrodata", "samples", "nigeria", "epi_units", "NGA-ADM1.geojson"
+)
+nga_raw <- read_geo_file(nga_files)
+colnames(nga_raw)
+#> [1] "shapeName"  "shapeISO"   "shapeID"    "shapeGroup" "shapeType" 
+#> [6] "geometry"
 
-tun_epi_unit <- read_geo_file(tun_epi_files)
-
-DATA_EPI_UNITS <- validate_dataset(
-  x = tun_epi_unit,
-  table_name = "epi_units",
-  eu_name = "shapeName",
-  user_id = "fid"
+# Validate by mapping columns: your_column = "required_field"
+validated_epi_units <- validate_dataset(
+  x = nga_raw,
+  table_name = "epi_units", 
+  eu_name = "shapeName",     # Map "shapeName" to required "eu_name"
+  eu_id = "shapeISO"         # Map "shapeISO" to optional "eu_id"
 )
 
-DATA_EPI_UNITS
-#> $table_name
-#> [1] "epi_units"
-#> 
-#> $matching_columns
-#> $chk
-#> [1] FALSE
-#> 
-#> $msg
-#> The mapped names are not available in the dataset: `shapeName` and `fid`.
-#> 
-#> $details
-#> [1] "shapeName" "fid"      
-#> 
-#> attr(,"class")
-#> [1] "validation_status"
-#> 
-#> $required_columns
-#> $chk
-#> [1] FALSE
-#> 
-#> $msg
-#> The following required columns are missing: `eu_name`
-#> 
-#> $details
-#> [1] "eu_name"
-#> 
-#> attr(,"class")
-#> [1] "validation_status"
-#> 
-#> $optional_columns
-#> $chk
-#> [1] TRUE
-#> 
-#> $msg
-#> [1] "Optional columns selected are available."
-#> 
-#> $details
-#> character(0)
-#> 
-#> attr(,"class")
-#> [1] "validation_status"
-#> 
-#> $validate_rules
-#> $chk
-#> [1] FALSE
-#> 
-#> $msg
-#> [1] "Found invalidities while checking dataset."
-#> 
-#> $details
-#> # A tibble: 5 × 8
-#>   colname  valid required column_found n     index value msg                    
-#>   <chr>    <lgl> <lgl>    <lgl>        <lgl> <lgl> <lgl> <glue>                 
-#> 1 eu_id    TRUE  FALSE    TRUE         NA    NA    NA    "eu_id" has been valid…
-#> 2 eu_id    TRUE  FALSE    TRUE         NA    NA    NA    "eu_id" has been valid…
-#> 3 eu_name  FALSE TRUE     FALSE        NA    NA    NA    Column: "eu_name" is m…
-#> 4 geometry TRUE  TRUE     TRUE         NA    NA    NA    "geometry" has been va…
-#> 5 geometry TRUE  TRUE     TRUE         NA    NA    NA    "geometry" has been va…
-#> 
-#> attr(,"class")
-#> [1] "validation_status"
-#> 
-#> $specific_changes
-#> $chk
-#> [1] FALSE
-#> 
-#> $msg
-#> [1] "transformations not applied."
-#> 
-#> $details
-#> NULL
-#> 
-#> attr(,"class")
-#> [1] "validation_status"
-#> 
-#> $dataset
-#> Simple feature collection with 268 features and 0 fields
-#> Geometry type: MULTIPOLYGON
-#> Dimension:     XY
-#> Bounding box:  xmin: 7.530076 ymin: 30.23681 xmax: 11.59826 ymax: 37.55986
-#> Geodetic CRS:  WGS 84
-#> # A tibble: 268 × 1
-#>                                                                         geometry
-#>                                                               <MULTIPOLYGON [°]>
-#>  1 (((10.13861 36.89453, 10.14495 36.89476, 10.15127 36.89476, 10.1576 36.89235…
-#>  2 (((10.05585 36.84308, 10.06575 36.85019, 10.07327 36.8544, 10.07366 36.85451…
-#>  3 (((10.13862 36.89416, 10.1329 36.88994, 10.13283 36.88892, 10.1326 36.88572,…
-#>  4 (((10.1317 36.88428, 10.1317 36.88271, 10.1317 36.8797, 10.12929 36.87579, 1…
-#>  5 (((10.16651 36.88694, 10.16422 36.88874, 10.1576 36.89235, 10.15127 36.89476…
-#>  6 (((10.27118 36.88874, 10.26842 36.88874, 10.26149 36.88783, 10.25577 36.8863…
-#>  7 (((10.01018 37.00285, 10.0102 37.00285, 10.01045 37.00283, 10.01063 37.00281…
-#>  8 (((10.19313 36.85656, 10.19313 36.85892, 10.19313 36.86404, 10.19313 36.8667…
-#>  9 (((9.141866 36.86897, 9.140129 36.86767, 9.137473 36.86604, 9.133329 36.8623…
-#> 10 (((9.086732 36.70221, 9.082556 36.70772, 9.078131 36.71146, 9.075724 36.7131…
-#> # ℹ 258 more rows
-#> 
-#> attr(,"class")
-#> [1] "table_validation_status"
+# Extract the clean, validated dataset
+clean_epi_units <- extract_dataset(validated_epi_units)
+colnames(clean_epi_units)
+#> [1] "eu_name"  "eu_id"    "geometry" "user_id"
 ```
 
-### 1.4.1 Mapping for entry points
+#### 1.4.2.2 Example: Validating entry points
 
-Maps columns for entry points datasets (e.g., border crossings,
-airports, seaports).
+``` r
+# Load sample entry points data  
+entry_files <- system.file(
+  package = "riskintrodata", "samples", "tunisia", "entry_points", 
+  "BORDER_CROSSING_POINTS.csv"
+)
+entry_raw <- read.csv(entry_files)
+colnames(entry_raw)
+#> [1] "NAME"        "TYPE"        "MODE"        "LONGITUDE_X" "LATITUDE_Y" 
+#> [6] "SOURCES"
 
-Required:  
-- `point_name`: Name/description of the entry point  
-- Geospatial info: either `lat`/`lng` or `geometry`
+# Map your columns to required fields
+validated_entry_points <- validate_dataset(
+  x = entry_raw,
+  table_name = "entry_points",
+  point_name = "NAME",       # Required: point name
+  lng = "LONGITUDE_X",       # Required: longitude  
+  lat = "LATITUDE_Y",        # Required: latitude
+  mode = "MODE",             # Optional: contraband status
+  type = "TYPE"              # Optional: transport type
+)
 
-Optional:  
-- `mode`: Contraband status (`C`, `NC`, or missing)  
-- `type`: Type of entry point (`AIR`, `SEA`, `BC`, `CC`, `TC`, or
-missing)  
-- `sources`: List of ISO3 codes for source countries
+clean_entry_points <- extract_dataset(validated_entry_points)
+```
 
-### 1.4.2 Mapping for epidemiological units
+### 1.4.3 Validation workflow
 
-Maps columns for epidemiological units datasets (e.g., administrative
-areas).
+1.  **Import your data** using `read_geo_file()`,
+    `read_emission_risk_factor_file()`, or standard R functions
+2.  **Check column names** and identify which fields need mapping
+3.  **Validate with column mapping** using `validate_dataset()` with
+    appropriate `...` arguments  
+4.  **Extract clean dataset** using `extract_dataset()` if validation
+    passes
+5.  **Use in analysis** - validated datasets can be passed directly to
+    risk calculation functions
 
-Required:  
-- `eu_name`: Name/description of the epi unit  
-- `geometry`: Geospatial polygon/multipolygon
+### 1.4.4 Error handling
 
-Optional:  
-- `eu_id`: Unique identifier for the epi unit
+If validation fails, `validate_dataset()` returns detailed error
+messages indicating: - Missing required columns  
+- Invalid data types or values - Specific rows/values that don’t meet
+validation criteria
 
-### 1.4.3 Mapping for animal mobility
+Use these messages to fix your data and re-validate. Only datasets that
+pass all validation checks can be used in the risk analysis pipeline.
 
-Maps columns for animal movement datasets.
+## 1.5 Data structures utilities
 
-Required:  
-- `o_name`: Origin name  
-- `d_name`: Destination name  
-- `d_lng`, `d_lat`: Destination longitude/latitude
-
-Optional:  
-- `o_iso3`, `o_lng`, `o_lat`: Origin ISO3 code or coordinates  
-- `d_iso3`: Destination ISO3 code  
-- `quantity`: Number of animals moved
-
-### 1.4.4 Mapping for emission risk factors
-
-Maps columns for emission risk factors datasets (used for risk scoring).
-
-Required:  
-- `iso3`, `country`, `disease`, `animal_category`, `species`  
-- Control/surveillance measures: `disease_notification`,
-`targeted_surveillance`, `general_surveillance`, `screening`,
-`precautions_at_the_borders`, `slaughter`,
-`selective_killing_and_disposal`, `zoning`, `official_vaccination`  
-- `last_outbreak_end_date`, `commerce_illegal`, `commerce_legal`
-
-Optional:  
-- `data_source`: Source of the data
-
-Each mapping function returns a mapping object that can be passed to
-`validate_dataset()` to standardize and validate your dataset
-for use in the ‘riskintro’ analysis pipeline.
-
-## 1.5 Emission risk factors management
+### 1.5.1 Emission risk factors management
 
 `get_wahis_erf` is an helper function for getting the WAHIS emission
 risk factors dataset. As most analysis done require filtering for one
@@ -361,7 +273,128 @@ risk factors dataset and returns a tibble with the provided values.
 risk factors for animal diseases. The file should be in a tabular format
 with specific columns (see details in the function documentation).
 
-## 1.6 References data
+### 1.5.2 Building emission risk datasets
+
+Emission risk is calclated from emission risk factors. These factors
+were originally intended to have come from WAHIS and therefore that
+dataset is provided in this package.
+
+A common workflow is to start with WAHIS data for your study parameters
+and then add custom rows for countries not covered or with updated
+information.
+
+Note that to calcaulate emission risk score from emission risk factors,
+you’ll need to use the `riskintroanalysis::calc_emission_risk()`
+function. This uses the default emission risk weights found as shown
+below.
+
+#### 1.5.2.1 Example: Combining WAHIS data with custom entries
+
+``` r
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+
+# Start with WAHIS data for your study parameters
+wahis_data <- get_wahis_erf(
+  disease = "Anthrax", 
+  species = "Cattle", 
+  animal_category = "Domestic"
+)
+#> WAHIS emission risk factors dataset has 65 entries for
+#> • `disease` = "Anthrax"
+#> • `species` = "Cattle"
+#> • `animal_category` = "Domestic"
+
+# Check what we got from WAHIS
+nrow(wahis_data)
+#> [1] 65
+head(wahis_data[, c("iso3", "country", "disease", "species", "animal_category")])
+#> # A tibble: 6 × 5
+#>   iso3  country                     disease species animal_category
+#>   <chr> <chr>                       <chr>   <chr>   <chr>          
+#> 1 ALB   Albania                     Anthrax Cattle  Domestic       
+#> 2 ARM   Armenia                     Anthrax Cattle  Domestic       
+#> 3 CYM   Cayman Islands              Anthrax Cattle  Domestic       
+#> 4 HRV   Croatia                     Anthrax Cattle  Domestic       
+#> 5 FLK   Falkland Islands (Malvinas) Anthrax Cattle  Domestic       
+#> 6 JPN   Japan                       Anthrax Cattle  Domestic
+
+# Add custom entries for countries not in WAHIS or with updated information
+custom_entry1 <- erf_row(
+  iso3 = "XYZ", 
+  country = "Example Country",
+  disease = "Anthrax",
+  animal_category = "Domestic", 
+  species = "Cattle",
+  disease_notification = 0,        # Good surveillance in place
+  targeted_surveillance = 0,       # Active targeted surveillance  
+  general_surveillance = 1,        # Limited general surveillance
+  screening = 0,                   # Good screening measures
+  precautions_at_the_borders = 0,  # Border controls active
+  slaughter = 0,                   # Proper slaughter protocols
+  selective_killing_and_disposal = 0, # Culling procedures ready
+  zoning = 0,                      # Zoning strategies implemented
+  official_vaccination = 1,        # No vaccination program
+  last_outbreak_end_date = as.Date("2020-01-15"),
+  commerce_illegal = 1,            # Some illegal trade suspected
+  commerce_legal = 0,              # Legal trade well regulated
+  data_source = "Custom entry - Local expert knowledge"
+)
+
+# Combine WAHIS data with custom entries
+complete_erf <- bind_rows(wahis_data, custom_entry1)
+
+# Verify the combined dataset
+nrow(complete_erf)
+#> [1] 66
+tail(complete_erf[, c("iso3", "country", "data_source")])
+#> # A tibble: 6 × 3
+#>   iso3  country                  data_source                          
+#>   <chr> <chr>                    <chr>                                
+#> 1 GBR   United Kingdom           WAHIS                                
+#> 2 USA   United States of America WAHIS                                
+#> 3 URY   Uruguay                  WAHIS                                
+#> 4 COK   Cook Islands             WAHIS                                
+#> 5 MLI   Mali                     WAHIS                                
+#> 6 XYZ   Example Country          Custom entry - Local expert knowledge
+
+emission_risk_weights
+#> $disease_notification
+#> [1] 0.25
+#> 
+#> $targeted_surveillance
+#> [1] 0.5
+#> 
+#> $general_surveillance
+#> [1] 0.5
+#> 
+#> $screening
+#> [1] 0.75
+#> 
+#> $precautions_at_the_borders
+#> [1] 1
+#> 
+#> $slaughter
+#> [1] 0.5
+#> 
+#> $selective_killing_and_disposal
+#> [1] 0.5
+#> 
+#> $zoning
+#> [1] 0.75
+#> 
+#> $official_vaccination
+#> [1] 0.25
+```
+
+## 1.6 Reference datasets
 
 The package includes several reference datasets that are used in the
 context of animal disease risk estimation:
