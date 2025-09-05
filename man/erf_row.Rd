@@ -19,7 +19,7 @@ erf_row(
   selective_killing_and_disposal = 0L,
   zoning = 0L,
   official_vaccination = 0L,
-  last_outbreak_end_date = as.Date("01/01/1900"),
+  last_outbreak_end_date = as.Date("1900/01/01"),
   commerce_illegal = 0L,
   commerce_legal = 0L,
   data_source = paste0("User ", Sys.info()[["user"]], " - ", Sys.Date())
