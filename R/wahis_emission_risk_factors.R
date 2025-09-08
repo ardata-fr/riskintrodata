@@ -49,7 +49,7 @@ get_wahis_erf <- function(
   )
 
   dataset <- wahis_erf[
-      wahis_erf$disease == disease &
+    wahis_erf$disease == disease &
       wahis_erf$species == species &
       wahis_erf$animal_category == animal_category
     , ,
@@ -156,19 +156,21 @@ erf_row <- function(
     disease,
     animal_category,
     species,
-    disease_notification = 0L,
-    targeted_surveillance = 0L,
-    general_surveillance = 0L,
-    screening = 0L,
-    precautions_at_the_borders = 0L,
-    slaughter = 0L,
-    selective_killing_and_disposal = 0L,
-    zoning = 0L,
-    official_vaccination = 0L,
-    last_outbreak_end_date = as.Date("1900/01/01"),
-    commerce_illegal = 0L,
-    commerce_legal = 0L,
-    data_source = paste0("User ", Sys.info()[["user"]], " - ", Sys.Date())) {
+    disease_notification = 1L,
+    targeted_surveillance = 1L,
+    general_surveillance = 1L,
+    screening = 1L,
+    precautions_at_the_borders = 1L,
+    slaughter = 1L,
+    selective_killing_and_disposal = 1L,
+    zoning = 1L,
+    official_vaccination = 1L,
+    last_outbreak_end_date = as.Date("2999/01/01"),
+    commerce_illegal = 1L,
+    commerce_legal = 1L,
+    data_source = paste0("User ", Sys.info()[["user"]], " - ", Sys.Date())
+) {
+
   x <- tibble::tibble(
     iso3 = iso3,
     country = country,
