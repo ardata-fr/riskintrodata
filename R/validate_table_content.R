@@ -56,6 +56,7 @@ table_name_is_valid <- function(x) {
 #' @example examples/read_emission_risk_factors.R
 #' @example examples/read_entry_points.R
 #' @example examples/read_epi_unit_error.R
+#' @importFrom dplyr select
 validate_dataset <- function(x, table_name, ...) {
   if (!table_name_is_valid(table_name)) {
     cli_abort(c(
@@ -89,9 +90,15 @@ validate_dataset <- function(x, table_name, ...) {
   }
 
   if (length(mapping) > 1) {
-    class(mapping) <- "mapping"
-    attr(mapping, "table_name") <- table_name
-    x <- apply_mapping(x, mapping = mapping)
+    # missing columns are checked by validate_dataset
+    clean_mapping <- nullify(mapping[mapping %in% colnames(x)])
+
+    mapping_names <- names(clean_mapping)
+    if (length(unique(mapping_names)) != length(mapping_names)) {
+      cli_abort("Column mapping names must be unique.")
+    }
+    x <- x |> select(!!!clean_mapping)
+    x
   }
 
   # define the specifications for the table
