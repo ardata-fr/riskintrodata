@@ -3,7 +3,7 @@
     required = TRUE,
     validation_func = list(
       "is not character or has missing values" = function(x) is.character(x) && all(!is.na(x)),
-      "has duplicate values" = function(x) length(x) == length(unique(x))
+      "has duplicate values" = function(x) !duplicated(x)
     )),
 
   country = list(

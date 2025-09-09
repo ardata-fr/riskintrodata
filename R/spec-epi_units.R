@@ -3,7 +3,7 @@
     required = FALSE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
-      "has duplicate values" = function(x) length(unique(x)) == length(x)
+      "has duplicate values" = function(x) !duplicated(x)
     )
   ),
   eu_name = list(
