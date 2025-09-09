@@ -114,8 +114,11 @@ validate_dataset <- function(x, table_name, ...) {
     spec = spec
   )
 
-  required_columns <- results[results$required, "colname", drop = TRUE]
-  missing_cols <- results[results$required & !results$column_found, "colname", drop = TRUE]
+  spec_columns <- sapply(spec, function(y) y$required)
+  dataset_columns <- colnames(x)
+
+  required_columns <- names(spec_columns[spec_columns])
+  missing_cols <- required_columns[!required_columns %in% dataset_columns]
   if (length(missing_cols) > 0) {
     status$required_columns <- validation_status(
       chk = FALSE,
@@ -133,8 +136,8 @@ validate_dataset <- function(x, table_name, ...) {
   }
 
   ## check optional columns ---------
-  optional_columns <- results[!results$required, "colname", drop = TRUE]
-  missing_cols <- results[!results$required & !results$column_found, "colname", drop = TRUE]
+  optional_columns <- names(spec_columns[!spec_columns])
+  missing_cols <- optional_columns[!optional_columns %in% dataset_columns]
   if (length(optional_columns) == 0L) {
     status$optional_columns <- validation_status(
       chk = TRUE,
@@ -156,7 +159,6 @@ validate_dataset <- function(x, table_name, ...) {
       details = character()
     )
   }
-
 
   if (any(!results$valid)) {
     status$validate_rules <- validation_status(
