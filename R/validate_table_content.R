@@ -170,7 +170,7 @@ validate_dataset <- function(x, table_name, ...) {
   } else {
     status$validate_rules <- validation_status(
       chk = TRUE,
-      msg = glue("{nrow(results}/{nrow(results)} checks are valid."),
+      msg = glue("{nrow(results)}/{nrow(results)} checks are valid."),
       details = results
     )
   }
