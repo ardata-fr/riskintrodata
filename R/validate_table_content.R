@@ -160,16 +160,17 @@ validate_dataset <- function(x, table_name, ...) {
     )
   }
 
-  if (any(!results$valid)) {
+  n_invalid_checks <- sum(!results$valid)
+  if (n_invalid_checks > 0) {
     status$validate_rules <- validation_status(
       chk = FALSE,
-      msg = "Found invalidities while checking dataset.",
+      msg = glue("Found {n_invalid_checks}/{nrow(results)} problems while validating dataset."),
       details = results
     )
   } else {
     status$validate_rules <- validation_status(
       chk = TRUE,
-      msg = glue("{nrow(results)} valid rules checking dataset."),
+      msg = glue("{nrow(results}/{nrow(results)} dataset checks are valid."),
       details = results
     )
   }
