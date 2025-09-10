@@ -11,7 +11,7 @@
     )
   ),
   "lng" = list(
-    required = TRUE,
+    required = FALSE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
       "are not valid numeric" = is.double,
@@ -19,7 +19,7 @@
     )
   ),
   "lat" = list(
-    required = TRUE,
+    required = FALSE,
     validation_func = list(
       "are missing" = function(x) !is.na(x),
       "are not valid numeric" = is.double,
@@ -27,7 +27,7 @@
     )
   ),
   "geometry" = list(
-    required = TRUE,
+    required = FALSE,
     validation_func = list(
       "are missing" = function(x) !sf::st_is_empty(x),
       "are not geospatial points" = function(x) sf::st_geometry_type(x) == "POINT"
