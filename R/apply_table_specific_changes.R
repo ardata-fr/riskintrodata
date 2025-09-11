@@ -77,6 +77,11 @@ apply_table_specific_changes <- function(dataset, table_name){
       out <- latlng_to_sf(out)
     }
 
+    if (!"sources" %in% colnames(dataset)) {
+      modif_notes <- c(modif_notes, "Empty `sources` column added, as none was provided.")
+      out$sources <- NA
+    }
+
     out <- out |> add_id_column("point_id", by = "geometry", prefix = "ep-")
 
   } else if (table_name %in% "emission_risk_factors") {
