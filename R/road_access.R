@@ -14,12 +14,17 @@
 #'   road_access_raster_file <- download_road_access_raster()
 #' }
 #' @export
+#' @importFrom curl curl_download has_internet
 download_road_access_raster <- function(force = FALSE) {
 
   url <- "https://github.com/ardata-fr/road-access-raster/releases/download/v2015/2015_accessibility_to_cities_v1.0.tif"
 
   cache_dir <- riskintrodata_cache_dir()
   destfile <- file.path(cache_dir, basename(url))
+
+  if (!curl::has_internet()) {
+    cli::cli_abort("No internet connection found.")
+  }
 
   if (!file.exists(destfile) || isTRUE(force)) {
     sys_timeout <- getOption('timeout')
