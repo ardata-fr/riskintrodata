@@ -4,12 +4,7 @@
 \alias{get_wahis_erf}
 \title{Get WAHIS Emission Risk Factors Dataset}
 \usage{
-get_wahis_erf(
-  disease,
-  species,
-  animal_category = c("Domestic", "Wild"),
-  quiet = FALSE
-)
+get_wahis_erf(disease, species, animal_category = c("Domestic", "Wild"))
 }
 \arguments{
 \item{disease}{filter dataset for one or more disease}
@@ -17,8 +12,6 @@ get_wahis_erf(
 \item{species}{filter dataset for one or more species}
 
 \item{animal_category}{filter dataset for one or more animal_category}
-
-\item{quiet}{whether to quieten information message. Default is FALSE.}
 }
 \value{
 A tibble of emission risk factors data. Also has the attributes:

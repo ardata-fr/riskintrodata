@@ -14,7 +14,7 @@ test_that("wahis validation works", {
     get_wahis_erf()
   })
 
-  expect_warning({
+  expect_error({
     get_wahis_erf(
       disease = "Avian infectious laryngotracheitis",
       species = "Cattle",

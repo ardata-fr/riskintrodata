@@ -72,6 +72,20 @@ validate_dataset <- function(x, table_name, ...) {
   av_columns <- colnames(x)
   rq_columns <- unname(unlist(mapping))
 
+  if(nrow(x) == 0) {
+    status$row_count <- validation_status(
+      chk = FALSE,
+      msg = "The dataset has no rows.",
+      details = character()
+    )
+  } else {
+    status$row_count <- validation_status(
+      chk = TRUE,
+      msg = glue("The dataset has {nrow(x)} rows."),
+      details = character()
+    )
+  }
+
   not_avail_columns <- setdiff(rq_columns, av_columns)
   if (length(not_avail_columns) > 0) {
     status$matching_columns <- validation_status(
@@ -218,6 +232,7 @@ validate_dataset <- function(x, table_name, ...) {
 #' is_dataset_valid(DATA_EPI_UNITS)
 is_dataset_valid <- function(x) {
   inherits(x, "table_validation_status") &&
+    x$row_count$chk &&
     x$specific_changes$chk &&
     x$validate_rules$chk &&
     x$required_columns$chk &&

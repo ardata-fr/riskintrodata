@@ -26,6 +26,10 @@ validation_status <- function(chk = NULL, msg = NULL, details = NULL) {
 table_content_validation_status <- function(table_name) {
   status <- list(
     table_name = table_name,
+    row_count = validation_status(
+      chk = FALSE,
+      msg = "validation has not run yet."
+    ),
     matching_columns = validation_status(
       chk = FALSE,
       msg = "validation has not run yet."
@@ -54,24 +58,31 @@ table_content_validation_status <- function(table_name) {
 
 collect_validations <- function (x) {
 
+  val_row_count <- tibble(
+    type = if(x$row_count$chk) "success" else "error",
+    message = x$row_count$msg,
+    index = 0, # first to show
+    sub_index = 1 # does not matter
+  )
+
   val_matching_columns <- tibble(
     type = if(x$matching_columns$chk) "success" else "error",
     message = x$matching_columns$msg,
-    index = 0, # first to show
+    index = 1, # first to show
     sub_index = 1 # does not matter
   )
 
   val_required_columns <- tibble(
     type = if(x$required_columns$chk) "success" else "error",
     message = x$required_columns$msg,
-    index = 1, # second to show
+    index = 2, # second to show
     sub_index = 1 # does not matter
   )
 
   val_optional_columns <- tibble(
     type = if(x$optional_columns$chk) "success" else "error",
     message = x$optional_columns$msg,
-    index = 2,
+    index = 3,
     sub_index = 1
   )
 
@@ -86,11 +97,12 @@ collect_validations <- function (x) {
     transmute(
       type = ifelse(.data$valid, "success", "error"),
       message = .data$msg,
-      index = 3,
+      index = 5,
       sub_index = seq_len(n())
     )
 
   validations <- bind_rows(
+    val_row_count,
     val_matching_columns,
     val_required_columns,
     val_optional_columns,

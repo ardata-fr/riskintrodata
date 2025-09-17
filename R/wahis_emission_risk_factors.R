@@ -10,7 +10,6 @@
 #' @param disease filter dataset for one or more disease
 #' @param species filter dataset for one or more species
 #' @param animal_category filter dataset for one or more animal_category
-#' @param quiet whether to quieten information message. Default is FALSE.
 #' @return A tibble of emission risk factors data. Also has the attributes:
 #' -  `table_name = "emission_risk_factors"`
 #' -  `study_settings` which is a named character vector containing the
@@ -30,8 +29,7 @@
 get_wahis_erf <- function(
     disease,
     species,
-    animal_category = c("Domestic", "Wild"),
-    quiet = FALSE
+    animal_category = c("Domestic", "Wild")
 ){
 
   wahis_erf <- riskintrodata::wahis_emission_risk_factors
@@ -56,26 +54,25 @@ get_wahis_erf <- function(
     drop = FALSE
   ]
 
+  rows <- nrow(dataset)
+  if (rows > 0) {
+    cli::cli_inform(c(
+      "WAHIS emission risk factors dataset has {.strong {rows}} entr{?y/ies} for",
+      "*" = "{.arg disease} = {.val {disease}}",
+      "*" = "{.arg species} = {.val {species}}",
+      "*" = "{.arg animal_category} = {.val {animal_category}}"
+    ))
+  } else {
+    cli::cli_abort(c(
+      "WAHIS emission risk factors dataset has {.strong ZERO} entries for",
+      "*" = "{.arg disease} = {.val {disease}}",
+      "*" = "{.arg species} = {.val {species}}",
+      "*" = "{.arg animal_category} = {.val {animal_category}}"
+    ))
+  }
+
   validation_status <- validate_dataset(dataset, "emission_risk_factors")
   x <- extract_dataset(validation_status)
-
-  if (!quiet){
-    if (nrow(x) > 0) {
-      cli::cli_inform(c(
-        "WAHIS emission risk factors dataset has {.strong {nrow(x)}} entr{?y/ies} for",
-        "*" = "{.arg disease} = {.val {disease}}",
-        "*" = "{.arg species} = {.val {species}}",
-        "*" = "{.arg animal_category} = {.val {animal_category}}"
-      ))
-    } else {
-      cli::cli_warn(c(
-        "WAHIS emission risk factors dataset has {.strong NO} entries for",
-        "*" = "{.arg disease} = {.val {disease}}",
-        "*" = "{.arg species} = {.val {species}}",
-        "*" = "{.arg animal_category} = {.val {animal_category}}"
-      ))
-    }
-  }
 
   attr(x,"table_name") <- "emission_risk_factors"
   attr(x,"study_settings") <- c(
