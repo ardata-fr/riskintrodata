@@ -19,26 +19,7 @@ knitr::opts_chunk$set(
 
 # riskintrodata
 
-The 'riskintrodata' package is designed to provide a set of functions and datasets
-that support the management of data used to estimate the risk of introducing an animal
-disease into a specific geographical region.
-
-It includes tools for reading and validating both geographic and tabular datasets
-commonly used in the context of animal disease risk estimation.
-
-
-## Motivation
-
-The primary motivation for creating 'riskintrodata' is to isolate and centralize
-the datasets and data import functions required by the 'riskintro' application 
-into a dedicated package. This separation simplifies testing, improves clarity,
-and makes it easier to document the datasets used in the application in a structured way.
-
-Additionally, the 'riskintrodata' package is designed to simplify package management.
-It helps reduce the complexity of handling the numerous packages required by the
-'riskintro' application. By centralizing essential datasets and their associated
-import functions, 'riskintrodata' minimizes package dependencies.
-
+The 'riskintrodata' package provides functions and datasets for managing data used to estimate the risk of introducing an animal disease into a specific geographical region.
 
 ## Installation
 
@@ -49,41 +30,47 @@ pak::pak("ardata-fr/riskintrodata")
 ```
 
 
+## Analysis of introduction risk workflow
+
+This package is the first step to analysing the risk of introduction using the 
+riskintroanalysis package. Before analysis can begin, we need to ensure that
+the input datasets are validated which makes sure analysis is correct and there 
+are no errors.
+
+The overall workflow is: 
+
+1. Import data
+2. Validate data
+3. Analyse data
+4. Visualise data 
+
+The first two steps are done here, by this package. The latter two are done
+by riskintroanalysis. There is also the riskintroapp package, a shiny application
+that brings all these steps into a graphical user interface.
+
+The first step is reading the data...
+
 ## Read data
 
 ```{r}
 library(riskintrodata)
 ```
 
-
 The package provides functions to read and validate geographic and tabular datasets.
 
-To read geographic data from a file, you can use the `read_geo_file()` 
-function:
+1. For geospatial vector datasets (such as adminstrative boundaries) use `read_geo_file()`.
 
+This is most often used for epidemiological units and entry points datasets. 
 
-```{r}
-tun_files <-
-  system.file(
+```{r, eval = FALSE}
+tun_files <- system.file(
     package = "riskintrodata",
-    "samples",
-    "tunisia",
-    "epi_units",
-    "tunisia_adm2_clean.gpkg"
+    "samples", "tunisia", "epi_units", "tunisia_adm2_clean.gpkg"
   )
 read_geo_file(tun_files)
-
-nga_files <- system.file(
-  package = "riskintrodata",
-  "samples",
-  "nigeria",
-  "epi_units",
-  "NGA-ADM1.geojson"
-)
-read_geo_file(nga_files)
 ```
 
-To read raster data, you can use the `read_raster_file()` function:
+2. For raster datasets use `read_raster_file()`.
 
 ```{r eval = FALSE}
 road_access_raster_file <- download_road_access_raster()
@@ -92,12 +79,12 @@ ra_raster
 ```
 
 A third function, `read_emission_risk_factor_file()`, is available to read 
-tabular data related to emission risk factors. This function reads a text file
+tabular data related to emission risk factors. This function reads a csv file
 containing emission risk factors for animal diseases. The file should be in a tabular
 format with specific columns (see details in the function documentation).
 
 There is no other function to read tabular data, but you can use the
-package 'readr' or 'readxl' to read the data if the format is CSV or Excel.
+package 'readr' or 'readxl' to read common data formats.
 
 ## Validate data
 
@@ -105,23 +92,32 @@ All input datasets used in risk analysis must be validated before they can be pr
 
 The validation system checks:
 
-- **Required columns**: Presence of essential fields needed for analysis
-- **Data types**: Correct formats for different column types (character, numeric, spatial, etc.)
-- **Data values**: Content validation using predefined rules (e.g., valid coordinates, acceptable category values)  
-- **Consistency**: Cross-field validation and logical constraints
+- Required columns: Presence of essential fields needed for analysis
+- Data types: Correct formats for different column types (character, numeric, spatial, etc.)
+- Data values: Content validation using predefined rules (e.g., valid coordinates, acceptable category values)  
+
+If your dataset isn't valid, don't worry it will give you the details why.
 
 ### Supported dataset types
 
-The function can validate four types of datasets used in risk analysis:
+The function `validate_dataset()` validates the 4 input datasets.
 
-- **Epidemiological units**: `table_name = "epi_units"` - Administrative areas or regions for risk assessment
-- **Entry points**: `table_name = "entry_points"` - Border crossings, airports, seaports where animals/products enter  
-- **Animal mobility**: `table_name = "animal_mobility"` - Animal movement flows between locations
-- **Emission risk factors**: `table_name = "emission_risk_factors"` - Disease control and surveillance measures by country
+- Epidemiological units: `table_name = "epi_units"` - Administrative areas or regions for risk assessment. 
+Used in all riskintroanalysis analyis methods.
+
+- Entry points: `table_name = "entry_points"` - Border crossings, airports, seaports where animals/products enter. Used in riskintroanalysis entry points analysis.
+
+- Animal mobility: `table_name = "animal_mobility"` - Animal movement flows between locations. 
+Used in riskintroanalysis animal mobility analysis.
+
+- Emission risk factors: `table_name = "emission_risk_factors"` - Disease control and surveillance measures by country. Used in entry points, border risk and animal mobility introduction risk analysis.
 
 ### Column mapping with the `...` argument  
 
-When your dataset has different column names than expected, use the `...` argument to map your columns to the required field names. This allows you to rename columns during validation without modifying your original dataset.
+When your dataset has different column names than those that are required by `validate_dataset()`, use the `...` argument to map your columns to the required field names. Alternatively, you can rename
+your columns to match data requirements, which case you don't need to provide `...` arguments.
+
+See the following code blocks for examples.
 
 #### Example: Validating epidemiological units
 
@@ -143,7 +139,7 @@ validated_epi_units <- validate_dataset(
 
 # Extract the clean, validated dataset
 clean_epi_units <- extract_dataset(validated_epi_units)
-colnames(clean_epi_units)
+clean_epi_units
 ```
 
 #### Example: Validating entry points
@@ -169,11 +165,12 @@ validated_entry_points <- validate_dataset(
 )
 
 clean_entry_points <- extract_dataset(validated_entry_points)
+clean_entry_points
 ```
 
 ### Validation workflow
 
-1. **Import your data** using `read_geo_file()`, `read_emission_risk_factor_file()`, or standard R functions
+1. **Import your data** using `read_geo_file()`, `read_emission_risk_factor_file()`, or other R functions and packages.
 2. **Check column names** and identify which fields need mapping
 3. **Validate with column mapping** using `validate_dataset()` with appropriate `...` arguments  
 4. **Extract clean dataset** using `extract_dataset()` if validation passes
@@ -181,48 +178,37 @@ clean_entry_points <- extract_dataset(validated_entry_points)
 
 ### Error handling
 
-If validation fails, `validate_dataset()` returns detailed error messages indicating:
+If validation fails, `extract_dataset()` returns detailed error messages indicating:
 - Missing required columns  
 - Invalid data types or values
 - Specific rows/values that don't meet validation criteria
 
-Use these messages to fix your data and re-validate. Only datasets that pass all validation checks can be used in the risk analysis pipeline.
+Use these messages to fix your data and re-validate. Only datasets that pass all validation checks can be used in the risk analysis workflow.
 
 ## Data structures utilities
 
 ### Emission risk factors management
 
-`get_wahis_erf` is an helper function for getting the WAHIS emission risk factors dataset. As most analysis done require filtering for one type of each of diease, species and animal_category, this function is a helper for that.
-
-`erf_row` is a function to create a single row of emission risk factors data. It takes parameters corresponding to the columns of the emission risk factors dataset and returns a tibble with the provided values.
-
-`read_emission_risk_factor_file()` reads a text file containing emission risk factors for animal diseases. The file should be in a tabular format with specific columns (see details in the function documentation).
-
-### Building emission risk datasets
-
-Emission risk is calclated from emission risk factors. These factors were originally intended to have come from WAHIS and therefore that dataset is provided in this package. 
-
-A common workflow is to start with WAHIS data for your study parameters and then add custom rows for countries not covered or with updated information.
-
-Note that to calcaulate emission risk score from emission risk factors, you'll need to use the `riskintroanalysis::calc_emission_risk()` function. This uses the default emission risk weights found as shown below.
-
-#### Example: Combining WAHIS data with custom entries
+`get_wahis_erf` gives access the WAHIS emission risk factors dataset. Introduction
+risk analysis is done for one animal disease, one species, and one animal category at a time.
+Use the arguments `disease`, `species` and `animal_category` to choose.
 
 ```{r}
-library(dplyr)
-
 # Start with WAHIS data for your study parameters
 wahis_data <- get_wahis_erf(
   disease = "Anthrax", 
   species = "Cattle", 
   animal_category = "Domestic"
 )
+```
 
-# Check what we got from WAHIS
-nrow(wahis_data)
-head(wahis_data[, c("iso3", "country", "disease", "species", "animal_category")])
+`erf_row` is a function to create a single row of emission risk factors data. It takes parameters corresponding to the columns of the emission risk factors dataset and returns a tibble with the provided values.
 
-# Add custom entries for countries not in WAHIS or with updated information
+This is useful when you want to update or add rows to the WAHIS data. Use dplyr functions
+such `rows_upsert` to update and insert rows.
+
+```{r}
+library(dplyr)
 custom_entry1 <- erf_row(
   iso3 = "XYZ", 
   country = "Example Country",
@@ -243,29 +229,39 @@ custom_entry1 <- erf_row(
   commerce_legal = 0,              # Legal trade well regulated
   data_source = "Custom entry - Local expert knowledge"
 )
-
-# Combine WAHIS data with custom entries
-complete_erf <- bind_rows(wahis_data, custom_entry1)
-
-# Verify the combined dataset
-nrow(complete_erf)
-tail(complete_erf[, c("iso3", "country", "data_source")])
-
-emission_risk_weights
+complete_erf <- dplyr::rows_upsert(wahis_data, custom_entry1, by = "iso3") |> 
+  arrange(desc(iso3))
+complete_erf
 ```
 
+
+
+
+Incase you have a premade dataset you can use the `read_emission_risk_factor_file()` reads a text file containing emission risk factors for animal diseases. The file should be in a tabular format with specific columns (see details in the function documentation). You can also validate emission risk factors with `validate_dataset(table_name = "emission_risk_factors",...)`.
 
 ## Reference datasets
 
 The package includes several reference datasets that are used in the context of animal disease risk estimation:
 
-- iso3 country codes, available with the function `country_reference()`. 
+- iso3 country codes, available with the function `country_reference()`.
 Also a utility function `iso3_to_name()` is provided to convert ISO3 codes to country names.
-- list `emission_risk_weights` contains the emission risk weights by default 
+- list `emission_risk_weights` contains the emission risk weights by default
 used to calculate emission risk scores and emission risk from emission risk factors.
 - `neighbours_table` A correspondence table of all countries and their neighbours,
-- `world_sf`, an SF dataset containing global administrative boundaries for most 
+- `world_sf`, an SF dataset containing global administrative boundaries for most
 countries,
 - `wahis_emission_risk_factors`: Emission Risk Factors dataset from WAHIS,
 - get default emission risk weights with `get_erf_weights()` function.
+
+## Package motivation
+
+The primary motivation for creating 'riskintrodata' is to isolate and centralize
+the datasets and data import functions required by the 'riskintro' application
+into a dedicated package. This separation simplifies testing, improves clarity,
+and makes it easier to document the datasets used in the application in a structured way.
+
+Additionally, the 'riskintrodata' package is designed to simplify package management.
+It helps reduce the complexity of handling the numerous packages required by the
+'riskintro' application. By centralizing essential datasets and their associated
+import functions, 'riskintrodata' minimizes package dependencies.
 

@@ -1,4 +1,4 @@
-url: ~
+url: https://astre.gitlab.cirad.fr/riskintro-app/riskintrodata/
 template:
   bootstrap: 5
   theme: breeze-light
@@ -8,6 +8,13 @@ template:
     base_font:
       google: "Open Sans"
 
+repo:
+  url:
+    home: https://gitlab.cirad.fr/astre/riskintro-app/riskintrodata
+    source: https://gitlab.cirad.fr/astre/riskintro-app/riskintrodata/-/blob/main/
+    issue: https://gitlab.cirad.fr/astre/riskintro-app/riskintrodata/-/issues
+
+destination: ./public
 footer:
   structure:
     left: [developed_by]
@@ -17,35 +24,51 @@ footer:
       analysing geospatial epidemiological.
 
 reference:
-  - title: Data Importation
+  - title: File readers
+    desc: >
+      Functions for reading geospatial files, emission risk factor files, and raster data
     contents:
     - read_geo_file
+    - read_emission_risk_factor_file
     - read_raster_file
-  - title: Download Datasets
-    contents:
-    - download_road_access_raster
-  - title: Datasets Validation
+
+  - title: Data validation and mapping
+    desc: >
+      Functions for validating datasets against riskintro specifications and mapping column names
     contents:
     - validate_dataset
-    - extract_dataset
     - is_dataset_valid
+    - extract_dataset
     - check_dataset_valid
-  - title: References Datasets
-    contents:
-    - wahis_emission_risk_factors
-    - get_erf_weights
-    - country_reference
-    - iso3_to_name
-    - starts_with("mapping_")
-  - title: Data Structures for Emission Risk Factors (ERF)
+
+  - title: WAHIS emission risk factors
+    desc: >
+      Functions for working with WAHIS emission risk factor data
     contents:
     - get_wahis_erf
     - erf_row
-    - read_emission_risk_factor_file
-  - title: Cache Management
+    - get_erf_weights
+    - wahis_emission_risk_factors
+
+  - title: Road access data
+    desc: >
+      Functions for downloading and working with road accessibility raster data
     contents:
-    - init_riskintrodata_cache
-    - riskintrodata_cache_dir
-    - riskintrodata_cache_exists
-    - riskintrodata_dummy_setup
-    - rm_riskintrodata_cache
+    - download_road_access_raster
+
+  - title: Built-in datasets
+    desc: >
+      Reference datasets included in the package
+    contents:
+    - wahis_emission_risk_factors
+    - emission_risk_weights
+    - neighbours_table
+    - world_sf
+    - country_ref
+    - country_reference
+
+  - title: Helper functions
+    desc: >
+      Utility functions for data manipulation and country lookups
+    contents:
+    - iso3_to_name

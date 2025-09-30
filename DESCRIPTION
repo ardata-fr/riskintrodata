@@ -1,7 +1,7 @@
 Type: Package
 Package: riskintrodata
 Title: Data Tools for Managing Animal Disease Introduction Risk
-Version: 0.0.9
+Version: 0.0.10.001
 Authors@R: c(
     person("Eli", "Daniels", , "eli.daniels@ardata.fr", role = c("aut", "cre")),
     person("David", "Gohel", , "david.gohel@ardata.fr", role = "aut"),
@@ -9,9 +9,11 @@ Authors@R: c(
     person("CIRAD", role = "cph")
   )
 Description: The package provides functions for users to import and validate
-    data that will be used to estimate the risk of an animal disease being introduced 
+    data that will be used to estimate the risk of an animal disease being introduced
     into a given geographical region.
 License: MIT + file LICENSE
+URL: https://astre.gitlab.cirad.fr/riskintrodata, https://gitlab.cirad.fr/astre/riskintro-app/riskintrodata
+BugReports: https://gitlab.cirad.fr/astre/riskintro-app/riskintrodata/-/issues
 Depends: 
     R (>= 4.4.0)
 Imports: 
@@ -32,7 +34,6 @@ Imports:
 Suggests: 
     tidyr,
     geodata,
-    rnaturalearth,
     countries,
     testthat (>= 3.0.0)
 Encoding: UTF-8

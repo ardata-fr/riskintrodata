@@ -1,7 +1,7 @@
 #' @importFrom rlang
 #'  :=
 #' @importFrom stats
-#'  setNames
+#'  setNames na.omit
 #' @importFrom tools
 #'  file_ext
 #' @importFrom cli
@@ -28,8 +28,6 @@
 #'  collect compute pull tbl
 #' @importFrom readr
 #'  read_delim cols col_character col_double col_integer col_date
-#' @importFrom stats
-#'  na.omit
 #' @importFrom glue
 #'  glue glue_collapse
 #' @importFrom curl
