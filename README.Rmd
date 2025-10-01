@@ -25,8 +25,10 @@ The 'riskintrodata' package provides functions and datasets for managing data us
 
 You can install the development version of riskintrodata like so:
 
-```{r eval = FALSE}
-pak::pak("ardata-fr/riskintrodata")
+```{r, eval = FALSE}
+# Install pak if you don't already have it
+install.packages("pak")
+pak::pak("git::https://gitlab.cirad.fr/astre/riskintro-app/riskintrodata.git")
 ```
 
 
