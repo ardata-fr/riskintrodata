@@ -36,6 +36,8 @@ You can install the development version of riskintrodata like so:
 # Install pak if you don't already have it
 install.packages("pak")
 pak::pak("git::https://gitlab.cirad.fr/astre/riskintro-app/riskintrodata.git")
+
+# Accept updates to other dependencies
 ```
 
 ## 1.2 Analysis of introduction risk workflow
