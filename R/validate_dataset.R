@@ -111,8 +111,7 @@ validate_dataset <- function(x, table_name, ...) {
     if (length(unique(mapping_names)) != length(mapping_names)) {
       cli_abort("Column mapping names must be unique.")
     }
-    x <- x |> select(!!!clean_mapping)
-    x
+    x <- x |> rename(!!!clean_mapping)
   }
 
   # define the specifications for the table
@@ -129,6 +128,11 @@ validate_dataset <- function(x, table_name, ...) {
   )
 
   spec_columns <- sapply(spec, function(y) y$required)
+  all_columns <- names(spec_columns)
+
+  # Keep only any relevant columns
+  x <- dplyr::select(x, dplyr::any_of(all_columns))
+
   dataset_columns <- colnames(x)
 
   required_columns <- names(spec_columns[spec_columns])

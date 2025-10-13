@@ -46,13 +46,19 @@
       "should be one of the following:  \"AIR\" (airport), \"SEA\" (sea port), \"BC\" (border crossing), \"CC\" (contraband crossing), \"TC\ (transhumance crossing) or missing" =
         function(x){
           x %in% c(
-          "AIR",
-          "SEA",
-          "BC",
-          "CC",
-          "TC",
-          NA_character_)
+            "AIR",
+            "SEA",
+            "BC",
+            "CC",
+            "TC",
+            NA_character_)
         }
+    )
+  ),
+  "sources" = list(
+    required = FALSE,
+    validation_func = list(
+      "should be character" = is.character
     )
   )
 )
