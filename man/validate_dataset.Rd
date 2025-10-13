@@ -20,7 +20,8 @@ accepts one of the following values:
 
 \item{...}{Additional arguments to be passed to the function. It is expected
 to be a named list of columns to be renamed in the dataset.
-For example, \verb{col1 = "new_col1", col2 = "new_col2"}.}
+For example, \verb{col1 = "new_col1", col2 = "new_col2"}. See the Column Mapping Requirements
+by Dataset Type section below.}
 }
 \value{
 A list containing the validation status of the dataset. The list
@@ -45,6 +46,141 @@ as specified in the specifications. It also validates the data using the
 rules defined in the specifications. If errors are met or validity rules
 are not satisfied, the function returns a list with the status of the validation.
 }
+\section{Column Mapping Requirements by Dataset Type}{
+
+
+The \code{...} parameter accepts column mappings that rename your dataset columns
+to the standardized names expected by riskintro. Below are the mapping
+requirements for each dataset type:
+\subsection{Entry Points (\code{table_name = "entry_points"})}{
+\itemize{
+\item Required columns:
+\itemize{
+\item \code{point_name}: Character or factor column naming or describing the point.
+Must not be missing.
+}
+\item Conditional requirement (at least one must be provided):
+\itemize{
+\item Either (\code{lat} AND \code{lng}) OR \code{geometry} must be present for geospatial data
+\item Any missing data for \code{mode} and \code{sources} should be completed, the option
+to have missing values is so that RiskIntroApp users can do so using the
+graphical interface.
+}
+\item Optional columns:
+\itemize{
+\item \code{lng}: Numeric column (double), longitude of point. Must be valid longitude
+values (-180 to 180).
+\item \code{lat}: Numeric column (double), latitude of point. Must be valid latitude
+values (-90 to 90).
+\item \code{geometry}: sf POINT geometry column if the dataset is of class \code{sf}
+(simple feature). Must not be empty and must be POINT geometry type.
+\item \code{mode}: Character or factor, indicates whether points are contraband (C)
+or non-contraband (NC). Valid values: "C", "NC", or NA.
+\item \code{type}: Character or factor, indicates the type of transport being used.
+This is for displaying on maps and does not affect risk analysis scores.
+Valid values:
+\itemize{
+\item "AIR" (airport)
+\item "SEA" (sea port)
+\item "BC" (border crossing)
+\item "CC" (contraband crossing)
+\item "TC" (transhumance crossing)
+\item NA (missing)
+}
+\item \code{sources}: Character column, list of all the ISO3 country codes
+that animals enter from through this entry point.
+}
+}
+}
+
+\subsection{Epidemiological Units (\code{table_name = "epi_units"})}{
+\itemize{
+\item Required columns:
+\itemize{
+\item \code{eu_name}: Character column, name or description of epi units.
+Must not be missing or empty.
+\item \code{geometry}: sf POLYGON or MULTIPOLYGON geometry column representing
+the geographical areas of each epi unit. Must not be empty and must be
+POLYGON or MULTIPOLYGON geometry types.
+}
+\item Optional columns:
+\itemize{
+\item \code{eu_id}: Character column, can be provided to join other datasets if needed.
+Must not have duplicate values if provided.
+}
+}
+}
+
+\subsection{Animal Movement (\code{table_name = "animal_mobility"})}{
+\itemize{
+\item Required columns:
+\itemize{
+\item \code{d_lng}: Numeric column, destination point longitude. Must be valid
+longitude values (-180 to 180) and not missing.
+\item \code{d_lat}: Numeric column, destination point latitude. Must be valid
+latitude values (-90 to 90) and not missing.
+}
+\item Conditional requirement:
+\itemize{
+\item At least one of the following must be provided to identify country of provenance:
+\itemize{
+\item (\code{o_lng} AND \code{o_lat})
+\item \code{o_iso3}
+}
+}
+\item Optional columns:
+\itemize{
+\item \code{o_iso3}: Character column, origin country ISO3 code. Must not be empty if provided.
+\item \code{o_name}: Character column, origin name or description. Must not be empty if provided.
+\item \code{o_lng}: Numeric column, origin point longitude. Must be valid longitude
+values (-180 to 180) if provided.
+\item \code{o_lat}: Numeric column, origin point latitude. Must be valid latitude
+values (-90 to 90) if provided.
+\item \code{d_iso3}: Character column, destination country ISO3 code. Must not be empty if provided.
+\item \code{d_name}: Character column, destination name or description. Must not be empty if provided.
+\item \code{quantity}: Numeric column, used to weight animal movement flows by quantity
+of animals. If not provided, no weighting is done.
+}
+}
+}
+
+\subsection{Emission Risk Factors (\code{table_name = "emission_risk_factors"})}{
+
+For more about the data requirements of this dataset see
+\link{wahis_emission_risk_factors} documentation.
+\itemize{
+\item Required columns:
+\itemize{
+\item \code{iso3}: Character column, ISO3 country code. Must not have missing values
+or duplicate values.
+\item \code{country}: Character column, country name. Must not have missing values.
+\item \code{disease}: Character column, disease name. Must not have missing values.
+Each riskintro study should only have one disease (single unique value).
+\item \code{animal_category}: Character column, animal category. Must not have missing values.
+Each riskintro study should only have one animal category (single unique value).
+\item \code{species}: Character column, species name. Must not have missing values.
+Each riskintro study should only have one species (single unique value).
+\item \code{disease_notification}: Integer column, must be 0, 1, or NA.
+\item \code{targeted_surveillance}: Integer column, must be 0, 1, or NA.
+\item \code{general_surveillance}: Integer column, must be 0, 1, or NA.
+\item \code{screening}: Integer column, must be 0, 1, or NA.
+\item \code{precautions_at_the_borders}: Integer column, must be 0, 1, or NA.
+\item \code{slaughter}: Integer column, must be 0, 1, or NA.
+\item \code{selective_killing_and_disposal}: Integer column, must be 0, 1, or NA.
+\item \code{zoning}: Integer column, must be 0, 1, or NA.
+\item \code{official_vaccination}: Integer column, must be 0, 1, or NA.
+\item \code{last_outbreak_end_date}: Date object column. Must be a valid Date object.
+\item \code{commerce_illegal}: Integer column, must be 0, 1, or NA.
+\item \code{commerce_legal}: Integer column, must be 0, 1, or NA.
+}
+\item Optional columns:
+\itemize{
+\item \code{data_source}: Character column, data source identifier.
+}
+}
+}
+}
+
 \examples{
 ## ---- read-epi-units-tunisia ----
 tun_epi_files <-

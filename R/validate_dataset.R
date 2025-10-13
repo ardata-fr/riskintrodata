@@ -37,7 +37,8 @@ table_name_is_valid <- function(x) {
 #' - "emission_risk_factors"
 #' @param ... Additional arguments to be passed to the function. It is expected
 #' to be a named list of columns to be renamed in the dataset.
-#' For example, `col1 = "new_col1", col2 = "new_col2"`.
+#' For example, `col1 = "new_col1", col2 = "new_col2"`. See the Column Mapping Requirements
+#' by Dataset Type section below.
 #' @return A list containing the validation status of the dataset. The list
 #' contains the following elements:
 #' - `required_columns`: A list with the status of required columns.
@@ -51,6 +52,108 @@ table_name_is_valid <- function(x) {
 #' as specified in the specifications. It also validates the data using the
 #' rules defined in the specifications. If errors are met or validity rules
 #' are not satisfied, the function returns a list with the status of the validation.
+#'
+#' @section Column Mapping Requirements by Dataset Type:
+#'
+#' The `...` parameter accepts column mappings that rename your dataset columns
+#' to the standardized names expected by riskintro. Below are the mapping
+#' requirements for each dataset type:
+#'
+#' ## Entry Points (`table_name = "entry_points"`)
+#'
+#' - Required columns:
+#'   - `point_name`: Character or factor column naming or describing the point.
+#'     Must not be missing.
+#' - Conditional requirement (at least one must be provided):
+#'   - Either (`lat` AND `lng`) OR `geometry` must be present for geospatial data
+#'   - Any missing data for `mode` and `sources` should be completed, the option
+#'   to have missing values is so that RiskIntroApp users can do so using the
+#'   graphical interface.
+#' - Optional columns:
+#'   - `lng`: Numeric column (double), longitude of point. Must be valid longitude
+#'     values (-180 to 180).
+#'   - `lat`: Numeric column (double), latitude of point. Must be valid latitude
+#'     values (-90 to 90).
+#'   - `geometry`: sf POINT geometry column if the dataset is of class `sf`
+#'     (simple feature). Must not be empty and must be POINT geometry type.
+#'   - `mode`: Character or factor, indicates whether points are contraband (C)
+#'     or non-contraband (NC). Valid values: "C", "NC", or NA.
+#'   - `type`: Character or factor, indicates the type of transport being used.
+#'     This is for displaying on maps and does not affect risk analysis scores.
+#'     Valid values:
+#'     - "AIR" (airport)
+#'     - "SEA" (sea port)
+#'     - "BC" (border crossing)
+#'     - "CC" (contraband crossing)
+#'     - "TC" (transhumance crossing)
+#'     - NA (missing)
+#'   - `sources`: Character column, list of all the ISO3 country codes
+#'     that animals enter from through this entry point.
+#'
+#' ## Epidemiological Units (`table_name = "epi_units"`)
+#'
+#' - Required columns:
+#'   - `eu_name`: Character column, name or description of epi units.
+#'     Must not be missing or empty.
+#'   - `geometry`: sf POLYGON or MULTIPOLYGON geometry column representing
+#'     the geographical areas of each epi unit. Must not be empty and must be
+#'     POLYGON or MULTIPOLYGON geometry types.
+#' - Optional columns:
+#'   - `eu_id`: Character column, can be provided to join other datasets if needed.
+#'     Must not have duplicate values if provided.
+#'
+#' ## Animal Movement (`table_name = "animal_mobility"`)
+#'
+#' - Required columns:
+#'   - `d_lng`: Numeric column, destination point longitude. Must be valid
+#'     longitude values (-180 to 180) and not missing.
+#'   - `d_lat`: Numeric column, destination point latitude. Must be valid
+#'     latitude values (-90 to 90) and not missing.
+#' - Conditional requirement:
+#'   - At least one of the following must be provided to identify country of provenance:
+#'     - (`o_lng` AND `o_lat`)
+#'     - `o_iso3`
+#' - Optional columns:
+#'   - `o_iso3`: Character column, origin country ISO3 code. Must not be empty if provided.
+#'   - `o_name`: Character column, origin name or description. Must not be empty if provided.
+#'   - `o_lng`: Numeric column, origin point longitude. Must be valid longitude
+#'     values (-180 to 180) if provided.
+#'   - `o_lat`: Numeric column, origin point latitude. Must be valid latitude
+#'     values (-90 to 90) if provided.
+#'   - `d_iso3`: Character column, destination country ISO3 code. Must not be empty if provided.
+#'   - `d_name`: Character column, destination name or description. Must not be empty if provided.
+#'   - `quantity`: Numeric column, used to weight animal movement flows by quantity
+#'     of animals. If not provided, no weighting is done.
+#'
+#' ## Emission Risk Factors (`table_name = "emission_risk_factors"`)
+#'
+#' For more about the data requirements of this dataset see
+#' [riskintrodata::wahis_emission_risk_factors] documentation.
+#'
+#' - Required columns:
+#'   - `iso3`: Character column, ISO3 country code. Must not have missing values
+#'     or duplicate values.
+#'   - `country`: Character column, country name. Must not have missing values.
+#'   - `disease`: Character column, disease name. Must not have missing values.
+#'     Each riskintro study should only have one disease (single unique value).
+#'   - `animal_category`: Character column, animal category. Must not have missing values.
+#'     Each riskintro study should only have one animal category (single unique value).
+#'   - `species`: Character column, species name. Must not have missing values.
+#'     Each riskintro study should only have one species (single unique value).
+#'   - `disease_notification`: Integer column, must be 0, 1, or NA.
+#'   - `targeted_surveillance`: Integer column, must be 0, 1, or NA.
+#'   - `general_surveillance`: Integer column, must be 0, 1, or NA.
+#'   - `screening`: Integer column, must be 0, 1, or NA.
+#'   - `precautions_at_the_borders`: Integer column, must be 0, 1, or NA.
+#'   - `slaughter`: Integer column, must be 0, 1, or NA.
+#'   - `selective_killing_and_disposal`: Integer column, must be 0, 1, or NA.
+#'   - `zoning`: Integer column, must be 0, 1, or NA.
+#'   - `official_vaccination`: Integer column, must be 0, 1, or NA.
+#'   - `last_outbreak_end_date`: Date object column. Must be a valid Date object.
+#'   - `commerce_illegal`: Integer column, must be 0, 1, or NA.
+#'   - `commerce_legal`: Integer column, must be 0, 1, or NA.
+#' - Optional columns:
+#'   - `data_source`: Character column, data source identifier.
 #' @example examples/read_epi_unit.R
 #' @example examples/read_animal_mobility.R
 #' @example examples/read_emission_risk_factors.R
