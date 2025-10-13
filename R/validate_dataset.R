@@ -72,19 +72,19 @@ validate_dataset <- function(x, table_name, ...) {
   av_columns <- colnames(x)
   rq_columns <- unname(unlist(mapping))
 
-  if(nrow(x) == 0) {
-    status$row_count <- validation_status(
-      chk = FALSE,
-      msg = "The dataset has no rows.",
-      details = character()
-    )
-  } else {
+  # if(nrow(x) == 0) {
+  #   status$row_count <- validation_status(
+  #     chk = FALSE,
+  #     msg = "The dataset has no rows.",
+  #     details = character()
+  #   )
+  # } else {
     status$row_count <- validation_status(
       chk = TRUE,
       msg = glue("The dataset has {nrow(x)} rows."),
       details = character()
     )
-  }
+  # }
 
   not_avail_columns <- setdiff(rq_columns, av_columns)
   if (length(not_avail_columns) > 0) {
@@ -254,14 +254,10 @@ is_dataset_valid <- function(x) {
 #' @example examples/extract_dataset.R
 extract_dataset <- function(status) {
   if (!inherits(status, "table_validation_status")) {
-    cli::cli_abort(
-      x = "status must be a validation status object"
-    )
+    cli::cli_abort("{.arg status} must be a validation status object")
   }
   if (is.null(status$table_name)) {
-    cli::cli_abort(
-      x = "status must have a table_name"
-    )
+    cli::cli_abort("{.arg status} must have a table_name")
   }
 
   if (!is_dataset_valid(status)) {
