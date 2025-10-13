@@ -103,7 +103,7 @@ validate_dataset <- function(x, table_name, ...) {
     )
   }
 
-  if (length(mapping) > 1) {
+  if (length(mapping) > 0) {
     # missing columns are checked by validate_dataset
     clean_mapping <- nullify(mapping[mapping %in% colnames(x)])
 
