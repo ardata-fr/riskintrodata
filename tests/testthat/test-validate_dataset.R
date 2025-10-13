@@ -660,17 +660,17 @@ test_that("validate_dataset handles entry_points geometry edge cases", {
   )
 
   # TODO -----
-  # expect_no_error({
-  #   validation_result <- validate_dataset(
-  #     x = entry_points_with_polygons,
-  #     table_name = "entry_points",
-  #     point_name = "point_name",
-  #     lng = "lng",
-  #     lat = "lat",
-  #     geometry = "geometry"
-  #   )
-  #   expect_false(is_dataset_valid(validation_result))
-  # })
+  expect_no_error({
+    validation_result <- validate_dataset(
+      x = entry_points_with_polygons,
+      table_name = "entry_points",
+      point_name = "point_name",
+      lng = "lng",
+      lat = "lat",
+      geometry = "geometry"
+    )
+    expect_false(is_dataset_valid(validation_result))
+  })
 
   # Test entry_points with empty geometry
   entry_points_empty_geom <- st_as_sf(
@@ -687,17 +687,17 @@ test_that("validate_dataset handles entry_points geometry edge cases", {
   )
 
   # TODO -----
-  # expect_no_error({
-  #   validation_result <- validate_dataset(
-  #     x = entry_points_empty_geom,
-  #     table_name = "entry_points",
-  #     point_name = "point_name",
-  #     lng = "lng",
-  #     lat = "lat",
-  #     geometry = "geometry"
-  #   )
-  #   expect_false(is_dataset_valid(validation_result))
-  # })
+  expect_no_error({
+    validation_result <- validate_dataset(
+      x = entry_points_empty_geom,
+      table_name = "entry_points",
+      point_name = "point_name",
+      lng = "lng",
+      lat = "lat",
+      geometry = "geometry"
+    )
+    expect_false(is_dataset_valid(validation_result))
+  })
 })
 
 test_that("validate_dataset handles boundary coordinate values", {

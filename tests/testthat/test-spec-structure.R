@@ -180,7 +180,7 @@ test_that("validation function names are descriptive", {
                     info = paste("Validation function name should be descriptive:", vf_name))
 
         # Check for common patterns that indicate good naming
-        expect_true(grepl("(are|is|has|not|missing|empty|valid|duplicate)", vf_name, ignore.case = TRUE),
+        expect_true(grepl("(are|is|has|not|missing|empty|valid|duplicate|should)", vf_name, ignore.case = TRUE),
                     info = paste("Validation function name should describe the validation:", vf_name))
       }
     }
