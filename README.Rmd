@@ -121,56 +121,9 @@ Used in riskintroanalysis animal mobility analysis.
 When your dataset has different column names than those that are required by `validate_dataset()`, use the `...` argument to map your columns to the required field names. Alternatively, you can rename
 your columns to match data requirements, which case you don't need to provide `...` arguments.
 
-See the following code blocks for examples.
+Make sure to see the documentation for `validate_dataset()` for examples and
+more details.
 
-#### Example: Validating epidemiological units
-
-```{r}
-# Load a sample dataset with non-standard column names
-nga_files <- system.file(
-  package = "riskintrodata", "samples", "nigeria", "epi_units", "NGA-ADM1.geojson"
-)
-nga_raw <- read_geo_file(nga_files)
-colnames(nga_raw)
-
-# Validate by mapping columns: your_column = "required_field"
-validated_epi_units <- validate_dataset(
-  x = nga_raw,
-  table_name = "epi_units", 
-  eu_name = "shapeName",     # Map "shapeName" to required "eu_name"
-  eu_id = "shapeISO"         # Map "shapeISO" to optional "eu_id"
-)
-
-# Extract the clean, validated dataset
-clean_epi_units <- extract_dataset(validated_epi_units)
-clean_epi_units
-```
-
-#### Example: Validating entry points
-
-```{r}
-# Load sample entry points data  
-entry_files <- system.file(
-  package = "riskintrodata", "samples", "tunisia", "entry_points", 
-  "BORDER_CROSSING_POINTS.csv"
-)
-entry_raw <- read.csv(entry_files)
-colnames(entry_raw)
-
-# Map your columns to required fields
-validated_entry_points <- validate_dataset(
-  x = entry_raw,
-  table_name = "entry_points",
-  point_name = "NAME",       # Required: point name
-  lng = "LONGITUDE_X",       # Required: longitude  
-  lat = "LATITUDE_Y",        # Required: latitude
-  mode = "MODE",             # Optional: contraband status
-  type = "TYPE"              # Optional: transport type
-)
-
-clean_entry_points <- extract_dataset(validated_entry_points)
-clean_entry_points
-```
 
 ### Validation workflow
 

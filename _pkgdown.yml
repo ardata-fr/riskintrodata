@@ -55,6 +55,7 @@ reference:
       Functions for downloading and working with road accessibility raster data
     contents:
     - download_road_access_raster
+    - init_riskintrodata_cache
 
   - title: Built-in datasets
     desc: >

@@ -132,7 +132,7 @@ rm_riskintrodata_cache <- function() {
 #' init_riskintrodata_cache(force = TRUE)
 #' }
 #' @family riskintrodata cache management
-#' @keywords internal
+#' @export
 init_riskintrodata_cache <- function(force = FALSE) {
   if (force) {
     rm_riskintrodata_cache()

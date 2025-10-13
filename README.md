@@ -8,10 +8,6 @@
     - [1.4.1 Supported dataset types](#141-supported-dataset-types)
     - [1.4.2 Column mapping with the `...`
       argument](#142-column-mapping-with-the--argument)
-      - [1.4.2.1 Example: Validating epidemiological
-        units](#1421-example-validating-epidemiological-units)
-      - [1.4.2.2 Example: Validating entry
-        points](#1422-example-validating-entry-points)
     - [1.4.3 Validation workflow](#143-validation-workflow)
     - [1.4.4 Error handling](#144-error-handling)
   - [1.5 Data structures utilities](#15-data-structures-utilities)
@@ -147,96 +143,8 @@ columns to the required field names. Alternatively, you can rename your
 columns to match data requirements, which case you don’t need to provide
 `...` arguments.
 
-See the following code blocks for examples.
-
-#### 1.4.2.1 Example: Validating epidemiological units
-
-``` r
-# Load a sample dataset with non-standard column names
-nga_files <- system.file(
-  package = "riskintrodata", "samples", "nigeria", "epi_units", "NGA-ADM1.geojson"
-)
-nga_raw <- read_geo_file(nga_files)
-colnames(nga_raw)
-#> [1] "shapeName"  "shapeISO"   "shapeID"    "shapeGroup" "shapeType" 
-#> [6] "geometry"
-
-# Validate by mapping columns: your_column = "required_field"
-validated_epi_units <- validate_dataset(
-  x = nga_raw,
-  table_name = "epi_units", 
-  eu_name = "shapeName",     # Map "shapeName" to required "eu_name"
-  eu_id = "shapeISO"         # Map "shapeISO" to optional "eu_id"
-)
-
-# Extract the clean, validated dataset
-clean_epi_units <- extract_dataset(validated_epi_units)
-clean_epi_units
-#> Simple feature collection with 37 features and 3 fields
-#> Geometry type: POLYGON
-#> Dimension:     XY
-#> Bounding box:  xmin: 2.692613 ymin: 4.270204 xmax: 14.67797 ymax: 13.88571
-#> Geodetic CRS:  WGS 84
-#> # A tibble: 37 × 4
-#>    eu_name                         eu_id                        geometry user_id
-#>  * <chr>                           <chr>                   <POLYGON [°]> <chr>  
-#>  1 Cross River                     NG-CR ((8.274303 4.854739, 8.302391 … NG-CR  
-#>  2 Abuja Federal Capital Territory NG-FC ((6.980815 8.443728, 7.035885 … NG-FC  
-#>  3 Ogun                            NG-OG ((4.483238 6.326054, 4.488367 … NG-OG  
-#>  4 Oyo                             NG-OY ((4.088356 7.133446, 4.087642 … NG-OY  
-#>  5 Sokoto                          NG-SO ((4.126405 13.24967, 4.17857 1… NG-SO  
-#>  6 Zamfara                         NG-ZA ((4.941011 11.73083, 4.944116 … NG-ZA  
-#>  7 Lagos                           NG-LA ((2.704644 6.459847, 2.698831 … NG-LA  
-#>  8 Akwa Ibom                       NG-AK ((7.88037 5.366796, 7.876112 5… NG-AK  
-#>  9 Bayelsa                         NG-BY ((5.448385 5.133691, 5.437778 … NG-BY  
-#> 10 Ondo                            NG-ON ((4.483238 6.326054, 4.560864 … NG-ON  
-#> # ℹ 27 more rows
-```
-
-#### 1.4.2.2 Example: Validating entry points
-
-``` r
-# Load sample entry points data  
-entry_files <- system.file(
-  package = "riskintrodata", "samples", "tunisia", "entry_points", 
-  "BORDER_CROSSING_POINTS.csv"
-)
-entry_raw <- read.csv(entry_files)
-colnames(entry_raw)
-#> [1] "NAME"        "TYPE"        "MODE"        "LONGITUDE_X" "LATITUDE_Y" 
-#> [6] "SOURCES"
-
-# Map your columns to required fields
-validated_entry_points <- validate_dataset(
-  x = entry_raw,
-  table_name = "entry_points",
-  point_name = "NAME",       # Required: point name
-  lng = "LONGITUDE_X",       # Required: longitude  
-  lat = "LATITUDE_Y",        # Required: latitude
-  mode = "MODE",             # Optional: contraband status
-  type = "TYPE"              # Optional: transport type
-)
-
-clean_entry_points <- extract_dataset(validated_entry_points)
-clean_entry_points
-#> Simple feature collection with 110 features and 5 fields
-#> Geometry type: POINT
-#> Dimension:     XY
-#> Bounding box:  xmin: 7.572541 ymin: 31.94455 xmax: 11.59319 ymax: 37.26487
-#> Geodetic CRS:  WGS 84
-#> First 10 features:
-#>    point_id             point_name mode type                  geometry sources
-#> 1  ep-00001        aeroport Djerba    C  AIR POINT (10.77592 33.87149)      NA
-#> 2  ep-00002       aeroport enfidha    C  AIR POINT (10.43123 36.07011)      NA
-#> 3  ep-00003      aeroport monastir    C  AIR POINT (10.75472 35.75806)      NA
-#> 4  ep-00004          aeroport sfax    C  AIR POINT (10.68861 34.72056)      NA
-#> 5  ep-00005       aeroport tabarka    C  AIR  POINT (8.87528 36.98028)      NA
-#> 6  ep-00006        Aeroport tozeur    C  AIR  POINT (8.10139 33.93889)      NA
-#> 7  ep-00007 aeroport tunis cathage    C  AIR POINT (10.22694 36.85111)      NA
-#> 8  ep-00001        aeroport Djerba    C  AIR POINT (10.77592 33.87149)      NA
-#> 9  ep-00002       aeroport enfidha    C  AIR POINT (10.43123 36.07011)      NA
-#> 10 ep-00003      aeroport monastir    C  AIR POINT (10.75472 35.75806)      NA
-```
+Make sure to see the documentation for `validate_dataset()` for examples
+and more details.
 
 ### 1.4.3 Validation workflow
 
