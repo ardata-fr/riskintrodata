@@ -36,23 +36,9 @@ validate_dataset_specifications <- function(dataset, spec) {
 
   col_checks_df <- imap(spec, function(x, colname){
 
-    # If column not found cannot do all checks ----
-    if (!colname %in% colnames(dataset) && x$required) {
-      # This is handled elsewhere and does not need to be repeated here.
+    if (!colname %in% colnames(dataset)) {
       return(NULL)
-      # out <- tibble(
-      #   colname = colname,
-      #   valid = FALSE,
-      #   required = x$required,
-      #   column_found = FALSE,
-      #   n = NA,
-      #   index = NA,
-      #   value = NA,
-      #   msg = glue("Column: \"{colname}\" is missing from the dataset")
-      # )
-      # return(out)
-
-      # If found do all required checks ----
+      # missing cols are checked in validate_dataset()
     } else {
 
       # Check the current column against all validation functions and put
