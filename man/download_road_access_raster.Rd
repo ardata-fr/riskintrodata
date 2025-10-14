@@ -3,6 +3,11 @@
 \name{download_road_access_raster}
 \alias{download_road_access_raster}
 \title{Download Road Access Raster}
+\source{
+Weiss, D., Nelson, A., Gibson, H. et al. A global map of travel time to cities
+to assess inequalities in accessibility in 2015.
+Nature 553, 333–336 (2018). \url{https://doi.org/10.1038/nature25181}
+}
 \usage{
 download_road_access_raster(force = FALSE)
 }
@@ -17,6 +22,8 @@ The path to the downloaded file.
 This function downloads a road access raster file from the 'GitHub' repository
 located at \url{https://github.com/ardata-fr/road-access-raster} and saves it to
 a specified destination file.
+
+For more information on this dataset see \href{https://www.nature.com/articles/nature25181}{Nature - A global map of travel time to cities to assess inequalities in accessibility in 2015}.
 }
 \examples{
 \dontshow{
