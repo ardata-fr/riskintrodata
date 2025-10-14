@@ -3,8 +3,13 @@
 #' This function downloads a road access raster file from the 'GitHub' repository
 #' located at <https://github.com/ardata-fr/road-access-raster> and saves it to
 #' a specified destination file.
+#'
+#' For more information on this dataset see [Nature - A global map of travel
+#' time to cities to assess inequalities in accessibility in 2015](https://www.nature.com/articles/nature25181).
+#'
 #' @param force if TRUE, the function will re-download the file even if it already exists
 #' in the cache directory.
+#'
 #' @return The path to the downloaded file.
 #' @examples
 #' \dontshow{
@@ -14,6 +19,10 @@
 #'   road_access_raster_file <- download_road_access_raster()
 #' }
 #' @export
+#' @source
+#' Weiss, D., Nelson, A., Gibson, H. et al. A global map of travel time to cities
+#' to assess inequalities in accessibility in 2015.
+#' Nature 553, 333–336 (2018). [https://doi.org/10.1038/nature25181](https://doi.org/10.1038/nature25181)
 #' @importFrom curl curl_download has_internet
 download_road_access_raster <- function(force = FALSE) {
 
