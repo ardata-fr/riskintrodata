@@ -58,7 +58,7 @@
   "sources" = list(
     required = FALSE,
     validation_func = list(
-      "should be character" = is.character
+      "should be character" = function(x) is.character(x) || all(is.na(x))
     )
   )
 )
