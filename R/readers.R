@@ -69,7 +69,7 @@ read_geo_file <- function(x) {
   polygon <- try(st_transform(polygon, crs = 4326))
   if (any(grepl(pattern = "error", x = class(polygon), fixed = TRUE))) {
     cli_abort(c(
-      "Unable to project geospatial data to 4326 (riskintro standard).",
+      "Unable to project geospatial data to {.code crs = 4326} (riskintro standard).",
       i = "Your datafile is probably corrupted or has missing CRS."
       ))
   }
