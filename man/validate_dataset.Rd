@@ -74,8 +74,8 @@ values (-180 to 180).
 values (-90 to 90).
 \item \code{geometry}: sf POINT geometry column if the dataset is of class \code{sf}
 (simple feature). Must not be empty and must be POINT geometry type.
-\item \code{mode}: Character or factor, indicates whether points are contraband (C)
-or non-contraband (NC). Valid values: "C", "NC", or NA.
+\item \code{mode}: Character or factor, indicates whether points are controlled (C)
+or non-controlled (NC). Valid values: "C", "NC", or NA.
 \item \code{type}: Character or factor, indicates the type of transport being used.
 This is for displaying on maps and does not affect risk analysis scores.
 Valid values:
