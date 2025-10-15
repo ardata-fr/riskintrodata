@@ -61,12 +61,18 @@ read_geo_file <- function(x) {
   }
   polygon <- read_sf(x)
 
-
   # force geometry column to be named "geometry"
   st_geometry(polygon) <- "geometry"
 
   # Standarised geospatial data to 4326 crs (leaflet compatible)
-  polygon <- st_transform(polygon, crs = 4326)
+
+  polygon <- try(st_transform(polygon, crs = 4326))
+  if (any(grepl(pattern = "error", x = class(polygon), fixed = TRUE))) {
+    cli_abort(c(
+      "Unable to project geospatial data to 4326 (riskintro standard).",
+      i = "Your datafile is probably corrupted or has missing CRS."
+      ))
+  }
 
   # Check for empty polygons
   empty_poly <- polygon |> filter(st_is_empty(.data$geometry))
