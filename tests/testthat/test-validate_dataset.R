@@ -649,8 +649,6 @@ test_that("validate_dataset handles entry_points geometry edge cases", {
   entry_points_with_polygons <- st_as_sf(
     data.frame(
       point_name = c("Point A", "Point B"),
-      lng = c(10.5, 11.2),
-      lat = c(45.3, 46.1),
       geometry = st_sfc(
         st_polygon(list(matrix(c(0, 0, 1, 0, 1, 1, 0, 1, 0, 0), ncol = 2, byrow = TRUE))),
         st_polygon(list(matrix(c(1, 0, 2, 0, 2, 1, 1, 1, 1, 0), ncol = 2, byrow = TRUE)))
@@ -665,8 +663,6 @@ test_that("validate_dataset handles entry_points geometry edge cases", {
       x = entry_points_with_polygons,
       table_name = "entry_points",
       point_name = "point_name",
-      lng = "lng",
-      lat = "lat",
       geometry = "geometry"
     )
     expect_false(is_dataset_valid(validation_result))
@@ -676,8 +672,6 @@ test_that("validate_dataset handles entry_points geometry edge cases", {
   entry_points_empty_geom <- st_as_sf(
     data.frame(
       point_name = c("Point A", "Point B"),
-      lng = c(10.5, 11.2),
-      lat = c(45.3, 46.1),
       geometry = st_sfc(
         st_point(),  # Empty point
         st_point(c(11.2, 46.1))

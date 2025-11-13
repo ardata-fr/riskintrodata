@@ -281,7 +281,12 @@ validate_dataset <- function(x, table_name, ...) {
     )
   }
 
-  n_invalid_checks <- sum(!results$valid)
+  if (!is.null(results[["valid"]])) {
+    n_invalid_checks <- sum(!results[["valid"]])
+  } else {
+    n_invalid_checks <- 0
+  }
+
   if (n_invalid_checks > 0) {
     status$validate_rules <- validation_status(
       chk = FALSE,
